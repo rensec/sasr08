@@ -1,5 +1,5 @@
 ---
-title: "Analyzing Social Networks Using R"
+title: "SaSR 8 Tutorial 1.1"
 subtitle: "Excercises for chapter 5: data management"
 author: "Rense Corten"
 output: html_notebook
@@ -9,7 +9,7 @@ output: html_notebook
 
 This document contains a run-through of selection the exercises with Chapter 5 of "Analyzing Social Networks Using R" by Borgatti, Everett, Johnson, and Agneesens (hereafter ANSUR by BEJA). The original exercises can be found here: <https://www.analyzingsocialnetworksusingr.com/home/5-data-management>. We skip some exercises, and also correct a few minor errors in the original material.
 
-This document was written as an [R Markdown](http://rmarkdown.rstudio.com) Notebook. If you are reading the html version of this, you can just keep reading, and if you want to run any of the code yourself, you need to copy and paste the code to your own R-script.
+This document was written as an [R Markdown](http://rmarkdown.rstudio.com) Notebook. If you are reading a html or pdf version of this, you can just keep reading, and if you want to run any of the code yourself, you need to copy and paste the code to your own R-script.
 
 If you are reading this in the .rmd format: Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
 
@@ -19,7 +19,7 @@ The book relies almost exclusively on the custom-made R package xUCINET. To inst
 
 Afterwards, you can load the package in R using library(). We also load tidyverse for convenience.
 
-```{r, message= false, warning = FALSE}
+```{r, message= FALSE, warning = FALSE}
 library(xUCINET)
 library(tidyverse)
 ```
@@ -175,23 +175,6 @@ SmallProject5<-xAddToProject(ProjectName=SmallProject5,
                              Class="matrix")
 ```
 
-## 5.4
-
-```{r}
-BGAT1_GT0<-xDichotomize(Burkhardt_GovernmentAgency$AdviceGivingT1, Value=0, Type="GT")
-BGAT1_GT1<-xDichotomize(Burkhardt_GovernmentAgency$AdviceGivingT1, Value=1, Type="GT")
-BGAT1_GT2<-xDichotomize(Burkhardt_GovernmentAgency$AdviceGivingT1, Value=2, Type="GT")
-BGAT1_GT3<-xDichotomize(Burkhardt_GovernmentAgency$AdviceGivingT1, Value=3, Type="GT")
-BGAT1_GT4<-xDichotomize(Burkhardt_GovernmentAgency$AdviceGivingT1, Value=4, Type="GT")
-BGAT1_GT5<-xDichotomize(Burkhardt_GovernmentAgency$AdviceGivingT1, Value=5, Type="GT")
-BGAT1_GT6<-xDichotomize(Burkhardt_GovernmentAgency$AdviceGivingT1, Value=6, Type="GT")
-BGAT1_GT7<-xDichotomize(Burkhardt_GovernmentAgency$AdviceGivingT1, Value=7, Type="GT")
-BGAT1_GT8<-xDichotomize(Burkhardt_GovernmentAgency$AdviceGivingT1, Value=8, Type="GT")
-BGAT1_GT9<-xDichotomize(Burkhardt_GovernmentAgency$AdviceGivingT1, Value=9, Type="GT")
-BGAT1_GT10<-xDichotomize(Burkhardt_GovernmentAgency$AdviceGivingT1, Value=10, Type="GT")
-
-xDensity(BGAT1_GT0)
-```
 
 ## 5.5. Transposing, symmetrizing and combining
 

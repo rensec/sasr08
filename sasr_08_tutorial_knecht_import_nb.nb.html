@@ -12,7 +12,7 @@
 <meta name="author" content="Rense Corten" />
 
 
-<title>SaSR 8 Tutorial 1.1</title>
+<title>SaSR 8 Tutorial 1.2</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1747,392 +1747,160 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">SaSR 8 Tutorial 1.1</h1>
-<h3 class="subtitle">Excercises for chapter 5: data management</h3>
+<h1 class="title toc-ignore">SaSR 8 Tutorial 1.2</h1>
+<h3 class="subtitle">Using the Knecht data</h3>
 <h4 class="author">Rense Corten</h4>
 
 </div>
 
 
 <!-- rnb-text-begin -->
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
-<p>This document contains a run-through of selection the exercises with
-Chapter 5 of “Analyzing Social Networks Using R” by Borgatti, Everett,
-Johnson, and Agneesens (hereafter ANSUR by BEJA). The original exercises
-can be found here: <a href="https://www.analyzingsocialnetworksusingr.com/home/5-data-management" class="uri">https://www.analyzingsocialnetworksusingr.com/home/5-data-management</a>.
-We skip some exercises, and also correct a few minor errors in the
-original material.</p>
-<p>This document was written as an <a href="http://rmarkdown.rstudio.com">R Markdown</a> Notebook. If you are
+<div id="preamble" class="section level1">
+<h1>Preamble</h1>
+<p>This document was written as an <a href="%5Bhttp://rmarkdown.rstudio.com">R Markdown</a>](<a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>)) Notebook. If you are
 reading a html or pdf version of this, you can just keep reading, and if
 you want to run any of the code yourself, you need to copy and paste the
 code to your own R-script.</p>
 <p>If you are reading this in the .rmd format: Try executing this chunk
-by clicking the <em>Run</em> button within the chunk or by placing your
-cursor inside it and pressing <em>Ctrl+Shift+Enter</em>. When you save
-the notebook, an HTML file containing the code and output will be saved
-alongside it (click the <em>Preview</em> button or press
-<em>Ctrl+Shift+K</em> to preview the HTML file).</p>
+by clicking the *Run* button within the chunk or by placing your cursor
+inside it and pressing *Ctrl+Shift+Enter*. When you save the notebook,
+an HTML file containing the code and output will be saved alongside it
+(click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML
+file).</p>
 </div>
-<div id="installation" class="section level1">
-<h1>Installation</h1>
-<p>The book relies almost exclusively on the custom-made R package
-xUCINET. To install the xUCINET package, follow the instructions on <a href="https://www.analyzingsocialnetworksusingr.com/xucinet" class="uri">https://www.analyzingsocialnetworksusingr.com/xucinet</a>
-(note that the instructions on p.91 in the book are incorrect;
-install.packages() does not work), but with the following exceptions,
-but in step 3, install the packages “blockmodeling” and
-“FactoMineR”.</p>
-<p>Afterwards, you can load the package in R using library(). We also
-load tidyverse for convenience.</p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In this tutorial, we take some real network data that we will use
+throughout the course. The goal is to import the data, and perform some
+data management tasks as we’ve done in the previous tutorials, but now
+with real data instead of “toy data”.</p>
+<p>In doing so, we face a number of challenges:</p>
+<ol style="list-style-type: decimal">
+<li>The data are supplied in Stata’s .dta file format, which is not a
+format that xUCINET or other R packages for SNA readily recognize.</li>
+<li>The data themselves have a format that is also somewhat different
+from what for example xUCINET typically expects.</li>
+</ol>
+<p>We’ll solve these issues step by step. First we need to load some
+packages:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh4VUNJTkVUKVxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(xUCINET)
-library(tidyverse)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjpbImxpYnJhcnkoaGF2ZW4pICNGb3IgcmVhZGluZyBTdGF0YSBmaWxlcyIsImxpYnJhcnkobmV0d29yaykgI0ZvciBkYXRhIGhhbmRsaW5nIG9mIG5ldHdvcmsgZGF0YSAiLCJsaWJyYXJ5KHhVQ0lORVQpIiwibGlicmFyeSh0aWR5dmVyc2UpICMgYmVjYXVzZSBUaWR5dmVyc2UhIl19 -->
+<pre class="r"><code>library(haven) #For reading Stata files
+library(network) #For data handling of network data 
+library(xUCINET)
+library(tidyverse) # because Tidyverse!</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-<div id="chapter-5-data-management" class="section level1">
-<h1>Chapter 5: Data management</h1>
-<div id="checking-for-mistakes" class="section level2">
-<h2>5.2: Checking for mistakes</h2>
-<p>In this first step, we’ll have a look at wahat network data may look
-like in R, and how to fix some typical mistakes. First we create some
-input data, in the form of an adjacency matrix:</p>
+<div id="importing-the-data-into-r" class="section level1">
+<h1>Importing the data into R</h1>
+<p>The first step is to import the data into R. The data as we get them
+are stored in Stata’s “.dta” format. We use the Haven package to work
+with Stata files (we’ve loaded it above).</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWRqX21hdHJpeF8xIDwtIGRhdGEuZnJhbWUoQSA9IGMoXCJJRFwiLCBcIkFuZHJlYVwiLCBcIkVsc2FcIiwgXCJSYWZhZWxcIiwgXCJWZXJhXCIsIFwiUGV0ZXJcIiwgXCJKYXJlZFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIEIgPSBjKFwiQW5kcmVhXCIsIFwiMFwiLCBcIjFcIiwgXCIwXCIsXCIwXCIsIFwiMVwiLFwiMVwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIEMgPSBjKFwiRWxpc2FcIiwgXCIxXCIsIFwiMVwiLCBcIjFcIixcIjBcIiwgXCIwXCIsXCIwXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgRCA9IGMoXCJSYWZhZWxcIiwgXCIxXCIsIFwiMVwiLCBcIjBcIixcIjFcIiwgXCIwXCIsXCIwXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgRSA9IGMoXCJWZXJhXCIsIFwiMFwiLCBcIjFcIiwgXCIxXCIsXCIwXCIsIFwiMFwiLFwiMFwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIEYgPSBjKFwiR2VydFwiLCBcIjBcIiwgXCIxXCIsIFwiMFwiLFwiMVwiLCBcIjBcIixcIjBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICBHID0gYyhcIlBldGVyXCIsIFwiMVwiLCBcIjFcIiwgXCIyXCIsXCIxXCIsIFwiMFwiLFwiXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgSCA9IGMoXCJKYXJlZFwiLCBcIjBcIiwgXCIwXCIsIFwiMFwiLFwiMFwiLCBcIjFcIixcIjFcIilcbilcbmFkal9tYXRyaXhfMVxuYGBgIn0= -->
-<pre class="r"><code>adj_matrix_1 &lt;- data.frame(A = c(&quot;ID&quot;, &quot;Andrea&quot;, &quot;Elsa&quot;, &quot;Rafael&quot;, &quot;Vera&quot;, &quot;Peter&quot;, &quot;Jared&quot;),
-                           B = c(&quot;Andrea&quot;, &quot;0&quot;, &quot;1&quot;, &quot;0&quot;,&quot;0&quot;, &quot;1&quot;,&quot;1&quot;),
-                           C = c(&quot;Elisa&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;,&quot;0&quot;, &quot;0&quot;,&quot;0&quot;),
-                           D = c(&quot;Rafael&quot;, &quot;1&quot;, &quot;1&quot;, &quot;0&quot;,&quot;1&quot;, &quot;0&quot;,&quot;0&quot;),
-                           E = c(&quot;Vera&quot;, &quot;0&quot;, &quot;1&quot;, &quot;1&quot;,&quot;0&quot;, &quot;0&quot;,&quot;0&quot;),
-                           F = c(&quot;Gert&quot;, &quot;0&quot;, &quot;1&quot;, &quot;0&quot;,&quot;1&quot;, &quot;0&quot;,&quot;0&quot;),
-                           G = c(&quot;Peter&quot;, &quot;1&quot;, &quot;1&quot;, &quot;2&quot;,&quot;1&quot;, &quot;0&quot;,&quot;&quot;),
-                           H = c(&quot;Jared&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;,&quot;0&quot;, &quot;1&quot;,&quot;1&quot;)
-)
-adj_matrix_1</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUHVwaWxzV2F2ZVYgPC0gcmVhZF9kdGEoZmlsZSA9IFwiUHVwaWxzV2F2ZVYuZHRhXCIpXG5gYGAifQ== -->
+<pre class="r"><code>PupilsWaveV &lt;- read_dta(file = &quot;PupilsWaveV.dta&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Ideally this should be a square matrix, with rows and columns for
-every person. However, it appears Gert is missing from the rows. So
-let’s add a new row for Gert:</p>
+<p><strong>Question</strong>: The variable “schoolnr” indicates the
+school (the number) and the class with the school (a letter); that is,
+“1A” means class A in school 1. How many school classes in total do the
+data contain? (HINT: use the “unique” function).</p>
+<p>Subsequently, to keep things simple, we keep only one class and one
+type of network (the data contain various networks, measured with name
+generator questions.)</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWRqX21hdHJpeF8yIDwtIGRhdGEuZnJhbWUoQSA9IGMoXCJHZXJ0XCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgQiA9IGMoXCJcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICBDID0gYyhcIlwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIEQgPSBjKFwiXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgRSA9IGMoXCJcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICBGID0gYyhcIlwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIEcgPSBjKFwiXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgSCA9IGMoXCJcIilcbikgJT4lIFxuICByYmluZChhZGpfbWF0cml4XzEpXG5cbmFkal9tYXRyaXhfMiA8LSBhZGpfbWF0cml4XzJbYygyOjYsMSw3OjgpLF0gI3B1dCBHZXJ0IGluIHRoZSByaWdodCBwbGFjZS5cbnJvd25hbWVzKGFkal9tYXRyaXhfMikgPC0gMTpucm93KGFkal9tYXRyaXhfMikgIyByZXNldCB0aGUgcm93IG5hbWVzXG5hZGpfbWF0cml4XzJcbmBgYCJ9 -->
-<pre class="r"><code>adj_matrix_2 &lt;- data.frame(A = c(&quot;Gert&quot;),
-                           B = c(&quot;&quot;),
-                           C = c(&quot;&quot;),
-                           D = c(&quot;&quot;),
-                           E = c(&quot;&quot;),
-                           F = c(&quot;&quot;),
-                           G = c(&quot;&quot;),
-                           H = c(&quot;&quot;)
-) %&gt;% 
-  rbind(adj_matrix_1)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubSA8LSBQdXBpbHNXYXZlViAgJT4lIFxuICBmaWx0ZXIoc2Nob29sbnIgPT0gXCIxMmJcIikgJT4lICMga2VlcCBvbmx5IG9uZSBjbGFzc1xuICBzZWxlY3QobmFtZW5yLCBmcmllbmQxOmZyaWVuZDEyKSAgIyBzZWxlY3Qgb25seSB0aGUgXCIgYmVzdCBmcmllbmRzXCIgIG5ldHdvcmtcbiAgXG5gYGAifQ== -->
+<pre class="r"><code>m &lt;- PupilsWaveV  %&gt;% 
+  filter(schoolnr == &quot;12b&quot;) %&gt;% # keep only one class
+  select(namenr, friend1:friend12)  # select only the &quot; best friends&quot;  network
+  </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="getting-the-data-into-xucinet" class="section level1">
+<h1>Getting the data into xUCINET</h1>
+<p>Have a look at the resulting data object. What we have now is an
+“adjacency list”. Although this is a common format for data produced by
+name generator questionnaires, SNA packages in R don’t like it. In order
+to work with it in xUCINET or other network packages, we first need to
+transform the data.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5tIDwtIGFzLm1hdHJpeChtKSAgIyBzbyB0aGF0IHRoZSBuZXh0IGxpbmUgd29ya3MgYXMgaW50ZW5kZWQ7IGNiaW5kKCkgd29ya3MgaW4gc3BlY2lmaWMgd2F5cyBvbiBtYXRyaXggb2JqZWN0cywgd2hpY2ggd2UgZXhwbG9pdCBoZXJlLlxuXG5tPC0gY2JpbmQobVssMV0sYyhtWywtMV0pKSAlPiUgXG4gIGFzX3RpYmJsZShtKSAlPiUgIyBTbyB0aGF0IHdlIGNhbiBlYXNpbHkgZmlsdGVyIFxuICBmaWx0ZXIoIWlzLm5hKFYyKSkgIyBOb3cgaXQgaXMgYW4gZWRnZSBsaXN0XG5cbmBgYCJ9 -->
+<pre class="r"><code>
+m &lt;- as.matrix(m)  # so that the next line works as intended; cbind() works in specific ways on matrix objects, which we exploit here.
 
-adj_matrix_2 &lt;- adj_matrix_2[c(2:6,1,7:8),] #put Gert in the right place.
-rownames(adj_matrix_2) &lt;- 1:nrow(adj_matrix_2) # reset the row names
-adj_matrix_2</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Also, some cells are empty. After verifying that this is not a coding
-or transcription mistake (which we assume now is not the case, we may
-want to designate these cells as missing explicitly, for example using
-the value -999.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWRqX21hdHJpeF8yW2Fkal9tYXRyaXhfMiA9PSBcIlwiXSA8LSBcIi05OTlcIlxuXG5cbmBgYCJ9 -->
-<pre class="r"><code>adj_matrix_2[adj_matrix_2 == &quot;&quot;] &lt;- &quot;-999&quot;
+m&lt;- cbind(m[,1],c(m[,-1])) %&gt;% 
+  as_tibble(m) %&gt;% # So that we can easily filter 
+  filter(!is.na(V2)) # Now it is an edge list
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Finally, we note that the rows mention “Elsa” while the columns
-mention “Elisa”. Assuming that we concluded that “Elsa” is correct:</p>
+<p>We now have an edge list, which is something that the “network”
+package can work with (have a look!).</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWRqX21hdHJpeF8yW2Fkal9tYXRyaXhfMiA9PSBcIkVsaXNhXCJdIDwtIFwiRWxzYVwiXG5gYGAifQ== -->
-<pre class="r"><code>adj_matrix_2[adj_matrix_2 == &quot;Elisa&quot;] &lt;- &quot;Elsa&quot;</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZyA8LSBhcy5uZXR3b3JrLm1hdHJpeChtLG1hdHJpeC50eXBlID0gXCJlZGdlbGlzdFwiKSAjZnJvbSBuZXR3b3JrIHBhY2thZ2UgIFxuYGBgIn0= -->
+<pre class="r"><code>g &lt;- as.network.matrix(m,matrix.type = &quot;edgelist&quot;) #from network package  </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Now <em>g</em> is a network object. We could work with it using the
+functions of <em>network</em>, but we may also want to use it with
+<em>xUCINET</em>. The latter, however, only reads adjacency matrices. So
+we create an adjacency matrix first:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYSA8LSBhcy5tYXRyaXgubmV0d29yayhnLCBtYXRyaXgudHlwZSA9IFwiYWRqYWNlbmN5XCIgKSAjYWdhaW4sIGZyb20gdGhlIG5ldHdvcmsgcGFja2FnZVxuYGBgIn0= -->
+<pre class="r"><code>a &lt;- as.matrix.network(g, matrix.type = &quot;adjacency&quot; ) #again, from the network package</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5LbmVjaHRfV18xMmJfbmV0IDwtIHhDcmVhdGVQcm9qZWN0KE5ldHdvcmtOYW1lID0gXCIgRnJpZW5kc1wiLFxuXG4gICAgICAgICAgICAgICAgICAgICAgIE5FVEZJTEUxID0gYSwgXG5cbiAgICAgICAgICAgICAgICAgICAgICAgRmlsZVR5cGUgPSBcIlJvYmplY3RcIiwgXG5cbiAgICAgICAgICAgICAgICAgICAgICAgSW5Gb3JtYXRUeXBlID0gXCJBZGpNYXRcIixcblxuICAgICAgICAgICAgICAgICAgICAgICBSZWZlcmVuY2VzID0gXCJObyByZWZlcmVuY2VzXCJcbilcbmBgYCJ9 -->
+<pre class="r"><code>
+Knecht_W_12b_net &lt;- xCreateProject(NetworkName = &quot; Friends&quot;,
+
+                       NETFILE1 = a, 
+
+                       FileType = &quot;Robject&quot;, 
+
+                       InFormatType = &quot;AdjMat&quot;,
+
+                       References = &quot;No references&quot;
+)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Done!</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWRqX21hdHJpeF8yXG5gYGAifQ== -->
-<pre class="r"><code>adj_matrix_2</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Wait! There is one more (potential) mistake. Can you spot it, and do
-you know how to solve it?</p>
 </div>
-<div id="read-in-and-create-a-data-project-file" class="section level2">
-<h2>5.3: Read in and create a data project file</h2>
-<p>First we manually create the input data again:</p>
+<div id="assignment" class="section level1">
+<h1>Assignment</h1>
+<p>Now try the following:</p>
+<ol style="list-style-type: decimal">
+<li>Add the “personal support” network (for this school class!) as a
+second network to the project.</li>
+<li>Add “sex” and ” age” as attribute data.</li>
+<li>Combine the friendship and support networks, assuming for the
+resulting network that there is a (directed) tie if pupil A nominates
+pupil B as a friend, and/or reports receiving support from B. (Also
+think: what is really the <em>direction</em> of the tie measured by the
+“personal support” name generator question?)</li>
+<li>Try plotting the network.</li>
+</ol>
 <!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5cbmFkal9tYXRyaXhfZnJpZW5kcyA8LSBkYXRhLmZyYW1lKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgQSA9IGMoXCJJRFwiLCBcIkFuYVwiLCBcIkVsbGFcIiwgXCJJc3JhXCIsIFwiUGV0clwiLCBcIlNhbVwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIEIgPSBjKFwiQW5hXCIsICBcIjBcIiwgXCIxXCIsIFwiM1wiLFwiMlwiLCBcIjNcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICBDID0gYyhcIkVsbGFcIiwgXCIyXCIsIFwiMFwiLCBcIjFcIixcIjFcIiwgXCIyXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgRCA9IGMoXCJJc3JhXCIsIFwiMVwiLCBcIjNcIiwgXCIwXCIsXCIyXCIsIFwiMVwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIEUgPSBjKFwiUGV0clwiLCBcIjNcIiwgXCIxXCIsIFwiMlwiLFwiMFwiLCBcIjFcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICBGID0gYyhcIlNhbVwiLCAgXCIyXCIsIFwiM1wiLCBcIjFcIixcIjFcIiwgXCIwXCIpXG4pXG5cblxuYWRqX21hdHJpeF9jb21tdW5pY2F0aW9uIDwtIGRhdGEuZnJhbWUoXG4gICAgICAgICAgICAgICAgICAgICAgICAgICBBID0gYyhcIklEXCIsIFwiQW5hXCIsIFwiRWxsYVwiLCBcIklzcmFcIiwgXCJQZXRyXCIsIFwiU2FtXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgQiA9IGMoXCJBbmFcIiwgIFwiMFwiLCBcIjFcIiwgXCIwXCIsXCIxXCIsIFwiMVwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIEMgPSBjKFwiRWxsYVwiLCBcIjFcIiwgXCIwXCIsIFwiMFwiLFwiMVwiLCBcIjBcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICBEID0gYyhcIklzcmFcIiwgXCIwXCIsIFwiMFwiLCBcIjBcIixcIjFcIiwgXCIwXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgRSA9IGMoXCJQZXRyXCIsIFwiMVwiLCBcIjFcIiwgXCIxXCIsXCIwXCIsIFwiMVwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIEYgPSBjKFwiU2FtXCIsICBcIjFcIiwgXCIwXCIsIFwiMFwiLFwiMVwiLCBcIjBcIilcbilcblxubm9kZXNfYXR0cmlidXRlcyA8LSBkYXRhLmZyYW1lKFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgQSA9IGMoXCJJRFwiLCAgXCJBbmFcIiwgXCJFbGxhXCIsIFwiSXNyYVwiLFwiUGV0clwiLFwiU2FtXCIpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgQiA9IGMoXCJBZ2VcIiwgICBcIjIzXCIsICBcIjY3XCIsICAgXCI0NVwiLCAgXCIyOFwiLCAgXCIzM1wiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIEMgPSBjKFwiR2VuZGVyXCIsXCIxXCIsICAgXCIxXCIsICAgIFwiMVwiLCAgIFwiMlwiLCAgIFwiMlwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIEQgPSBjKFwiTXVzaWNcIiwgXCJSZWdnYWVcIiwgXCJSb2NrXCIsIFwiUG9wXCIsXCJSZWdnYWVcIiwgXCJQb3BcIilcbiAgXG4pXG5cbmBgYCJ9 -->
-<pre class="r"><code>
-
-adj_matrix_friends &lt;- data.frame(
-                           A = c(&quot;ID&quot;, &quot;Ana&quot;, &quot;Ella&quot;, &quot;Isra&quot;, &quot;Petr&quot;, &quot;Sam&quot;),
-                           B = c(&quot;Ana&quot;,  &quot;0&quot;, &quot;1&quot;, &quot;3&quot;,&quot;2&quot;, &quot;3&quot;),
-                           C = c(&quot;Ella&quot;, &quot;2&quot;, &quot;0&quot;, &quot;1&quot;,&quot;1&quot;, &quot;2&quot;),
-                           D = c(&quot;Isra&quot;, &quot;1&quot;, &quot;3&quot;, &quot;0&quot;,&quot;2&quot;, &quot;1&quot;),
-                           E = c(&quot;Petr&quot;, &quot;3&quot;, &quot;1&quot;, &quot;2&quot;,&quot;0&quot;, &quot;1&quot;),
-                           F = c(&quot;Sam&quot;,  &quot;2&quot;, &quot;3&quot;, &quot;1&quot;,&quot;1&quot;, &quot;0&quot;)
-)
-
-
-adj_matrix_communication &lt;- data.frame(
-                           A = c(&quot;ID&quot;, &quot;Ana&quot;, &quot;Ella&quot;, &quot;Isra&quot;, &quot;Petr&quot;, &quot;Sam&quot;),
-                           B = c(&quot;Ana&quot;,  &quot;0&quot;, &quot;1&quot;, &quot;0&quot;,&quot;1&quot;, &quot;1&quot;),
-                           C = c(&quot;Ella&quot;, &quot;1&quot;, &quot;0&quot;, &quot;0&quot;,&quot;1&quot;, &quot;0&quot;),
-                           D = c(&quot;Isra&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;,&quot;1&quot;, &quot;0&quot;),
-                           E = c(&quot;Petr&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;,&quot;0&quot;, &quot;1&quot;),
-                           F = c(&quot;Sam&quot;,  &quot;1&quot;, &quot;0&quot;, &quot;0&quot;,&quot;1&quot;, &quot;0&quot;)
-)
-
-nodes_attributes &lt;- data.frame(
-                           A = c(&quot;ID&quot;,  &quot;Ana&quot;, &quot;Ella&quot;, &quot;Isra&quot;,&quot;Petr&quot;,&quot;Sam&quot;),
-                           B = c(&quot;Age&quot;,   &quot;23&quot;,  &quot;67&quot;,   &quot;45&quot;,  &quot;28&quot;,  &quot;33&quot;),
-                           C = c(&quot;Gender&quot;,&quot;1&quot;,   &quot;1&quot;,    &quot;1&quot;,   &quot;2&quot;,   &quot;2&quot;),
-                           D = c(&quot;Music&quot;, &quot;Reggae&quot;, &quot;Rock&quot;, &quot;Pop&quot;,&quot;Reggae&quot;, &quot;Pop&quot;)
-  
-)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>And then save them as cvs-files:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUudGFibGUoYWRqX21hdHJpeF9mcmllbmRzLGZpbGUgPSBcIlBhcnR5T2Y1X0ZyaWVuZHNoaXAxLmNzdlwiLCByb3cubmFtZXM9RkFMU0UsIGNvbC5uYW1lcyA9IEZBTFNFLCBzZXAgPSBcIixcIilcbndyaXRlLnRhYmxlKGFkal9tYXRyaXhfY29tbXVuaWNhdGlvbixmaWxlID0gXCJQYXJ0eU9mNV9Db21tdW5pY2F0aW9uMS5jc3ZcIiwgcm93Lm5hbWVzPUZBTFNFLCBjb2wubmFtZXMgPSBGQUxTRSwgc2VwID0gXCIsXCIpXG53cml0ZS50YWJsZShub2Rlc19hdHRyaWJ1dGVzLGZpbGUgPSBcIlBhcnR5T2Y1X0F0dHJpYnV0ZXMxLmNzdlwiLCByb3cubmFtZXM9RkFMU0UsIGNvbC5uYW1lcyA9IEZBTFNFLCBzZXAgPSBcIixcIilcblxuXG5gYGAifQ== -->
-<pre class="r"><code>write.table(adj_matrix_friends,file = &quot;PartyOf5_Friendship1.csv&quot;, row.names=FALSE, col.names = FALSE, sep = &quot;,&quot;)
-write.table(adj_matrix_communication,file = &quot;PartyOf5_Communication1.csv&quot;, row.names=FALSE, col.names = FALSE, sep = &quot;,&quot;)
-write.table(nodes_attributes,file = &quot;PartyOf5_Attributes1.csv&quot;, row.names=FALSE, col.names = FALSE, sep = &quot;,&quot;)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Now we can load them as a network object:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5TbWFsbFByb2plY3Q1PC14Q3JlYXRlUHJvamVjdChHZW5lcmFsRGVzY3JpcHRpb249XCJUaGlzIGlzIGEgc21hbGwgc3R1ZHkgYW1vbmcgNSBwZW9wbGUuXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOZXR3b3JrTmFtZT1cIkZyaWVuZHNoaXAxXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBORVRGSUxFPVwiUGFydHlPZjVfRnJpZW5kc2hpcDEuY3N2XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBGaWxlVHlwZT1cImNzdlwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSW5Gb3JtYXRUeXBlPVwiQWRqTWF0XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOZXR3b3JrRGVzY3JpcHRpb249XCJGcmllbmRzaGlwIG5ldHdvcmtzIGFtb25nIDUgcGVvcGxlIHdpdGggMz1Hb29kIGZyaWVuZCwgMj1GcmllbmQgYW5kIDE9QWNxdWFpbnRhbmNlXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBNb2RlID0gYyhcIlBlb3BsZVwiKSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIERpcmVjdGVkPVRSVUUsIFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTG9vcHM9RkFMU0UsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBWYWx1ZXM9XCJPcmRpbmFsXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICBDbGFzcz1cIm1hdHJpeFwiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUmVmZXJlbmNlcz1cIk5vIHJlZmVyZW5jZXNcIilcblxuYGBgIn0= -->
-<pre class="r"><code>
-SmallProject5&lt;-xCreateProject(GeneralDescription=&quot;This is a small study among 5 people.&quot;,
-                              NetworkName=&quot;Friendship1&quot;,
-                              NETFILE=&quot;PartyOf5_Friendship1.csv&quot;,
-                              FileType=&quot;csv&quot;,
-                              InFormatType=&quot;AdjMat&quot;,
-                              NetworkDescription=&quot;Friendship networks among 5 people with 3=Good friend, 2=Friend and 1=Acquaintance&quot;,
-                              Mode = c(&quot;People&quot;),
-                              Directed=TRUE, 
-                              Loops=FALSE,
-                              Values=&quot;Ordinal&quot;,
-                              Class=&quot;matrix&quot;,
-                              References=&quot;No references&quot;)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Note that although this is a lot of syntax, it writes out a lot of
-defaults.</p>
-<p>Let’s add the attribute data:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuU21hbGxQcm9qZWN0NSA8LSB4QWRkQXR0cmlidXRlc1RvUHJvamVjdChQcm9qZWN0TmFtZSA9IFNtYWxsUHJvamVjdDUsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFUVEZJTEUxPVwiUGFydHlPZjVfQXR0cmlidXRlczEuY3N2XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEZpbGVUeXBlID0gXCJjc3ZcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTW9kZSA9IGMoXCJQZW9wbGVcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEF0dHJpYnV0ZXNEZXNjcmlwdGlvbj1jKFwiQWdlIGluIHllYXJzXCIsXCJHZW5kZXIgKDE9TWFsZSwgMj1GZW1hbGUpXCIsXCJQcmVmZXJyZWQgbXVzaWNcIilcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKVxuYGBgIn0= -->
-<pre class="r"><code>SmallProject5 &lt;- xAddAttributesToProject(ProjectName = SmallProject5,
-                                ATTFILE1=&quot;PartyOf5_Attributes1.csv&quot;,
-                                FileType = &quot;csv&quot;,
-                                Mode = c(&quot;People&quot;),
-                                AttributesDescription=c(&quot;Age in years&quot;,&quot;Gender (1=Male, 2=Female)&quot;,&quot;Preferred music&quot;)
-                                )</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuU21hbGxQcm9qZWN0NTwteEFkZFRvUHJvamVjdChQcm9qZWN0TmFtZT1TbWFsbFByb2plY3Q1LFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOZXR3b3JrTmFtZT1cIkNvbW11bmljYXRpb245XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIE5FVEZJTEUxPVwiUGFydHlPZjVfQ29tbXVuaWNhdGlvbjEuY3N2XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIEZpbGVUeXBlPVwiY3N2XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIE5ldHdvcmtEZXNjcmlwdGlvbj1cIkNvbW11bmljYXRpb24gbmV0d29ya1wiLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBNb2RlPWMoXCJQZW9wbGVcIiksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIERpcmVjdGVkPUZBTFNFLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMb29wcz1GQUxTRSxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVmFsdWVzPVwiQmluYXJ5XCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIENsYXNzPVwibWF0cml4XCIpXG5gYGAifQ== -->
-<pre class="r"><code>SmallProject5&lt;-xAddToProject(ProjectName=SmallProject5,
-                             NetworkName=&quot;Communication9&quot;,
-                             NETFILE1=&quot;PartyOf5_Communication1.csv&quot;,
-                             FileType=&quot;csv&quot;,
-                             NetworkDescription=&quot;Communication network&quot;,
-                             Mode=c(&quot;People&quot;),
-                             Directed=FALSE,
-                             Loops=FALSE,
-                             Values=&quot;Binary&quot;,
-                             Class=&quot;matrix&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="transposing-symmetrizing-and-combining" class="section level2">
-<h2>5.5. Transposing, symmetrizing and combining</h2>
-<div id="transposing" class="section level3">
-<h3>5.5.1: Transposing</h3>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5CYWtlcl9Kb3VybmFscyRDaXRhdGlvbnMgI05vdGU6IHRoZSB3ZWJzaXRlIG1pc3Rha2VubHkgbWVudGlvbnMgXCJDb2NpdGF0aW9uc1wiXG54VHJhbnNwb3NlKEJha2VyX0pvdXJuYWxzJENpdGF0aW9ucylcblxuYGBgIn0= -->
-<pre class="r"><code>
-Baker_Journals$Citations #Note: the website mistakenly mentions &quot;Cocitations&quot;
-xTranspose(Baker_Journals$Citations)
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="symmetrizing" class="section level3">
-<h3>5.5.2: Symmetrizing</h3>
-<p>We can symmetrize in different ways.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueFN5bW1ldHJpemUoQmFrZXJfSm91cm5hbHMkQ2l0YXRpb25zKVxuYGBgIn0= -->
-<pre class="r"><code>xSymmetrize(Baker_Journals$Citations)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueFN5bW1ldHJpemUoQmFrZXJfSm91cm5hbHMkQ2l0YXRpb25zLCBUeXBlID0gXCJNYXhcIilcbmBgYCJ9 -->
-<pre class="r"><code>xSymmetrize(Baker_Journals$Citations, Type = &quot;Max&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueFN5bW1ldHJpemUoQmFrZXJfSm91cm5hbHMkQ2l0YXRpb25zLCBUeXBlID0gXCJBdlwiKVxuYGBgIn0= -->
-<pre class="r"><code>xSymmetrize(Baker_Journals$Citations, Type = &quot;Av&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueFN5bW1ldHJpemUoQmFrZXJfSm91cm5hbHMkQ2l0YXRpb25zLCBUeXBlID0gXCJTdW1cIilcbmBgYCJ9 -->
-<pre class="r"><code>xSymmetrize(Baker_Journals$Citations, Type = &quot;Sum&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>By the way, sometimes error messages in R (or perhaps this particular
-package) can be rather unhelpful. Note what happens when we mistype the
-‘Type=“Sum”’ option, instead writing ‘Type = “sum”’:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueFN5bW1ldHJpemUoQmFrZXJfSm91cm5hbHMkQ2l0YXRpb25zLCBUeXBlID0gXCJzdW1cIilcbmBgYCJ9 -->
-<pre class="r"><code>xSymmetrize(Baker_Journals$Citations, Type = &quot;sum&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We can’t be expected to know what ‘OUTPUT1’ refers to, as it is not
-something in our code, and nothing here points to the misspecification
-of the Type option. The lesson here is to always closely crosscheck your
-code with the syntax specification in the help file whenever you get
-errors.</p>
-</div>
-</div>
-<div id="combining" class="section level2">
-<h2>5.5.4 Combining</h2>
-<p>Again, there are different ways of combining. Here we try “minimum”
-and “sum”.</p>
-<p><strong>QUESTION</strong>: what do these two options
-<em>substantively</em> represent?</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueENvbWJpbmVUaWVzKEhhd3Rob3JuZV9CYW5rV2lyaW5nJENvbmZsaWN0LCBIYXd0aG9ybmVfQmFua1dpcmluZyRGcmllbmRzaGlwLCBUeXBlID0gXCJNaW5cIilcbmBgYCJ9 -->
-<pre class="r"><code>xCombineTies(Hawthorne_BankWiring$Conflict, Hawthorne_BankWiring$Friendship, Type = &quot;Min&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueENvbWJpbmVUaWVzKEhhd3Rob3JuZV9CYW5rV2lyaW5nJENvbmZsaWN0LCBIYXd0aG9ybmVfQmFua1dpcmluZyRGcmllbmRzaGlwLCBUeXBlID0gXCJTdW1cIilcbmBgYCJ9 -->
-<pre class="r"><code>xCombineTies(Hawthorne_BankWiring$Conflict, Hawthorne_BankWiring$Friendship, Type = &quot;Sum&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p><strong>QUESTION:</strong> Given that we are combining “conflict” and
-“friendship” ties here, perhaps the two examples above are substantively
-not the most sensible ways to combine the two. What do you think would
-be a more useful way to combine these two networks? And does
-xCombineties() provide a way of doing that (tip: check the help file)
-?</p>
-</div>
-<div id="saving-and-exporting" class="section level2">
-<h2>5.11 Saving and exporting</h2>
-<p>Sometimes we want to save a network dataset. There are several ways
-of doing so. First, we can simply save an R object as an R data file,
-which we can then load at a later point. Note that unless you specify
-the path as well, save() and load() use your current working directory,
-which you can set with setwd(). It is a good habit to avoid using full
-paths in code, and instead point your software (RStudio in this case) to
-the correct folder before you run the code. This makes your code much
-more portable between different devices and environments.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuSFRuZXQgPC0gSGF3dGhvcm5lX0JhbmtXaXJpbmcgIyBUaGlzIHN0ZXAgaXMgbm90IHN0cmljdGx5IG5lY2Vzc2FyeSBidXQgdXNlZnVsIGZvciBkZW1vbnN0cmF0aW9uIHB1cnBvc2VzXG5nZXR3ZCgpICMgc2hvd3MgeW91ciBjdXJyZW50IHdvcmtpbmcgZGlyZWN0b3J5OyBjaGFuZ2Ugd2l0aCBzZXR3ZCgpIGlmIHlvdSBhcmUgdW5oYXBweSB3aXRoIGl0XG5zYXZlKEhUbmV0LCBmaWxlPVwiSFQuUkRhdGFcIilcbnJtKEhUbmV0KVxubG9hZChcIkhULlJEYXRhXCIpXG5gYGAifQ== -->
-<pre class="r"><code>HTnet &lt;- Hawthorne_BankWiring # This step is not strictly necessary but useful for demonstration purposes
-getwd() # shows your current working directory; change with setwd() if you are unhappy with it
-save(HTnet, file=&quot;HT.RData&quot;)
-rm(HTnet)
-load(&quot;HT.RData&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>The .RData format, however, only works with R. Sometimes we want to
-export data that we can also use in other software. Then, .csv
-(“comma-separated values”) is an often-used format. But because
-csv-files are simply text files, we cannot save an entire
-multidimensional R-object (containing multiple networks, attributes, and
-project info, etc.) in a single csv file, but only one “dimension” at a
-time. Here, we choose the friendship network from the Hawthorne data
-set:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUuY3N2KEhhd3Rob3JuZV9CYW5rV2lyaW5nJEZyaWVuZHNoaXAsIGZpbGUgPSBcIkhUbmV0X2ZyaWVuZHMuY3N2XCIpXG5IVG5ldF9mcmllbmRzIDwtIHJlYWQuY3N2KGZpbGUgPSBcIkhUbmV0X2ZyaWVuZHMuY3N2XCIpXG5IVG5ldF9mcmllbmRzXG5gYGAifQ== -->
-<pre class="r"><code>write.csv(Hawthorne_BankWiring$Friendship, file = &quot;HTnet_friends.csv&quot;)
-HTnet_friends &lt;- read.csv(file = &quot;HTnet_friends.csv&quot;)
-HTnet_friends</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Note that this adjacency matrix, to R, is just a data frame, not a
-part of a network object. If we were to export the entire Hawthorne data
-object as a set of csv files, and import it back into R one by one, we’d
-have to piece back together the network object first if we wanted to
-work with it in xUCINET().</p>
-<p>Finally, we may want to work with network data using different
-network analysis packages, such as <a href="https://cran.r-project.org/web/packages/sna/index.html">sna</a>
-(which is part of the <a href="https://statnet.org/">statnet</a> suite)
-or <a href="https://r.igraph.org/">igraph</a>.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzbmEpXG5cbkhCRi5uPC1hcy5uZXR3b3JrKEhhd3Rob3JuZV9CYW5rV2lyaW5nJEZyaWVuZHNoaXAsIGRpcmVjdGVkID0gVFJVRSlcbkhCRi5uXG5gYGAifQ== -->
-<pre class="r"><code>library(sna)
-
-HBF.n&lt;-as.network(Hawthorne_BankWiring$Friendship, directed = TRUE)
-HBF.n</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShpZ3JhcGgpXG5IQkYuaTwtZ3JhcGhfZnJvbV9hZGphY2VuY3lfbWF0cml4KEhhd3Rob3JuZV9CYW5rV2lyaW5nJEZyaWVuZHNoaXAsXG4gIG1vZGUgPSBjKFwidW5kaXJlY3RlZFwiKSwgZGlhZyA9IEZBTFNFKVxuSEJGLmlcbmBgYCJ9 -->
-<pre class="r"><code>library(igraph)
-HBF.i&lt;-graph_from_adjacency_matrix(Hawthorne_BankWiring$Friendship,
-  mode = c(&quot;undirected&quot;), diag = FALSE)
-HBF.i</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-</div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlNhU1IgOCBUdXRvcmlhbCAxLjEiDQpzdWJ0aXRsZTogIkV4Y2VyY2lzZXMgZm9yIGNoYXB0ZXIgNTogZGF0YSBtYW5hZ2VtZW50Ig0KYXV0aG9yOiAiUmVuc2UgQ29ydGVuIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KIyBJbnRyb2R1Y3Rpb24NCg0KVGhpcyBkb2N1bWVudCBjb250YWlucyBhIHJ1bi10aHJvdWdoIG9mIHNlbGVjdGlvbiB0aGUgZXhlcmNpc2VzIHdpdGggQ2hhcHRlciA1IG9mICJBbmFseXppbmcgU29jaWFsIE5ldHdvcmtzIFVzaW5nIFIiIGJ5IEJvcmdhdHRpLCBFdmVyZXR0LCBKb2huc29uLCBhbmQgQWduZWVzZW5zIChoZXJlYWZ0ZXIgQU5TVVIgYnkgQkVKQSkuIFRoZSBvcmlnaW5hbCBleGVyY2lzZXMgY2FuIGJlIGZvdW5kIGhlcmU6IDxodHRwczovL3d3dy5hbmFseXppbmdzb2NpYWxuZXR3b3Jrc3VzaW5nci5jb20vaG9tZS81LWRhdGEtbWFuYWdlbWVudD4uIFdlIHNraXAgc29tZSBleGVyY2lzZXMsIGFuZCBhbHNvIGNvcnJlY3QgYSBmZXcgbWlub3IgZXJyb3JzIGluIHRoZSBvcmlnaW5hbCBtYXRlcmlhbC4NCg0KVGhpcyBkb2N1bWVudCB3YXMgd3JpdHRlbiBhcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIElmIHlvdSBhcmUgcmVhZGluZyBhIGh0bWwgb3IgcGRmIHZlcnNpb24gb2YgdGhpcywgeW91IGNhbiBqdXN0IGtlZXAgcmVhZGluZywgYW5kIGlmIHlvdSB3YW50IHRvIHJ1biBhbnkgb2YgdGhlIGNvZGUgeW91cnNlbGYsIHlvdSBuZWVkIHRvIGNvcHkgYW5kIHBhc3RlIHRoZSBjb2RlIHRvIHlvdXIgb3duIFItc2NyaXB0Lg0KDQpJZiB5b3UgYXJlIHJlYWRpbmcgdGhpcyBpbiB0aGUgLnJtZCBmb3JtYXQ6IFRyeSBleGVjdXRpbmcgdGhpcyBjaHVuayBieSBjbGlja2luZyB0aGUgKlJ1biogYnV0dG9uIHdpdGhpbiB0aGUgY2h1bmsgb3IgYnkgcGxhY2luZyB5b3VyIGN1cnNvciBpbnNpZGUgaXQgYW5kIHByZXNzaW5nICpDdHJsK1NoaWZ0K0VudGVyKi4gV2hlbiB5b3Ugc2F2ZSB0aGUgbm90ZWJvb2ssIGFuIEhUTUwgZmlsZSBjb250YWluaW5nIHRoZSBjb2RlIGFuZCBvdXRwdXQgd2lsbCBiZSBzYXZlZCBhbG9uZ3NpZGUgaXQgKGNsaWNrIHRoZSAqUHJldmlldyogYnV0dG9uIG9yIHByZXNzICpDdHJsK1NoaWZ0K0sqIHRvIHByZXZpZXcgdGhlIEhUTUwgZmlsZSkuDQoNCiMgSW5zdGFsbGF0aW9uDQoNClRoZSBib29rIHJlbGllcyBhbG1vc3QgZXhjbHVzaXZlbHkgb24gdGhlIGN1c3RvbS1tYWRlIFIgcGFja2FnZSB4VUNJTkVULiBUbyBpbnN0YWxsIHRoZSB4VUNJTkVUIHBhY2thZ2UsIGZvbGxvdyB0aGUgaW5zdHJ1Y3Rpb25zIG9uIDxodHRwczovL3d3dy5hbmFseXppbmdzb2NpYWxuZXR3b3Jrc3VzaW5nci5jb20veHVjaW5ldD4gKG5vdGUgdGhhdCB0aGUgaW5zdHJ1Y3Rpb25zIG9uIHAuOTEgaW4gdGhlIGJvb2sgYXJlIGluY29ycmVjdDsgaW5zdGFsbC5wYWNrYWdlcygpIGRvZXMgbm90IHdvcmspLCBidXQgd2l0aCB0aGUgZm9sbG93aW5nIGV4Y2VwdGlvbnMsIGJ1dCBpbiBzdGVwIDMsIGluc3RhbGwgdGhlIHBhY2thZ2VzICJibG9ja21vZGVsaW5nIiBhbmQgIkZhY3RvTWluZVIiLg0KDQpBZnRlcndhcmRzLCB5b3UgY2FuIGxvYWQgdGhlIHBhY2thZ2UgaW4gUiB1c2luZyBsaWJyYXJ5KCkuIFdlIGFsc28gbG9hZCB0aWR5dmVyc2UgZm9yIGNvbnZlbmllbmNlLg0KDQpgYGB7ciwgbWVzc2FnZT0gRkFMU0UsIHdhcm5pbmcgPSBGQUxTRX0NCmxpYnJhcnkoeFVDSU5FVCkNCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCiMgQ2hhcHRlciA1OiBEYXRhIG1hbmFnZW1lbnQNCg0KIyMgNS4yOiBDaGVja2luZyBmb3IgbWlzdGFrZXMNCg0KSW4gdGhpcyBmaXJzdCBzdGVwLCB3ZSdsbCBoYXZlIGEgbG9vayBhdCB3YWhhdCBuZXR3b3JrIGRhdGEgbWF5IGxvb2sgbGlrZSBpbiBSLCBhbmQgaG93IHRvIGZpeCBzb21lIHR5cGljYWwgbWlzdGFrZXMuIEZpcnN0IHdlIGNyZWF0ZSBzb21lIGlucHV0IGRhdGEsIGluIHRoZSBmb3JtIG9mIGFuIGFkamFjZW5jeSBtYXRyaXg6DQoNCmBgYHtyfQ0KYWRqX21hdHJpeF8xIDwtIGRhdGEuZnJhbWUoQSA9IGMoIklEIiwgIkFuZHJlYSIsICJFbHNhIiwgIlJhZmFlbCIsICJWZXJhIiwgIlBldGVyIiwgIkphcmVkIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBCID0gYygiQW5kcmVhIiwgIjAiLCAiMSIsICIwIiwiMCIsICIxIiwiMSIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgQyA9IGMoIkVsaXNhIiwgIjEiLCAiMSIsICIxIiwiMCIsICIwIiwiMCIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgRCA9IGMoIlJhZmFlbCIsICIxIiwgIjEiLCAiMCIsIjEiLCAiMCIsIjAiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIEUgPSBjKCJWZXJhIiwgIjAiLCAiMSIsICIxIiwiMCIsICIwIiwiMCIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgRiA9IGMoIkdlcnQiLCAiMCIsICIxIiwgIjAiLCIxIiwgIjAiLCIwIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBHID0gYygiUGV0ZXIiLCAiMSIsICIxIiwgIjIiLCIxIiwgIjAiLCIiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIEggPSBjKCJKYXJlZCIsICIwIiwgIjAiLCAiMCIsIjAiLCAiMSIsIjEiKQ0KKQ0KYWRqX21hdHJpeF8xDQpgYGANCg0KSWRlYWxseSB0aGlzIHNob3VsZCBiZSBhIHNxdWFyZSBtYXRyaXgsIHdpdGggcm93cyBhbmQgY29sdW1ucyBmb3IgZXZlcnkgcGVyc29uLiBIb3dldmVyLCBpdCBhcHBlYXJzIEdlcnQgaXMgbWlzc2luZyBmcm9tIHRoZSByb3dzLiBTbyBsZXQncyBhZGQgYSBuZXcgcm93IGZvciBHZXJ0Og0KDQpgYGB7cn0NCmFkal9tYXRyaXhfMiA8LSBkYXRhLmZyYW1lKEEgPSBjKCJHZXJ0IiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBCID0gYygiIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBDID0gYygiIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBEID0gYygiIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBFID0gYygiIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBGID0gYygiIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBHID0gYygiIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBIID0gYygiIikNCikgJT4lIA0KICByYmluZChhZGpfbWF0cml4XzEpDQoNCmFkal9tYXRyaXhfMiA8LSBhZGpfbWF0cml4XzJbYygyOjYsMSw3OjgpLF0gI3B1dCBHZXJ0IGluIHRoZSByaWdodCBwbGFjZS4NCnJvd25hbWVzKGFkal9tYXRyaXhfMikgPC0gMTpucm93KGFkal9tYXRyaXhfMikgIyByZXNldCB0aGUgcm93IG5hbWVzDQphZGpfbWF0cml4XzINCmBgYA0KDQpBbHNvLCBzb21lIGNlbGxzIGFyZSBlbXB0eS4gQWZ0ZXIgdmVyaWZ5aW5nIHRoYXQgdGhpcyBpcyBub3QgYSBjb2Rpbmcgb3IgdHJhbnNjcmlwdGlvbiBtaXN0YWtlICh3aGljaCB3ZSBhc3N1bWUgbm93IGlzIG5vdCB0aGUgY2FzZSwgd2UgbWF5IHdhbnQgdG8gZGVzaWduYXRlIHRoZXNlIGNlbGxzIGFzIG1pc3NpbmcgZXhwbGljaXRseSwgZm9yIGV4YW1wbGUgdXNpbmcgdGhlIHZhbHVlIC05OTkuDQoNCmBgYHtyfQ0KYWRqX21hdHJpeF8yW2Fkal9tYXRyaXhfMiA9PSAiIl0gPC0gIi05OTkiDQoNCg0KYGBgDQoNCkZpbmFsbHksIHdlIG5vdGUgdGhhdCB0aGUgcm93cyBtZW50aW9uICJFbHNhIiB3aGlsZSB0aGUgY29sdW1ucyBtZW50aW9uICJFbGlzYSIuIEFzc3VtaW5nIHRoYXQgd2UgY29uY2x1ZGVkIHRoYXQgIkVsc2EiIGlzIGNvcnJlY3Q6DQoNCmBgYHtyfQ0KYWRqX21hdHJpeF8yW2Fkal9tYXRyaXhfMiA9PSAiRWxpc2EiXSA8LSAiRWxzYSINCmBgYA0KDQpEb25lIQ0KDQpgYGB7cn0NCmFkal9tYXRyaXhfMg0KYGBgDQoNCldhaXQhIFRoZXJlIGlzIG9uZSBtb3JlIChwb3RlbnRpYWwpIG1pc3Rha2UuIENhbiB5b3Ugc3BvdCBpdCwgYW5kIGRvIHlvdSBrbm93IGhvdyB0byBzb2x2ZSBpdD8NCg0KIyMgNS4zOiBSZWFkIGluIGFuZCBjcmVhdGUgYSBkYXRhIHByb2plY3QgZmlsZQ0KDQpGaXJzdCB3ZSBtYW51YWxseSBjcmVhdGUgdGhlIGlucHV0IGRhdGEgYWdhaW46DQoNCmBgYHtyfQ0KDQoNCmFkal9tYXRyaXhfZnJpZW5kcyA8LSBkYXRhLmZyYW1lKA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgQSA9IGMoIklEIiwgIkFuYSIsICJFbGxhIiwgIklzcmEiLCAiUGV0ciIsICJTYW0iKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIEIgPSBjKCJBbmEiLCAgIjAiLCAiMSIsICIzIiwiMiIsICIzIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBDID0gYygiRWxsYSIsICIyIiwgIjAiLCAiMSIsIjEiLCAiMiIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgRCA9IGMoIklzcmEiLCAiMSIsICIzIiwgIjAiLCIyIiwgIjEiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIEUgPSBjKCJQZXRyIiwgIjMiLCAiMSIsICIyIiwiMCIsICIxIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBGID0gYygiU2FtIiwgICIyIiwgIjMiLCAiMSIsIjEiLCAiMCIpDQopDQoNCg0KYWRqX21hdHJpeF9jb21tdW5pY2F0aW9uIDwtIGRhdGEuZnJhbWUoDQogICAgICAgICAgICAgICAgICAgICAgICAgICBBID0gYygiSUQiLCAiQW5hIiwgIkVsbGEiLCAiSXNyYSIsICJQZXRyIiwgIlNhbSIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgQiA9IGMoIkFuYSIsICAiMCIsICIxIiwgIjAiLCIxIiwgIjEiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIEMgPSBjKCJFbGxhIiwgIjEiLCAiMCIsICIwIiwiMSIsICIwIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICBEID0gYygiSXNyYSIsICIwIiwgIjAiLCAiMCIsIjEiLCAiMCIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgRSA9IGMoIlBldHIiLCAiMSIsICIxIiwgIjEiLCIwIiwgIjEiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIEYgPSBjKCJTYW0iLCAgIjEiLCAiMCIsICIwIiwiMSIsICIwIikNCikNCg0Kbm9kZXNfYXR0cmlidXRlcyA8LSBkYXRhLmZyYW1lKA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgQSA9IGMoIklEIiwgICJBbmEiLCAiRWxsYSIsICJJc3JhIiwiUGV0ciIsIlNhbSIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgQiA9IGMoIkFnZSIsICAgIjIzIiwgICI2NyIsICAgIjQ1IiwgICIyOCIsICAiMzMiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIEMgPSBjKCJHZW5kZXIiLCIxIiwgICAiMSIsICAgICIxIiwgICAiMiIsICAgIjIiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgIEQgPSBjKCJNdXNpYyIsICJSZWdnYWUiLCAiUm9jayIsICJQb3AiLCJSZWdnYWUiLCAiUG9wIikNCiAgDQopDQoNCmBgYA0KDQpBbmQgdGhlbiBzYXZlIHRoZW0gYXMgY3ZzLWZpbGVzOg0KDQpgYGB7cn0NCndyaXRlLnRhYmxlKGFkal9tYXRyaXhfZnJpZW5kcyxmaWxlID0gIlBhcnR5T2Y1X0ZyaWVuZHNoaXAxLmNzdiIsIHJvdy5uYW1lcz1GQUxTRSwgY29sLm5hbWVzID0gRkFMU0UsIHNlcCA9ICIsIikNCndyaXRlLnRhYmxlKGFkal9tYXRyaXhfY29tbXVuaWNhdGlvbixmaWxlID0gIlBhcnR5T2Y1X0NvbW11bmljYXRpb24xLmNzdiIsIHJvdy5uYW1lcz1GQUxTRSwgY29sLm5hbWVzID0gRkFMU0UsIHNlcCA9ICIsIikNCndyaXRlLnRhYmxlKG5vZGVzX2F0dHJpYnV0ZXMsZmlsZSA9ICJQYXJ0eU9mNV9BdHRyaWJ1dGVzMS5jc3YiLCByb3cubmFtZXM9RkFMU0UsIGNvbC5uYW1lcyA9IEZBTFNFLCBzZXAgPSAiLCIpDQoNCg0KYGBgDQoNCk5vdyB3ZSBjYW4gbG9hZCB0aGVtIGFzIGEgbmV0d29yayBvYmplY3Q6DQoNCmBgYHtyfQ0KDQpTbWFsbFByb2plY3Q1PC14Q3JlYXRlUHJvamVjdChHZW5lcmFsRGVzY3JpcHRpb249IlRoaXMgaXMgYSBzbWFsbCBzdHVkeSBhbW9uZyA1IHBlb3BsZS4iLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTmV0d29ya05hbWU9IkZyaWVuZHNoaXAxIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE5FVEZJTEU9IlBhcnR5T2Y1X0ZyaWVuZHNoaXAxLmNzdiIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBGaWxlVHlwZT0iY3N2IiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEluRm9ybWF0VHlwZT0iQWRqTWF0IiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE5ldHdvcmtEZXNjcmlwdGlvbj0iRnJpZW5kc2hpcCBuZXR3b3JrcyBhbW9uZyA1IHBlb3BsZSB3aXRoIDM9R29vZCBmcmllbmQsIDI9RnJpZW5kIGFuZCAxPUFjcXVhaW50YW5jZSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBNb2RlID0gYygiUGVvcGxlIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICBEaXJlY3RlZD1UUlVFLCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExvb3BzPUZBTFNFLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVmFsdWVzPSJPcmRpbmFsIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENsYXNzPSJtYXRyaXgiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUmVmZXJlbmNlcz0iTm8gcmVmZXJlbmNlcyIpDQoNCmBgYA0KDQpOb3RlIHRoYXQgYWx0aG91Z2ggdGhpcyBpcyBhIGxvdCBvZiBzeW50YXgsIGl0IHdyaXRlcyBvdXQgYSBsb3Qgb2YgZGVmYXVsdHMuDQoNCkxldCdzIGFkZCB0aGUgYXR0cmlidXRlIGRhdGE6DQoNCmBgYHtyfQ0KU21hbGxQcm9qZWN0NSA8LSB4QWRkQXR0cmlidXRlc1RvUHJvamVjdChQcm9qZWN0TmFtZSA9IFNtYWxsUHJvamVjdDUsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFUVEZJTEUxPSJQYXJ0eU9mNV9BdHRyaWJ1dGVzMS5jc3YiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBGaWxlVHlwZSA9ICJjc3YiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBNb2RlID0gYygiUGVvcGxlIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEF0dHJpYnV0ZXNEZXNjcmlwdGlvbj1jKCJBZ2UgaW4geWVhcnMiLCJHZW5kZXIgKDE9TWFsZSwgMj1GZW1hbGUpIiwiUHJlZmVycmVkIG11c2ljIikNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKQ0KYGBgDQoNCmBgYHtyfQ0KU21hbGxQcm9qZWN0NTwteEFkZFRvUHJvamVjdChQcm9qZWN0TmFtZT1TbWFsbFByb2plY3Q1LA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICBOZXR3b3JrTmFtZT0iQ29tbXVuaWNhdGlvbjkiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICBORVRGSUxFMT0iUGFydHlPZjVfQ29tbXVuaWNhdGlvbjEuY3N2IiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRmlsZVR5cGU9ImNzdiIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgIE5ldHdvcmtEZXNjcmlwdGlvbj0iQ29tbXVuaWNhdGlvbiBuZXR3b3JrIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTW9kZT1jKCJQZW9wbGUiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRGlyZWN0ZWQ9RkFMU0UsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgIExvb3BzPUZBTFNFLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICBWYWx1ZXM9IkJpbmFyeSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgIENsYXNzPSJtYXRyaXgiKQ0KYGBgDQoNCg0KIyMgNS41LiBUcmFuc3Bvc2luZywgc3ltbWV0cml6aW5nIGFuZCBjb21iaW5pbmcNCg0KIyMjIDUuNS4xOiBUcmFuc3Bvc2luZw0KDQpgYGB7cn0NCg0KQmFrZXJfSm91cm5hbHMkQ2l0YXRpb25zICNOb3RlOiB0aGUgd2Vic2l0ZSBtaXN0YWtlbmx5IG1lbnRpb25zICJDb2NpdGF0aW9ucyINCnhUcmFuc3Bvc2UoQmFrZXJfSm91cm5hbHMkQ2l0YXRpb25zKQ0KDQpgYGANCg0KIyMjIDUuNS4yOiBTeW1tZXRyaXppbmcNCg0KV2UgY2FuIHN5bW1ldHJpemUgaW4gZGlmZmVyZW50IHdheXMuDQoNCmBgYHtyfQ0KeFN5bW1ldHJpemUoQmFrZXJfSm91cm5hbHMkQ2l0YXRpb25zKQ0KYGBgDQoNCmBgYHtyfQ0KeFN5bW1ldHJpemUoQmFrZXJfSm91cm5hbHMkQ2l0YXRpb25zLCBUeXBlID0gIk1heCIpDQpgYGANCg0KYGBge3J9DQp4U3ltbWV0cml6ZShCYWtlcl9Kb3VybmFscyRDaXRhdGlvbnMsIFR5cGUgPSAiQXYiKQ0KYGBgDQoNCmBgYHtyfQ0KeFN5bW1ldHJpemUoQmFrZXJfSm91cm5hbHMkQ2l0YXRpb25zLCBUeXBlID0gIlN1bSIpDQpgYGANCg0KQnkgdGhlIHdheSwgc29tZXRpbWVzIGVycm9yIG1lc3NhZ2VzIGluIFIgKG9yIHBlcmhhcHMgdGhpcyBwYXJ0aWN1bGFyIHBhY2thZ2UpIGNhbiBiZSByYXRoZXIgdW5oZWxwZnVsLiBOb3RlIHdoYXQgaGFwcGVucyB3aGVuIHdlIG1pc3R5cGUgdGhlICdUeXBlPSJTdW0iJyBvcHRpb24sIGluc3RlYWQgd3JpdGluZyAnVHlwZSA9ICJzdW0iJzoNCg0KYGBge3J9DQp4U3ltbWV0cml6ZShCYWtlcl9Kb3VybmFscyRDaXRhdGlvbnMsIFR5cGUgPSAic3VtIikNCmBgYA0KDQpXZSBjYW4ndCBiZSBleHBlY3RlZCB0byBrbm93IHdoYXQgJ09VVFBVVDEnIHJlZmVycyB0bywgYXMgaXQgaXMgbm90IHNvbWV0aGluZyBpbiBvdXIgY29kZSwgYW5kIG5vdGhpbmcgaGVyZSBwb2ludHMgdG8gdGhlIG1pc3NwZWNpZmljYXRpb24gb2YgdGhlIFR5cGUgb3B0aW9uLiBUaGUgbGVzc29uIGhlcmUgaXMgdG8gYWx3YXlzIGNsb3NlbHkgY3Jvc3NjaGVjayB5b3VyIGNvZGUgd2l0aCB0aGUgc3ludGF4IHNwZWNpZmljYXRpb24gaW4gdGhlIGhlbHAgZmlsZSB3aGVuZXZlciB5b3UgZ2V0IGVycm9ycy4NCg0KIyMgNS41LjQgQ29tYmluaW5nDQoNCkFnYWluLCB0aGVyZSBhcmUgZGlmZmVyZW50IHdheXMgb2YgY29tYmluaW5nLiBIZXJlIHdlIHRyeSAibWluaW11bSIgYW5kICJzdW0iLg0KDQoqKlFVRVNUSU9OKio6IHdoYXQgZG8gdGhlc2UgdHdvIG9wdGlvbnMgKnN1YnN0YW50aXZlbHkqIHJlcHJlc2VudD8NCg0KYGBge3J9DQp4Q29tYmluZVRpZXMoSGF3dGhvcm5lX0JhbmtXaXJpbmckQ29uZmxpY3QsIEhhd3Rob3JuZV9CYW5rV2lyaW5nJEZyaWVuZHNoaXAsIFR5cGUgPSAiTWluIikNCmBgYA0KDQpgYGB7cn0NCnhDb21iaW5lVGllcyhIYXd0aG9ybmVfQmFua1dpcmluZyRDb25mbGljdCwgSGF3dGhvcm5lX0JhbmtXaXJpbmckRnJpZW5kc2hpcCwgVHlwZSA9ICJTdW0iKQ0KYGBgDQoNCioqUVVFU1RJT046KiogR2l2ZW4gdGhhdCB3ZSBhcmUgY29tYmluaW5nICJjb25mbGljdCIgYW5kICJmcmllbmRzaGlwIiB0aWVzIGhlcmUsIHBlcmhhcHMgdGhlIHR3byBleGFtcGxlcyBhYm92ZSBhcmUgc3Vic3RhbnRpdmVseSBub3QgdGhlIG1vc3Qgc2Vuc2libGUgd2F5cyB0byBjb21iaW5lIHRoZSB0d28uIFdoYXQgZG8geW91IHRoaW5rIHdvdWxkIGJlIGEgbW9yZSB1c2VmdWwgd2F5IHRvIGNvbWJpbmUgdGhlc2UgdHdvIG5ldHdvcmtzPyBBbmQgZG9lcyB4Q29tYmluZXRpZXMoKSBwcm92aWRlIGEgd2F5IG9mIGRvaW5nIHRoYXQgKHRpcDogY2hlY2sgdGhlIGhlbHAgZmlsZSkgPw0KDQojIyA1LjExIFNhdmluZyBhbmQgZXhwb3J0aW5nDQoNClNvbWV0aW1lcyB3ZSB3YW50IHRvIHNhdmUgYSBuZXR3b3JrIGRhdGFzZXQuIFRoZXJlIGFyZSBzZXZlcmFsIHdheXMgb2YgZG9pbmcgc28uIEZpcnN0LCB3ZSBjYW4gc2ltcGx5IHNhdmUgYW4gUiBvYmplY3QgYXMgYW4gUiBkYXRhIGZpbGUsIHdoaWNoIHdlIGNhbiB0aGVuIGxvYWQgYXQgYSBsYXRlciBwb2ludC4gTm90ZSB0aGF0IHVubGVzcyB5b3Ugc3BlY2lmeSB0aGUgcGF0aCBhcyB3ZWxsLCBzYXZlKCkgYW5kIGxvYWQoKSB1c2UgeW91ciBjdXJyZW50IHdvcmtpbmcgZGlyZWN0b3J5LCB3aGljaCB5b3UgY2FuIHNldCB3aXRoIHNldHdkKCkuIEl0IGlzIGEgZ29vZCBoYWJpdCB0byBhdm9pZCB1c2luZyBmdWxsIHBhdGhzIGluIGNvZGUsIGFuZCBpbnN0ZWFkIHBvaW50IHlvdXIgc29mdHdhcmUgKFJTdHVkaW8gaW4gdGhpcyBjYXNlKSB0byB0aGUgY29ycmVjdCBmb2xkZXIgYmVmb3JlIHlvdSBydW4gdGhlIGNvZGUuIFRoaXMgbWFrZXMgeW91ciBjb2RlIG11Y2ggbW9yZSBwb3J0YWJsZSBiZXR3ZWVuIGRpZmZlcmVudCBkZXZpY2VzIGFuZCBlbnZpcm9ubWVudHMuDQoNCmBgYHtyfQ0KSFRuZXQgPC0gSGF3dGhvcm5lX0JhbmtXaXJpbmcgIyBUaGlzIHN0ZXAgaXMgbm90IHN0cmljdGx5IG5lY2Vzc2FyeSBidXQgdXNlZnVsIGZvciBkZW1vbnN0cmF0aW9uIHB1cnBvc2VzDQpnZXR3ZCgpICMgc2hvd3MgeW91ciBjdXJyZW50IHdvcmtpbmcgZGlyZWN0b3J5OyBjaGFuZ2Ugd2l0aCBzZXR3ZCgpIGlmIHlvdSBhcmUgdW5oYXBweSB3aXRoIGl0DQpzYXZlKEhUbmV0LCBmaWxlPSJIVC5SRGF0YSIpDQpybShIVG5ldCkNCmxvYWQoIkhULlJEYXRhIikNCmBgYA0KDQpUaGUgLlJEYXRhIGZvcm1hdCwgaG93ZXZlciwgb25seSB3b3JrcyB3aXRoIFIuIFNvbWV0aW1lcyB3ZSB3YW50IHRvIGV4cG9ydCBkYXRhIHRoYXQgd2UgY2FuIGFsc28gdXNlIGluIG90aGVyIHNvZnR3YXJlLiBUaGVuLCAuY3N2ICgiY29tbWEtc2VwYXJhdGVkIHZhbHVlcyIpIGlzIGFuIG9mdGVuLXVzZWQgZm9ybWF0LiBCdXQgYmVjYXVzZSBjc3YtZmlsZXMgYXJlIHNpbXBseSB0ZXh0IGZpbGVzLCB3ZSBjYW5ub3Qgc2F2ZSBhbiBlbnRpcmUgbXVsdGlkaW1lbnNpb25hbCBSLW9iamVjdCAoY29udGFpbmluZyBtdWx0aXBsZSBuZXR3b3JrcywgYXR0cmlidXRlcywgYW5kIHByb2plY3QgaW5mbywgZXRjLikgaW4gYSBzaW5nbGUgY3N2IGZpbGUsIGJ1dCBvbmx5IG9uZSAiZGltZW5zaW9uIiBhdCBhIHRpbWUuIEhlcmUsIHdlIGNob29zZSB0aGUgZnJpZW5kc2hpcCBuZXR3b3JrIGZyb20gdGhlIEhhd3Rob3JuZSBkYXRhIHNldDoNCg0KYGBge3J9DQp3cml0ZS5jc3YoSGF3dGhvcm5lX0JhbmtXaXJpbmckRnJpZW5kc2hpcCwgZmlsZSA9ICJIVG5ldF9mcmllbmRzLmNzdiIpDQpIVG5ldF9mcmllbmRzIDwtIHJlYWQuY3N2KGZpbGUgPSAiSFRuZXRfZnJpZW5kcy5jc3YiKQ0KSFRuZXRfZnJpZW5kcw0KYGBgDQoNCk5vdGUgdGhhdCB0aGlzIGFkamFjZW5jeSBtYXRyaXgsIHRvIFIsIGlzIGp1c3QgYSBkYXRhIGZyYW1lLCBub3QgYSBwYXJ0IG9mIGEgbmV0d29yayBvYmplY3QuIElmIHdlIHdlcmUgdG8gZXhwb3J0IHRoZSBlbnRpcmUgSGF3dGhvcm5lIGRhdGEgb2JqZWN0IGFzIGEgc2V0IG9mIGNzdiBmaWxlcywgYW5kIGltcG9ydCBpdCBiYWNrIGludG8gUiBvbmUgYnkgb25lLCB3ZSdkIGhhdmUgdG8gcGllY2UgYmFjayB0b2dldGhlciB0aGUgbmV0d29yayBvYmplY3QgZmlyc3QgaWYgd2Ugd2FudGVkIHRvIHdvcmsgd2l0aCBpdCBpbiB4VUNJTkVUKCkuDQoNCkZpbmFsbHksIHdlIG1heSB3YW50IHRvIHdvcmsgd2l0aCBuZXR3b3JrIGRhdGEgdXNpbmcgZGlmZmVyZW50IG5ldHdvcmsgYW5hbHlzaXMgcGFja2FnZXMsIHN1Y2ggYXMgW3NuYV0oaHR0cHM6Ly9jcmFuLnItcHJvamVjdC5vcmcvd2ViL3BhY2thZ2VzL3NuYS9pbmRleC5odG1sKSAod2hpY2ggaXMgcGFydCBvZiB0aGUgW3N0YXRuZXRdKGh0dHBzOi8vc3RhdG5ldC5vcmcvKSBzdWl0ZSkgb3IgW2lncmFwaF0oaHR0cHM6Ly9yLmlncmFwaC5vcmcvKS4NCg0KYGBge3J9DQpsaWJyYXJ5KHNuYSkNCg0KSEJGLm48LWFzLm5ldHdvcmsoSGF3dGhvcm5lX0JhbmtXaXJpbmckRnJpZW5kc2hpcCwgZGlyZWN0ZWQgPSBUUlVFKQ0KSEJGLm4NCmBgYA0KDQpgYGB7cn0NCmxpYnJhcnkoaWdyYXBoKQ0KSEJGLmk8LWdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeChIYXd0aG9ybmVfQmFua1dpcmluZyRGcmllbmRzaGlwLA0KICBtb2RlID0gYygidW5kaXJlY3RlZCIpLCBkaWFnID0gRkFMU0UpDQpIQkYuaQ0KYGBgDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlNhU1IgOCBUdXRvcmlhbCAxLjIiDQpzdWJ0aXRsZTogIlVzaW5nIHRoZSBLbmVjaHQgZGF0YSINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KYXV0aG9yOiBSZW5zZSBDb3J0ZW4NCi0tLQ0KDQojIFByZWFtYmxlDQoNClRoaXMgZG9jdW1lbnQgd2FzIHdyaXR0ZW4gYXMgYW4gW1IgTWFya2Rvd25dKFtodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKV0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkpIE5vdGVib29rLiBJZiB5b3UgYXJlIHJlYWRpbmcgYSBodG1sIG9yIHBkZiB2ZXJzaW9uIG9mIHRoaXMsIHlvdSBjYW4ganVzdCBrZWVwIHJlYWRpbmcsIGFuZCBpZiB5b3Ugd2FudCB0byBydW4gYW55IG9mIHRoZSBjb2RlIHlvdXJzZWxmLCB5b3UgbmVlZCB0byBjb3B5IGFuZCBwYXN0ZSB0aGUgY29kZSB0byB5b3VyIG93biBSLXNjcmlwdC4NCg0KSWYgeW91IGFyZSByZWFkaW5nIHRoaXMgaW4gdGhlIC5ybWQgZm9ybWF0OiBUcnkgZXhlY3V0aW5nIHRoaXMgY2h1bmsgYnkgY2xpY2tpbmcgdGhlIFwqUnVuXCogYnV0dG9uIHdpdGhpbiB0aGUgY2h1bmsgb3IgYnkgcGxhY2luZyB5b3VyIGN1cnNvciBpbnNpZGUgaXQgYW5kIHByZXNzaW5nIFwqQ3RybCtTaGlmdCtFbnRlclwqLiBXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlIFwqUHJldmlld1wqIGJ1dHRvbiBvciBwcmVzcyBcKkN0cmwrU2hpZnQrS1wqIHRvIHByZXZpZXcgdGhlIEhUTUwgZmlsZSkuDQoNCiMgSW50cm9kdWN0aW9uDQoNCkluIHRoaXMgdHV0b3JpYWwsIHdlIHRha2Ugc29tZSByZWFsIG5ldHdvcmsgZGF0YSB0aGF0IHdlIHdpbGwgdXNlIHRocm91Z2hvdXQgdGhlIGNvdXJzZS4gVGhlIGdvYWwgaXMgdG8gaW1wb3J0IHRoZSBkYXRhLCBhbmQgcGVyZm9ybSBzb21lIGRhdGEgbWFuYWdlbWVudCB0YXNrcyBhcyB3ZSd2ZSBkb25lIGluIHRoZSBwcmV2aW91cyB0dXRvcmlhbHMsIGJ1dCBub3cgd2l0aCByZWFsIGRhdGEgaW5zdGVhZCBvZiAidG95IGRhdGEiLg0KDQpJbiBkb2luZyBzbywgd2UgZmFjZSBhIG51bWJlciBvZiBjaGFsbGVuZ2VzOg0KDQoxLiAgVGhlIGRhdGEgYXJlIHN1cHBsaWVkIGluIFN0YXRhJ3MgLmR0YSBmaWxlIGZvcm1hdCwgd2hpY2ggaXMgbm90IGEgZm9ybWF0IHRoYXQgeFVDSU5FVCBvciBvdGhlciBSIHBhY2thZ2VzIGZvciBTTkEgcmVhZGlseSByZWNvZ25pemUuDQoyLiAgVGhlIGRhdGEgdGhlbXNlbHZlcyBoYXZlIGEgZm9ybWF0IHRoYXQgaXMgYWxzbyBzb21ld2hhdCBkaWZmZXJlbnQgZnJvbSB3aGF0IGZvciBleGFtcGxlIHhVQ0lORVQgdHlwaWNhbGx5IGV4cGVjdHMuDQoNCldlJ2xsIHNvbHZlIHRoZXNlIGlzc3VlcyBzdGVwIGJ5IHN0ZXAuIEZpcnN0IHdlIG5lZWQgdG8gbG9hZCBzb21lIHBhY2thZ2VzOg0KDQpgYGB7ciBldmFsID0gRkFMU0V9DQpsaWJyYXJ5KGhhdmVuKSAjRm9yIHJlYWRpbmcgU3RhdGEgZmlsZXMNCmxpYnJhcnkobmV0d29yaykgI0ZvciBkYXRhIGhhbmRsaW5nIG9mIG5ldHdvcmsgZGF0YSANCmxpYnJhcnkoeFVDSU5FVCkNCmxpYnJhcnkodGlkeXZlcnNlKSAjIGJlY2F1c2UgVGlkeXZlcnNlIQ0KYGBgDQoNCiMgSW1wb3J0aW5nIHRoZSBkYXRhIGludG8gUg0KDQpUaGUgZmlyc3Qgc3RlcCBpcyB0byBpbXBvcnQgdGhlIGRhdGEgaW50byBSLiBUaGUgZGF0YSBhcyB3ZSBnZXQgdGhlbSBhcmUgc3RvcmVkIGluIFN0YXRhJ3MgIi5kdGEiIGZvcm1hdC4gV2UgdXNlIHRoZSBIYXZlbiBwYWNrYWdlIHRvIHdvcmsgd2l0aCBTdGF0YSBmaWxlcyAod2UndmUgbG9hZGVkIGl0IGFib3ZlKS4NCg0KYGBge3J9DQpQdXBpbHNXYXZlViA8LSByZWFkX2R0YShmaWxlID0gIlB1cGlsc1dhdmVWLmR0YSIpDQpgYGANCg0KKipRdWVzdGlvbioqOiBUaGUgdmFyaWFibGUgInNjaG9vbG5yIiBpbmRpY2F0ZXMgdGhlIHNjaG9vbCAodGhlIG51bWJlcikgYW5kIHRoZSBjbGFzcyB3aXRoIHRoZSBzY2hvb2wgKGEgbGV0dGVyKTsgdGhhdCBpcywgIjFBIiBtZWFucyBjbGFzcyBBIGluIHNjaG9vbCAxLiBIb3cgbWFueSBzY2hvb2wgY2xhc3NlcyBpbiB0b3RhbCBkbyB0aGUgZGF0YSBjb250YWluPyAoSElOVDogdXNlIHRoZSAidW5pcXVlIiBmdW5jdGlvbikuDQoNClN1YnNlcXVlbnRseSwgdG8ga2VlcCB0aGluZ3Mgc2ltcGxlLCB3ZSBrZWVwIG9ubHkgb25lIGNsYXNzIGFuZCBvbmUgdHlwZSBvZiBuZXR3b3JrICh0aGUgZGF0YSBjb250YWluIHZhcmlvdXMgbmV0d29ya3MsIG1lYXN1cmVkIHdpdGggbmFtZSBnZW5lcmF0b3IgcXVlc3Rpb25zLikNCg0KYGBge3J9DQptIDwtIFB1cGlsc1dhdmVWICAlPiUgDQogIGZpbHRlcihzY2hvb2xuciA9PSAiMTJiIikgJT4lICMga2VlcCBvbmx5IG9uZSBjbGFzcw0KICBzZWxlY3QobmFtZW5yLCBmcmllbmQxOmZyaWVuZDEyKSAgIyBzZWxlY3Qgb25seSB0aGUgIiBiZXN0IGZyaWVuZHMiICBuZXR3b3JrDQogIA0KYGBgDQoNCiMgR2V0dGluZyB0aGUgZGF0YSBpbnRvIHhVQ0lORVQNCg0KSGF2ZSBhIGxvb2sgYXQgdGhlIHJlc3VsdGluZyBkYXRhIG9iamVjdC4gV2hhdCB3ZSBoYXZlIG5vdyBpcyBhbiAiYWRqYWNlbmN5IGxpc3QiLiBBbHRob3VnaCB0aGlzIGlzIGEgY29tbW9uIGZvcm1hdCBmb3IgZGF0YSBwcm9kdWNlZCBieSBuYW1lIGdlbmVyYXRvciBxdWVzdGlvbm5haXJlcywgU05BIHBhY2thZ2VzIGluIFIgZG9uJ3QgbGlrZSBpdC4gSW4gb3JkZXIgdG8gd29yayB3aXRoIGl0IGluIHhVQ0lORVQgb3Igb3RoZXIgbmV0d29yayBwYWNrYWdlcywgd2UgZmlyc3QgbmVlZCB0byB0cmFuc2Zvcm0gdGhlIGRhdGEuDQoNCmBgYHtyfQ0KDQptIDwtIGFzLm1hdHJpeChtKSAgIyBzbyB0aGF0IHRoZSBuZXh0IGxpbmUgd29ya3MgYXMgaW50ZW5kZWQ7IGNiaW5kKCkgd29ya3MgaW4gc3BlY2lmaWMgd2F5cyBvbiBtYXRyaXggb2JqZWN0cywgd2hpY2ggd2UgZXhwbG9pdCBoZXJlLg0KDQptPC0gY2JpbmQobVssMV0sYyhtWywtMV0pKSAlPiUgDQogIGFzX3RpYmJsZShtKSAlPiUgIyBTbyB0aGF0IHdlIGNhbiBlYXNpbHkgZmlsdGVyIA0KICBmaWx0ZXIoIWlzLm5hKFYyKSkgIyBOb3cgaXQgaXMgYW4gZWRnZSBsaXN0DQoNCmBgYA0KDQpXZSBub3cgaGF2ZSBhbiBlZGdlIGxpc3QsIHdoaWNoIGlzIHNvbWV0aGluZyB0aGF0IHRoZSAibmV0d29yayIgcGFja2FnZSBjYW4gd29yayB3aXRoIChoYXZlIGEgbG9vayEpLg0KDQpgYGB7cn0NCmcgPC0gYXMubmV0d29yay5tYXRyaXgobSxtYXRyaXgudHlwZSA9ICJlZGdlbGlzdCIpICNmcm9tIG5ldHdvcmsgcGFja2FnZSAgDQpgYGANCg0KTm93ICpnKiBpcyBhIG5ldHdvcmsgb2JqZWN0LiBXZSBjb3VsZCB3b3JrIHdpdGggaXQgdXNpbmcgdGhlIGZ1bmN0aW9ucyBvZiAqbmV0d29yayosIGJ1dCB3ZSBtYXkgYWxzbyB3YW50IHRvIHVzZSBpdCB3aXRoICp4VUNJTkVUKi4gVGhlIGxhdHRlciwgaG93ZXZlciwgb25seSByZWFkcyBhZGphY2VuY3kgbWF0cmljZXMuIFNvIHdlIGNyZWF0ZSBhbiBhZGphY2VuY3kgbWF0cml4IGZpcnN0Og0KDQpgYGB7cn0NCmEgPC0gYXMubWF0cml4Lm5ldHdvcmsoZywgbWF0cml4LnR5cGUgPSAiYWRqYWNlbmN5IiApICNhZ2FpbiwgZnJvbSB0aGUgbmV0d29yayBwYWNrYWdlDQpgYGANCg0KYGBge3J9DQoNCktuZWNodF9XXzEyYl9uZXQgPC0geENyZWF0ZVByb2plY3QoTmV0d29ya05hbWUgPSAiIEZyaWVuZHMiLA0KDQogICAgICAgICAgICAgICAgICAgICAgIE5FVEZJTEUxID0gYSwgDQoNCiAgICAgICAgICAgICAgICAgICAgICAgRmlsZVR5cGUgPSAiUm9iamVjdCIsIA0KDQogICAgICAgICAgICAgICAgICAgICAgIEluRm9ybWF0VHlwZSA9ICJBZGpNYXQiLA0KDQogICAgICAgICAgICAgICAgICAgICAgIFJlZmVyZW5jZXMgPSAiTm8gcmVmZXJlbmNlcyINCikNCmBgYA0KDQpEb25lIQ0KDQojIEFzc2lnbm1lbnQNCg0KTm93IHRyeSB0aGUgZm9sbG93aW5nOg0KDQoxLiAgQWRkIHRoZSAicGVyc29uYWwgc3VwcG9ydCIgbmV0d29yayAoZm9yIHRoaXMgc2Nob29sIGNsYXNzISkgYXMgYSBzZWNvbmQgbmV0d29yayB0byB0aGUgcHJvamVjdC4NCjIuICBBZGQgInNleCIgYW5kICIgYWdlIiBhcyBhdHRyaWJ1dGUgZGF0YS4NCjMuICBDb21iaW5lIHRoZSBmcmllbmRzaGlwIGFuZCBzdXBwb3J0IG5ldHdvcmtzLCBhc3N1bWluZyBmb3IgdGhlIHJlc3VsdGluZyBuZXR3b3JrIHRoYXQgdGhlcmUgaXMgYSAoZGlyZWN0ZWQpIHRpZSBpZiBwdXBpbCBBIG5vbWluYXRlcyBwdXBpbCBCIGFzIGEgZnJpZW5kLCBhbmQvb3IgcmVwb3J0cyByZWNlaXZpbmcgc3VwcG9ydCBmcm9tIEIuIChBbHNvIHRoaW5rOiB3aGF0IGlzIHJlYWxseSB0aGUgKmRpcmVjdGlvbiogb2YgdGhlIHRpZSBtZWFzdXJlZCBieSB0aGUgInBlcnNvbmFsIHN1cHBvcnQiIG5hbWUgZ2VuZXJhdG9yIHF1ZXN0aW9uPykNCjQuICBUcnkgcGxvdHRpbmcgdGhlIG5ldHdvcmsuDQo=</div>
 
 
 
@@ -2179,7 +1947,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("sasr_08_tutorial_ch5_nb.rmd");
+  window.initializeSourceEmbed("sasr_08_tutorial_knecht_import_nb.rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
