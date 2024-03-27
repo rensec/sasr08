@@ -1,11 +1,11 @@
 about
 usage
 handling-social-network-data-in-r
-reading-data-from-disk
+getting-network-data-into-r-igraph
 creating-network-objects-in-igraph
 creating-network-objects-from-adjacency-list-data
 the-reverse-direction-exporting-from-igraph-objects
 from-igraph-to-adjacency-matrix
 from-igraph-to-edge-list
-from-edge-list-to-network-package-object
 back-to-an-adjacency-list-from-igraph
+from-edge-list-to-network-package-object
