@@ -16,28 +16,13 @@ library(reshape2)
 library(tidyverse)
 ```
 
-First we load some toy data. For this we "source" (that is, run) our R-script that produces a simple small data set. The code assumes this script is in the current working directory.
+## Getting network data into R: igraph
+
+We start by reading some network data from disk (or from the internet, in this case). A simple and very common way to store data is as "comma-separated values" (CSV). Let's load some "toy data":
 
 ```{r}
-source("sasr_08_toy_data.r")
-toy_data
-```
-
-This format is what we technically call an *adjacency list*. Let's add some variable labels for clarity:
-
-```{r}
- attr(toy_data$id, "label") <- "Respondent id"
- attr(toy_data$age, "label") <- "Respondent age"
- attr(toy_data$friend1, "label") <- "1st friend"
- attr(toy_data$friend2, "label") <- "2nd friend"
-```
-
-## Reading data from disk
-
-We start by reading some network data from disk. A simple and very common way to store data is as "comma-separated values" (CSV). Let's load some "toy data":
-
-```{r}
-g_matrix <- read.csv("g_adj_matrix_simple.csv", header = FALSE)
+url1 <- "https://github.com/rensec/sasr08/raw/main/g_adj_matrix_simple.csv"
+g_matrix <- read.csv(file = url1, header = FALSE)
 g_matrix
 ```
 
@@ -203,21 +188,6 @@ Note that now, once more, we have lost our isolated node 5! To get all nodes, we
 igraph::as_data_frame(g_from_elist, what = "vertices") 
 ```
 
-### From edge list to network package object
-
-We can also import it into a network object using the network package (as used by the `sna` and `ergm` packages).
-
-```{r}
-graph_3 <- as.network(g_elist_from_alist, matrix.type = "edgelist", vertices = nodelist)
-graph_3
-
-
-```
-
-```{r}
-plot(graph_3)
-```
-
 ### Back to an adjacency list from igraph
 
 ```{r}
@@ -236,3 +206,20 @@ d
 ```
 
 ...and we're back!
+
+### From edge list to network package object
+
+We can also import it into a network object using the network package (as used by the `sna` and `ergm` packages).
+
+```{r}
+graph_3 <- as.network(g_elist_from_alist, matrix.type = "edgelist", vertices = nodelist)
+graph_3
+
+
+```
+
+```{r}
+plot(graph_3)
+```
+
+
