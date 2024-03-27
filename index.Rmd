@@ -10,7 +10,7 @@ bibliography: [book.bib, packages.bib]
 description: |
   This page contains tutorials for SaSR 8
 link-citations: yes
-github-repo: rstudio/bookdown-demo
+github-repo: rensec/sasr08
 ---
 
 # About
