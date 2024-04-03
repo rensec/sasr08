@@ -242,10 +242,17 @@ g_mod <- delete_vertices(g,which(V(g)$age == 21))
 plot(g_mod)
 ```
 
-In the above code, we use the `igraph` function `V()` to get all vertices of the graph. 
+In the above code, we use the `igraph` function `V()` to get all vertices of the graph.
 
-**QUESTION:**: Write the code to remove all nodes for which age is missing.
+**QUESTION:**: Write the code to remove all nodes from `g` for which age is missing.
 
-For more information on all the graph manipulation functions included in `igraph`,  see the [package's  website](https://r.igraph.org/articles/igraph.html) and, of course, the help pages in R. 
+We have already seen the use of `set_vertex_attr()` to add node attributes, of `V()` to get all nodes. As an alternative to `set_vertex_attr()`, we can also use `V()` for the same purpose:
 
+```{r}
+V(g)$gender <- c("male", "female", "female", "other", "male") 
+g
+```
 
+Similarly, we can use `E()` to access, add and modify edge attributes.
+
+For more information on all the graph manipulation functions included in `igraph`, see the [package's website](https://r.igraph.org/articles/igraph.html) and, of course, the help pages in R.
