@@ -219,7 +219,33 @@ g_np
 ```
 
 ```{r}
-plot(graph_3)
+plot(g_np)
 ```
 
 We don't discuss `network` in-depth for now; it suffices to say that the choice between `igraph` and `network` will typically depend on the specific needs of your research project. Both packages include a large set of functions for handling network data, but as `igraph` is a bit more comprehensive in terms of functions for network *analysis*, it tends to be somewhat [more popular](https://www.r-bloggers.com/2016/01/r-graph-objects-igraph-vs-network/). There are also companion packages for `network` that allow various types of analyses, included in the `statnet` suite. Finally, for converting between `network`- and `igraph`- objects, look at `intergraph`.
+
+## Modifying networks
+
+We now turn back to `igraph`. Once we have our data wrapped into a network object, we can use `igraph` functions to make changes to the data. For example, we may remove a node:
+
+```{r}
+g_mod <- delete_vertices(g,2)
+plot(g_mod)
+```
+
+This simple operation illustrates the power of handling networks as network objects: teh `igraph` function `delete_vertices()` "understands" that removing a node from a network logically implies that also the edges connected to this node should be removed. If you would have to do this with, say, a raw edge list or adjacency list, it would be much more cumbersome!
+
+The same function also takes a vector of node IDs. For example, to remove all nodes with age = 21, we could do:
+
+```{r}
+g_mod <- delete_vertices(g,which(V(g)$age == 21))
+plot(g_mod)
+```
+
+In the above code, we use the `igraph` function `V()` to get all vertices of the graph. 
+
+**QUESTION:**: Write the code to remove all nodes for which age is missing.
+
+For more information on all the graph manipulation functions included in `igraph`,  see the [package's  website](https://r.igraph.org/articles/igraph.html) and, of course, the help pages in R. 
+
+
