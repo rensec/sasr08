@@ -52,7 +52,7 @@ g_matrix
 Typically, information about nodes and edges are stored in separate files. In our next step, we're reading an attribute of the nodes:
 
 ```{r}
-g_nodes_age <- read.csv("g_nodes_age.csv")
+g_nodes_age <- read.csv(file = "https://github.com/rensec/sasr08/raw/main/g_nodes_age.csv")
 g_nodes_age
 ```
 
@@ -91,7 +91,7 @@ g <- set_vertex_attr(g,
 A common format for network data, especially if collected via survey methods, is the *adjacency list*. In this format, we have a row for each node, and columns that indicate the first, second, third...etc connection of each node. The file `g_adj_list.csv` is an example of this format (it is again our toy network as used in the previous excercises).
 
 ```{r}
-g_adj_list <- read.csv("g_adj_list.csv")
+g_adj_list <- read.csv(file = "https://github.com/rensec/sasr08/raw/main/g_adj_list.csv")
 g_adj_list
 ```
 
