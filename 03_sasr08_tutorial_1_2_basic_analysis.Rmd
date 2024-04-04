@@ -52,6 +52,14 @@ Obviously, we could already have calculated this ourselves, given that we alread
 
 **QUESTION**: How would you calculate density using `ecount()` and `vcount()`?
 
+If desired, we can also add such network-level results to the network object, for later use:
+
+```{r}
+z$density <- edge_density(z)
+z
+```
+'Density' is now listed as one of the attributes of the object, where 'g/n' indicates that it is a graph-level attribute. 
+
 ### Components
 
 
