@@ -1,0 +1,98 @@
+# Basic network analysis in R
+
+In this tutorial we'll use the `igraph` package to do some basic descriptive social network analysis. Obviously, we can only scratch the surface here, and many research project will require different analyses. Also, we do not cover visualization specifically. 
+
+As an example network, we'll use the famous "karate club" data studied by Zachary (1977), included with `igraph`.
+
+```{r}
+library(igraph)
+
+z <- make_graph("Zachary")
+
+z
+```
+
+```{r}
+plot(z)
+```
+
+
+This looks like an undirected network, which we can verify using:
+
+```{r}
+is_directed(z)
+```
+
+
+## Network level: a "five number summary"
+
+A good starting point of any network analysis project is to look at some basic properties of the graph *as a whole*. While there are many potentially interesting properties, we'll focus here on the the "five number summary" as suggested by [Luke (2015)](https://link.springer.com/book/10.1007/978-3-319-23883-8).
+
+### Size
+
+Probably the most basic property of a network is its *size*, that is, the number of vertices and the number of edges. While `igraph` already reported them above (if you knew where to look), we can ask for these numbers specifically:
+
+```{r}
+ecount(z)
+```
+```{r}
+vcount(z)
+```
+
+
+### Density
+
+The *density* of a network is the ratio of existing edges and the maximum possible number of edges that could exist, given the number of vertices. We can let R calculate it for us:
+
+```{r}
+edge_density(z)
+```
+
+Obviously, we could already have calculated this ourselves, given that we already knew the number of edges and the number of vertices.
+
+**QUESTION**: How would you calculate density using `ecount()` and `vcount()`?
+
+### Components
+
+
+```{r}
+count_components(z)
+```
+
+
+### Diameter (and distances)
+```{r}
+diameter(z)
+```
+
+```{r}
+mean_distance(z)
+```
+
+
+
+### Clustering Coefficient
+
+```{r}
+transitivity(z, type="average")
+```
+
+
+## Individual level: centrality
+
+### Degree centrality
+
+```{r}
+degree(z)
+```
+
+```{r}
+V(z)$degree <- degree(z)
+```
+
+Alternatively, we could have used `set_vertex_attr()`, which would work better in a "pipeline" workflow (using `%>%`).
+
+
+### Betweenness centrality
+
+### Closeness centrality
