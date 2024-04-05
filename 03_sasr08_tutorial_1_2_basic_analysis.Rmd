@@ -6,9 +6,7 @@ As an example network, we'll use the famous "karate club" data studied by Zachar
 
 ```{r}
 library(igraph)
-
 z <- make_graph("Zachary")
-
 z
 ```
 
@@ -62,16 +60,19 @@ z
 
 ### Components
 
-
+The number of components is the number of unconnected parts of the network (which may be parts consisting of one node, that is, isolates). The number of components in this network is, quite trivially, just one, but the way to get it is:
 ```{r}
 count_components(z)
 ```
 
 
 ### Diameter (and distances)
+The diameter of a network is the "longest shortest path" in the network
 ```{r}
 diameter(z)
 ```
+
+A related an much-studied property is the *average* shortest path length, that is, the average of all the shortest path over all pairs of vertices in the network. For example, this is the key indicator in the "small world phenomenon".  
 
 ```{r}
 mean_distance(z)
@@ -81,10 +82,15 @@ mean_distance(z)
 
 ### Clustering Coefficient
 
+Clustering, or transitivity, relates to the extent to which triangles tend to be closed in the network, or put differently, to what extent neighbors of nodes tend to be connected themselves. There are many ways to quantify this tendency (which also differ for directed an undirected networks), and the `transitivity()` function covers many of them. Note that in the literature and elsewhere in the field, terms like 'transitivity' and 'clustering'  are often used quite loosely, so it is always wise to look closely at the formal specifications (if provided) to know what is meant in a specific use case.
+
+We here compute what is most commonly known as the 'clustering coefficient'. This computes, for each vertex, the proportion of the potential ties between the vertex' neighbors that actually exist (in the ego networks literature, this is referred to as local density), and averages this over all vertices.  
+
 ```{r}
 transitivity(z, type="average")
 ```
 
+Interestingly, the specification of 'average' for the 'type' parameter is not explained in the `igraph` documentation, but this is what it does. 
 
 ## Individual level: centrality
 
