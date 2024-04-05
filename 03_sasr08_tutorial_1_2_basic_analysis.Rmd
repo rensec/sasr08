@@ -94,6 +94,8 @@ Interestingly, the specification of 'average' for the 'type' parameter is not ex
 
 ## Individual level: centrality
 
+Moving to the individual (that is, node-level) measures, we concentrate here on centrality measures. Obviously, there are many other measures related to individual network position that may be relevant (and are included in `igraph`, see the [reference manual](https://r.igraph.org/reference/index.html#structural-properties)).
+
 ### Degree centrality
 
 ```{r}
