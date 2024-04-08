@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Handling social network data in R | SaSR 8: Social Network Analysis</title>
+  <title>1 Handling social network data in R | SaSR 8: Social Network Analysis</title>
   <meta name="description" content="This page contains tutorials for SaSR 8" />
   <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Handling social network data in R | SaSR 8: Social Network Analysis" />
+  <meta property="og:title" content="1 Handling social network data in R | SaSR 8: Social Network Analysis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This page contains tutorials for SaSR 8" />
   <meta name="github-repo" content="rensec/sasr08" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Handling social network data in R | SaSR 8: Social Network Analysis" />
+  <meta name="twitter:title" content="1 Handling social network data in R | SaSR 8: Social Network Analysis" />
   
   <meta name="twitter:description" content="This page contains tutorials for SaSR 8" />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten" />
 
 
-<meta name="date" content="2024-04-04" />
+<meta name="date" content="2024-04-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -140,41 +140,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">SaSR8 </a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i>Usage</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#credits-and-further-resources"><i class="fa fa-check"></i>Credits and further resources</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html"><i class="fa fa-check"></i><b>2</b> Handling social network data in R</a>
+<li class="chapter" data-level="1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html"><i class="fa fa-check"></i><b>1</b> Handling social network data in R</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#getting-network-data-into-r-igraph"><i class="fa fa-check"></i><b>2.1</b> Getting network data into R: igraph</a>
+<li class="chapter" data-level="1.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#getting-network-data-into-r-the-igraph-package"><i class="fa fa-check"></i><b>1.1</b> Getting network data into R: the igraph package</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#creating-network-objects-in-igraph"><i class="fa fa-check"></i><b>2.1.1</b> Creating network objects in igraph</a></li>
-<li class="chapter" data-level="2.1.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#creating-network-objects-from-adjacency-list-data"><i class="fa fa-check"></i><b>2.1.2</b> Creating network objects from adjacency list data</a></li>
+<li class="chapter" data-level="1.1.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#creating-network-objects-in-igraph"><i class="fa fa-check"></i><b>1.1.1</b> Creating network objects in igraph</a></li>
+<li class="chapter" data-level="1.1.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#creating-network-objects-from-adjacency-list-data"><i class="fa fa-check"></i><b>1.1.2</b> Creating network objects from adjacency list data</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#the-reverse-direction-exporting-from-igraph-objects"><i class="fa fa-check"></i><b>2.2</b> The reverse direction: exporting from igraph objects</a>
+<li class="chapter" data-level="1.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#the-reverse-direction-exporting-from-igraph-objects"><i class="fa fa-check"></i><b>1.2</b> The reverse direction: exporting from igraph objects</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-adjacency-matrix"><i class="fa fa-check"></i><b>2.2.1</b> From igraph to adjacency matrix</a></li>
-<li class="chapter" data-level="2.2.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-edge-list"><i class="fa fa-check"></i><b>2.2.2</b> From igraph to edge list</a></li>
-<li class="chapter" data-level="2.2.3" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#back-to-an-adjacency-list-from-igraph"><i class="fa fa-check"></i><b>2.2.3</b> Back to an adjacency list from igraph</a></li>
-<li class="chapter" data-level="2.2.4" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-edge-list-to-network-package-object"><i class="fa fa-check"></i><b>2.2.4</b> From edge list to network package object</a></li>
+<li class="chapter" data-level="1.2.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-adjacency-matrix"><i class="fa fa-check"></i><b>1.2.1</b> From igraph to adjacency matrix</a></li>
+<li class="chapter" data-level="1.2.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-edge-list"><i class="fa fa-check"></i><b>1.2.2</b> From igraph to edge list</a></li>
+<li class="chapter" data-level="1.2.3" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-adjacency-list"><i class="fa fa-check"></i><b>1.2.3</b> From igraph to adjacency list</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#modifying-networks"><i class="fa fa-check"></i><b>2.3</b> Modifying networks</a></li>
+<li class="chapter" data-level="1.3" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#getting-network-data-into-r-the-network-package"><i class="fa fa-check"></i><b>1.3</b> Getting network data into R: the network package</a></li>
+<li class="chapter" data-level="1.4" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#modifying-networks-in-igraph"><i class="fa fa-check"></i><b>1.4</b> Modifying networks in igraph</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html"><i class="fa fa-check"></i><b>3</b> Basic network analysis in R</a>
+<li class="chapter" data-level="2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html"><i class="fa fa-check"></i><b>2</b> Basic network analysis in R</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#network-level-a-five-number-summary"><i class="fa fa-check"></i><b>3.1</b> Network level: a “five number summary”</a>
+<li class="chapter" data-level="2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#network-level-a-five-number-summary"><i class="fa fa-check"></i><b>2.1</b> Network level: a “five number summary”</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#size"><i class="fa fa-check"></i><b>3.1.1</b> Size</a></li>
-<li class="chapter" data-level="3.1.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#density"><i class="fa fa-check"></i><b>3.1.2</b> Density</a></li>
-<li class="chapter" data-level="3.1.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#components"><i class="fa fa-check"></i><b>3.1.3</b> Components</a></li>
-<li class="chapter" data-level="3.1.4" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#diameter-and-distances"><i class="fa fa-check"></i><b>3.1.4</b> Diameter (and distances)</a></li>
-<li class="chapter" data-level="3.1.5" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#clustering-coefficient"><i class="fa fa-check"></i><b>3.1.5</b> Clustering Coefficient</a></li>
+<li class="chapter" data-level="2.1.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#size"><i class="fa fa-check"></i><b>2.1.1</b> Size</a></li>
+<li class="chapter" data-level="2.1.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#density"><i class="fa fa-check"></i><b>2.1.2</b> Density</a></li>
+<li class="chapter" data-level="2.1.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#components"><i class="fa fa-check"></i><b>2.1.3</b> Components</a></li>
+<li class="chapter" data-level="2.1.4" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#diameter-and-distances"><i class="fa fa-check"></i><b>2.1.4</b> Diameter (and distances)</a></li>
+<li class="chapter" data-level="2.1.5" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#clustering-coefficient"><i class="fa fa-check"></i><b>2.1.5</b> Clustering Coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#individual-level-centrality"><i class="fa fa-check"></i><b>3.2</b> Individual level: centrality</a>
+<li class="chapter" data-level="2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#individual-level-centrality"><i class="fa fa-check"></i><b>2.2</b> Individual level: centrality</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#degree-centrality"><i class="fa fa-check"></i><b>3.2.1</b> Degree centrality</a></li>
-<li class="chapter" data-level="3.2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#betweenness-centrality"><i class="fa fa-check"></i><b>3.2.2</b> Betweenness centrality</a></li>
-<li class="chapter" data-level="3.2.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#closeness-centrality"><i class="fa fa-check"></i><b>3.2.3</b> Closeness centrality</a></li>
+<li class="chapter" data-level="2.2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#degree-centrality"><i class="fa fa-check"></i><b>2.2.1</b> Degree centrality</a></li>
+<li class="chapter" data-level="2.2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#betweenness-centrality"><i class="fa fa-check"></i><b>2.2.2</b> Betweenness centrality</a></li>
+<li class="chapter" data-level="2.2.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#closeness-centrality"><i class="fa fa-check"></i><b>2.2.3</b> Closeness centrality</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -197,8 +198,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="handling-social-network-data-in-r" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">2</span> Handling social network data in R<a href="handling-social-network-data-in-r.html#handling-social-network-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="handling-social-network-data-in-r" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Handling social network data in R<a href="handling-social-network-data-in-r.html#handling-social-network-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This R notebook demonstrates some data handling procedures for relational (social network) data, especially data as generated by “name generator” questionnaires.</p>
 <p>We start by loading some useful packages:</p>
 <ul>
@@ -210,8 +211,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="handling-social-network-data-in-r.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
 <span id="cb1-3"><a href="handling-social-network-data-in-r.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
 <span id="cb1-4"><a href="handling-social-network-data-in-r.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<div id="getting-network-data-into-r-igraph" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Getting network data into R: igraph<a href="handling-social-network-data-in-r.html#getting-network-data-into-r-igraph" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="getting-network-data-into-r-the-igraph-package" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Getting network data into R: the igraph package<a href="handling-social-network-data-in-r.html#getting-network-data-into-r-the-igraph-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We start by reading some network data from disk (or from the internet, in this case). A simple and very common way to store data is as “comma-separated values” (CSV). Let’s load some “toy data”:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="handling-social-network-data-in-r.html#cb2-1" tabindex="-1"></a>url1 <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/rensec/sasr08/raw/main/g_adj_matrix_simple.csv&quot;</span></span>
 <span id="cb2-2"><a href="handling-social-network-data-in-r.html#cb2-2" tabindex="-1"></a>g_matrix <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> url1, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
@@ -256,17 +257,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5  5  21</code></pre>
 <p>We now have information about nodes and edges loaded in R . However, to R, these are just like <em>any</em> data; it doesn’t “know” that these are network data. In order to be able to use specific SNA procedures, we first need to create <em>network objects</em>, which is what we’ll do next.</p>
 <p><strong>NOTE:</strong> the data that we’ve loaded now just happened to be stored as an adjacency matrix; it is also possible to store network data on disk in other formats. We’ll get to that later.</p>
-<div id="creating-network-objects-in-igraph" class="section level3 hasAnchor" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> Creating network objects in igraph<a href="handling-social-network-data-in-r.html#creating-network-objects-in-igraph" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="creating-network-objects-in-igraph" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Creating network objects in igraph<a href="handling-social-network-data-in-r.html#creating-network-objects-in-igraph" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Network analysis packages such as <code>igraph</code> handle data efficiently by storing data in their own type of <em>objects</em>, which basically ensure that all procedures make sense for network data. A network object as used by <code>igraph</code> includes the information on both edges and nodes of a network in a single “box” (and potentially other information about the network too).</p>
 <p>To create an <code>igraph</code> network object from our matrix object we run:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="handling-social-network-data-in-r.html#cb12-1" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">graph_from_adjacency_matrix</span>(g_matrix)</span>
 <span id="cb12-2"><a href="handling-social-network-data-in-r.html#cb12-2" tabindex="-1"></a><span class="fu">class</span>(g)</span></code></pre></div>
 <pre><code>## [1] &quot;igraph&quot;</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="handling-social-network-data-in-r.html#cb14-1" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 9db58e2 DN-- 5 4 -- 
+<pre><code>## IGRAPH 1461064 DN-- 5 4 -- 
 ## + attr: name (v/c)
-## + edges from 9db58e2 (vertex names):
+## + edges from 1461064 (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>The output from running “g” already shows that this is now a network object (specifically: an object of the class “igraph”, as shown by <code>class()</code>): R interprets the object as a network and shows us the edges in the network. This also means that other R functions - to the extent that they have network methods implemented - now automatically recognize <code>g</code> as a network object and will behave accordingly (note that this is a key feature of R as an “object-oriented language”). For example, we can now run the standard <code>plot()</code> function and it will create a network map:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="handling-social-network-data-in-r.html#cb16-1" tabindex="-1"></a><span class="fu">plot</span>(g)</span></code></pre></div>
@@ -276,8 +277,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb17-2"><a href="handling-social-network-data-in-r.html#cb17-2" tabindex="-1"></a>                     <span class="at">name =</span> <span class="st">&quot;age&quot;</span>,</span>
 <span id="cb17-3"><a href="handling-social-network-data-in-r.html#cb17-3" tabindex="-1"></a>                     <span class="at">value =</span> g_nodes_age<span class="sc">$</span>age)</span></code></pre></div>
 </div>
-<div id="creating-network-objects-from-adjacency-list-data" class="section level3 hasAnchor" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> Creating network objects from adjacency list data<a href="handling-social-network-data-in-r.html#creating-network-objects-from-adjacency-list-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="creating-network-objects-from-adjacency-list-data" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Creating network objects from adjacency list data<a href="handling-social-network-data-in-r.html#creating-network-objects-from-adjacency-list-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A common format for network data, especially if collected via survey methods, is the <em>adjacency list</em>. In this format, we have a row for each node, and columns that indicate the first, second, third…etc connection of each node. The file <code>g_adj_list.csv</code> is an example of this format (it is again our toy network as used in the previous excercises).</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="handling-social-network-data-in-r.html#cb18-1" tabindex="-1"></a>g_adj_list <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;https://github.com/rensec/sasr08/raw/main/g_adj_list.csv&quot;</span>)</span>
 <span id="cb18-2"><a href="handling-social-network-data-in-r.html#cb18-2" tabindex="-1"></a>g_adj_list</span></code></pre></div>
@@ -351,11 +352,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>That’s better! Note that besides the node IDs, we also include the age variable in the network object as a node attribute, such that we could use it in analyses based on the network object.</p>
 </div>
 </div>
-<div id="the-reverse-direction-exporting-from-igraph-objects" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> The reverse direction: exporting from igraph objects<a href="handling-social-network-data-in-r.html#the-reverse-direction-exporting-from-igraph-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-reverse-direction-exporting-from-igraph-objects" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> The reverse direction: exporting from igraph objects<a href="handling-social-network-data-in-r.html#the-reverse-direction-exporting-from-igraph-objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Handling your network data as igraph objects is useful for social network analysis, but sometimes we also want to transform our data back from network objects to “regular” matrix objects or data frames. We briefly cover some of these cases here.</p>
-<div id="from-igraph-to-adjacency-matrix" class="section level3 hasAnchor" number="2.2.1">
-<h3><span class="header-section-number">2.2.1</span> From igraph to adjacency matrix<a href="handling-social-network-data-in-r.html#from-igraph-to-adjacency-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="from-igraph-to-adjacency-matrix" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> From igraph to adjacency matrix<a href="handling-social-network-data-in-r.html#from-igraph-to-adjacency-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="handling-social-network-data-in-r.html#cb28-1" tabindex="-1"></a>g_adj_matrix <span class="ot">&lt;-</span> <span class="fu">as_adjacency_matrix</span>(g, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb28-2"><a href="handling-social-network-data-in-r.html#cb28-2" tabindex="-1"></a>g_adj_matrix</span></code></pre></div>
 <pre><code>##   1 2 3 4 5
@@ -368,8 +369,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="handling-social-network-data-in-r.html#cb30-1" tabindex="-1"></a><span class="fu">all</span>(g_adj_matrix <span class="sc">==</span> g_matrix)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
-<div id="from-igraph-to-edge-list" class="section level3 hasAnchor" number="2.2.2">
-<h3><span class="header-section-number">2.2.2</span> From igraph to edge list<a href="handling-social-network-data-in-r.html#from-igraph-to-edge-list" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="from-igraph-to-edge-list" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> From igraph to edge list<a href="handling-social-network-data-in-r.html#from-igraph-to-edge-list" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="handling-social-network-data-in-r.html#cb32-1" tabindex="-1"></a>g_edgelist <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g_from_elist, <span class="at">what =</span> <span class="st">&quot;edges&quot;</span>) </span>
 <span id="cb32-2"><a href="handling-social-network-data-in-r.html#cb32-2" tabindex="-1"></a>g_edgelist </span></code></pre></div>
 <pre><code>##   from to sourcevar
@@ -387,8 +388,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4    4  NA
 ## 5    5  21</code></pre>
 </div>
-<div id="back-to-an-adjacency-list-from-igraph" class="section level3 hasAnchor" number="2.2.3">
-<h3><span class="header-section-number">2.2.3</span> Back to an adjacency list from igraph<a href="handling-social-network-data-in-r.html#back-to-an-adjacency-list-from-igraph" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="from-igraph-to-adjacency-list" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> From igraph to adjacency list<a href="handling-social-network-data-in-r.html#from-igraph-to-adjacency-list" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="handling-social-network-data-in-r.html#cb36-1" tabindex="-1"></a>edgelist_2 <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g_from_elist, <span class="at">what =</span> <span class="st">&quot;edges&quot;</span>)</span>
 <span id="cb36-2"><a href="handling-social-network-data-in-r.html#cb36-2" tabindex="-1"></a>nodelist_2 <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g_from_elist, <span class="at">what =</span> <span class="st">&quot;vertices&quot;</span>)</span>
 <span id="cb36-3"><a href="handling-social-network-data-in-r.html#cb36-3" tabindex="-1"></a><span class="co"># Note the use of the &quot;namespace&quot; &quot;igraph::&quot; here, to indicate that we need the igraph function here, not the function with the same name from the dplyr/tidyverse package</span></span>
@@ -400,7 +401,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb36-9"><a href="handling-social-network-data-in-r.html#cb36-9" tabindex="-1"></a>  <span class="fu">relocate</span>(age, <span class="at">.after =</span> id) <span class="sc">%&gt;%</span> </span>
 <span id="cb36-10"><a href="handling-social-network-data-in-r.html#cb36-10" tabindex="-1"></a>  <span class="fu">type_convert</span>() <span class="co">#as_data_frame returns characters; this transforms it back to numeric</span></span></code></pre></div>
 <pre><code>## 
-## ── Column specification ─────────────────────────────────────────────────────────────────────────────
+## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────
 ## cols(
 ##   id = col_double(),
 ##   friend1 = col_double(),
@@ -415,8 +416,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5  5  21      NA      NA</code></pre>
 <p>…and we’re back!</p>
 </div>
-<div id="from-edge-list-to-network-package-object" class="section level3 hasAnchor" number="2.2.4">
-<h3><span class="header-section-number">2.2.4</span> From edge list to network package object<a href="handling-social-network-data-in-r.html#from-edge-list-to-network-package-object" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="getting-network-data-into-r-the-network-package" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Getting network data into R: the network package<a href="handling-social-network-data-in-r.html#getting-network-data-into-r-the-network-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>An alternative to <code>igraph</code> is the <code>network</code> package, which has its own type of network data object (as used by, for example, the <code>sna</code> and <code>ergm</code> packages), and its own set of functions for handling network data. Note that we’ve already loaded the <code>network</code> package at the start of the tutorial. We can import our data into a <code>network</code> object (using the edge list that we’ve created before) as follows:</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="handling-social-network-data-in-r.html#cb40-1" tabindex="-1"></a>g_np <span class="ot">&lt;-</span> <span class="fu">as.network</span>(g_elist_from_alist, <span class="at">matrix.type =</span> <span class="st">&quot;edgelist&quot;</span>, <span class="at">vertices =</span> nodelist)</span>
 <span id="cb40-2"><a href="handling-social-network-data-in-r.html#cb40-2" tabindex="-1"></a>g_np</span></code></pre></div>
@@ -440,9 +442,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="_main_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>We don’t discuss <code>network</code> in-depth for now; it suffices to say that the choice between <code>igraph</code> and <code>network</code> will typically depend on the specific needs of your research project. Both packages include a large set of functions for handling network data, but as <code>igraph</code> is a bit more comprehensive in terms of functions for network <em>analysis</em>, it tends to be somewhat <a href="https://www.r-bloggers.com/2016/01/r-graph-objects-igraph-vs-network/">more popular</a>. There are also companion packages for <code>network</code> that allow various types of analyses, included in the <code>statnet</code> suite. Finally, for converting between <code>network</code>- and <code>igraph</code>- objects, look at <code>intergraph</code>.</p>
 </div>
-</div>
-<div id="modifying-networks" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Modifying networks<a href="handling-social-network-data-in-r.html#modifying-networks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="modifying-networks-in-igraph" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Modifying networks in igraph<a href="handling-social-network-data-in-r.html#modifying-networks-in-igraph" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We now turn back to <code>igraph</code>. Once we have our data wrapped into a network object, we can use <code>igraph</code> functions to make changes to the data. For example, we may remove a node:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="handling-social-network-data-in-r.html#cb43-1" tabindex="-1"></a>g_mod <span class="ot">&lt;-</span> <span class="fu">delete_vertices</span>(g,<span class="dv">2</span>)</span>
 <span id="cb43-2"><a href="handling-social-network-data-in-r.html#cb43-2" tabindex="-1"></a><span class="fu">plot</span>(g_mod)</span></code></pre></div>
@@ -457,9 +458,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We have already seen the use of <code>set_vertex_attr()</code> to add node attributes, of <code>V()</code> to get all nodes. As an alternative to <code>set_vertex_attr()</code>, we can also use <code>V()</code> for the same purpose:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="handling-social-network-data-in-r.html#cb45-1" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;male&quot;</span>) </span>
 <span id="cb45-2"><a href="handling-social-network-data-in-r.html#cb45-2" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 9db58e2 DN-- 5 4 -- 
+<pre><code>## IGRAPH 1461064 DN-- 5 4 -- 
 ## + attr: name (v/c), age (v/n), gender (v/c)
-## + edges from 9db58e2 (vertex names):
+## + edges from 1461064 (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>Similarly, we can use <code>E()</code> to access, add and modify edge attributes.</p>
 <p>For more information on all the graph manipulation functions included in <code>igraph</code>, see the <a href="https://r.igraph.org/articles/igraph.html">package’s website</a> and, of course, the help pages in R.</p>

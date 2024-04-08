@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Basic network analysis in R | SaSR 8: Social Network Analysis</title>
+  <title>2 Basic network analysis in R | SaSR 8: Social Network Analysis</title>
   <meta name="description" content="This page contains tutorials for SaSR 8" />
   <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Basic network analysis in R | SaSR 8: Social Network Analysis" />
+  <meta property="og:title" content="2 Basic network analysis in R | SaSR 8: Social Network Analysis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This page contains tutorials for SaSR 8" />
   <meta name="github-repo" content="rensec/sasr08" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Basic network analysis in R | SaSR 8: Social Network Analysis" />
+  <meta name="twitter:title" content="2 Basic network analysis in R | SaSR 8: Social Network Analysis" />
   
   <meta name="twitter:description" content="This page contains tutorials for SaSR 8" />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten" />
 
 
-<meta name="date" content="2024-04-04" />
+<meta name="date" content="2024-04-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -140,41 +140,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">SaSR8 </a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i>Usage</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#credits-and-further-resources"><i class="fa fa-check"></i>Credits and further resources</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html"><i class="fa fa-check"></i><b>2</b> Handling social network data in R</a>
+<li class="chapter" data-level="1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html"><i class="fa fa-check"></i><b>1</b> Handling social network data in R</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#getting-network-data-into-r-igraph"><i class="fa fa-check"></i><b>2.1</b> Getting network data into R: igraph</a>
+<li class="chapter" data-level="1.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#getting-network-data-into-r-the-igraph-package"><i class="fa fa-check"></i><b>1.1</b> Getting network data into R: the igraph package</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#creating-network-objects-in-igraph"><i class="fa fa-check"></i><b>2.1.1</b> Creating network objects in igraph</a></li>
-<li class="chapter" data-level="2.1.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#creating-network-objects-from-adjacency-list-data"><i class="fa fa-check"></i><b>2.1.2</b> Creating network objects from adjacency list data</a></li>
+<li class="chapter" data-level="1.1.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#creating-network-objects-in-igraph"><i class="fa fa-check"></i><b>1.1.1</b> Creating network objects in igraph</a></li>
+<li class="chapter" data-level="1.1.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#creating-network-objects-from-adjacency-list-data"><i class="fa fa-check"></i><b>1.1.2</b> Creating network objects from adjacency list data</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#the-reverse-direction-exporting-from-igraph-objects"><i class="fa fa-check"></i><b>2.2</b> The reverse direction: exporting from igraph objects</a>
+<li class="chapter" data-level="1.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#the-reverse-direction-exporting-from-igraph-objects"><i class="fa fa-check"></i><b>1.2</b> The reverse direction: exporting from igraph objects</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-adjacency-matrix"><i class="fa fa-check"></i><b>2.2.1</b> From igraph to adjacency matrix</a></li>
-<li class="chapter" data-level="2.2.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-edge-list"><i class="fa fa-check"></i><b>2.2.2</b> From igraph to edge list</a></li>
-<li class="chapter" data-level="2.2.3" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#back-to-an-adjacency-list-from-igraph"><i class="fa fa-check"></i><b>2.2.3</b> Back to an adjacency list from igraph</a></li>
-<li class="chapter" data-level="2.2.4" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-edge-list-to-network-package-object"><i class="fa fa-check"></i><b>2.2.4</b> From edge list to network package object</a></li>
+<li class="chapter" data-level="1.2.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-adjacency-matrix"><i class="fa fa-check"></i><b>1.2.1</b> From igraph to adjacency matrix</a></li>
+<li class="chapter" data-level="1.2.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-edge-list"><i class="fa fa-check"></i><b>1.2.2</b> From igraph to edge list</a></li>
+<li class="chapter" data-level="1.2.3" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-adjacency-list"><i class="fa fa-check"></i><b>1.2.3</b> From igraph to adjacency list</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#modifying-networks"><i class="fa fa-check"></i><b>2.3</b> Modifying networks</a></li>
+<li class="chapter" data-level="1.3" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#getting-network-data-into-r-the-network-package"><i class="fa fa-check"></i><b>1.3</b> Getting network data into R: the network package</a></li>
+<li class="chapter" data-level="1.4" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#modifying-networks-in-igraph"><i class="fa fa-check"></i><b>1.4</b> Modifying networks in igraph</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html"><i class="fa fa-check"></i><b>3</b> Basic network analysis in R</a>
+<li class="chapter" data-level="2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html"><i class="fa fa-check"></i><b>2</b> Basic network analysis in R</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#network-level-a-five-number-summary"><i class="fa fa-check"></i><b>3.1</b> Network level: a “five number summary”</a>
+<li class="chapter" data-level="2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#network-level-a-five-number-summary"><i class="fa fa-check"></i><b>2.1</b> Network level: a “five number summary”</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#size"><i class="fa fa-check"></i><b>3.1.1</b> Size</a></li>
-<li class="chapter" data-level="3.1.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#density"><i class="fa fa-check"></i><b>3.1.2</b> Density</a></li>
-<li class="chapter" data-level="3.1.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#components"><i class="fa fa-check"></i><b>3.1.3</b> Components</a></li>
-<li class="chapter" data-level="3.1.4" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#diameter-and-distances"><i class="fa fa-check"></i><b>3.1.4</b> Diameter (and distances)</a></li>
-<li class="chapter" data-level="3.1.5" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#clustering-coefficient"><i class="fa fa-check"></i><b>3.1.5</b> Clustering Coefficient</a></li>
+<li class="chapter" data-level="2.1.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#size"><i class="fa fa-check"></i><b>2.1.1</b> Size</a></li>
+<li class="chapter" data-level="2.1.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#density"><i class="fa fa-check"></i><b>2.1.2</b> Density</a></li>
+<li class="chapter" data-level="2.1.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#components"><i class="fa fa-check"></i><b>2.1.3</b> Components</a></li>
+<li class="chapter" data-level="2.1.4" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#diameter-and-distances"><i class="fa fa-check"></i><b>2.1.4</b> Diameter (and distances)</a></li>
+<li class="chapter" data-level="2.1.5" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#clustering-coefficient"><i class="fa fa-check"></i><b>2.1.5</b> Clustering Coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#individual-level-centrality"><i class="fa fa-check"></i><b>3.2</b> Individual level: centrality</a>
+<li class="chapter" data-level="2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#individual-level-centrality"><i class="fa fa-check"></i><b>2.2</b> Individual level: centrality</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#degree-centrality"><i class="fa fa-check"></i><b>3.2.1</b> Degree centrality</a></li>
-<li class="chapter" data-level="3.2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#betweenness-centrality"><i class="fa fa-check"></i><b>3.2.2</b> Betweenness centrality</a></li>
-<li class="chapter" data-level="3.2.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#closeness-centrality"><i class="fa fa-check"></i><b>3.2.3</b> Closeness centrality</a></li>
+<li class="chapter" data-level="2.2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#degree-centrality"><i class="fa fa-check"></i><b>2.2.1</b> Degree centrality</a></li>
+<li class="chapter" data-level="2.2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#betweenness-centrality"><i class="fa fa-check"></i><b>2.2.2</b> Betweenness centrality</a></li>
+<li class="chapter" data-level="2.2.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#closeness-centrality"><i class="fa fa-check"></i><b>2.2.3</b> Closeness centrality</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -197,18 +198,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="basic-network-analysis-in-r" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">3</span> Basic network analysis in R<a href="basic-network-analysis-in-r.html#basic-network-analysis-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="basic-network-analysis-in-r" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Basic network analysis in R<a href="basic-network-analysis-in-r.html#basic-network-analysis-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this tutorial we’ll use the <code>igraph</code> package to do some basic descriptive social network analysis. Obviously, we can only scratch the surface here, and many research project will require different analyses. Also, we do not cover visualization specifically.</p>
 <p>As an example network, we’ll use the famous “karate club” data studied by Zachary (1977), included with <code>igraph</code>.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="basic-network-analysis-in-r.html#cb47-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb47-2"><a href="basic-network-analysis-in-r.html#cb47-2" tabindex="-1"></a></span>
-<span id="cb47-3"><a href="basic-network-analysis-in-r.html#cb47-3" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">make_graph</span>(<span class="st">&quot;Zachary&quot;</span>)</span>
-<span id="cb47-4"><a href="basic-network-analysis-in-r.html#cb47-4" tabindex="-1"></a></span>
-<span id="cb47-5"><a href="basic-network-analysis-in-r.html#cb47-5" tabindex="-1"></a>z</span></code></pre></div>
-<pre><code>## IGRAPH 9e7c550 U--- 34 78 -- Zachary
+<span id="cb47-2"><a href="basic-network-analysis-in-r.html#cb47-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">make_graph</span>(<span class="st">&quot;Zachary&quot;</span>)</span>
+<span id="cb47-3"><a href="basic-network-analysis-in-r.html#cb47-3" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>## IGRAPH 15414c8 U--- 34 78 -- Zachary
 ## + attr: name (g/c)
-## + edges from 9e7c550:
+## + edges from 15414c8:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  1-- 7  1-- 8  1-- 9  1--11  1--12
 ## [11]  1--13  1--14  1--18  1--20  1--22  1--32  2-- 3  2-- 4  2-- 8  2--14
 ## [21]  2--18  2--20  2--22  2--31  3-- 4  3-- 8  3--28  3--29  3--33  3--10
@@ -222,19 +221,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This looks like an undirected network, which we can verify using:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="basic-network-analysis-in-r.html#cb50-1" tabindex="-1"></a><span class="fu">is_directed</span>(z)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div id="network-level-a-five-number-summary" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Network level: a “five number summary”<a href="basic-network-analysis-in-r.html#network-level-a-five-number-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="network-level-a-five-number-summary" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Network level: a “five number summary”<a href="basic-network-analysis-in-r.html#network-level-a-five-number-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A good starting point of any network analysis project is to look at some basic properties of the graph <em>as a whole</em>. While there are many potentially interesting properties, we’ll focus here on the the “five number summary” as suggested by <a href="https://link.springer.com/book/10.1007/978-3-319-23883-8">Luke (2015)</a>.</p>
-<div id="size" class="section level3 hasAnchor" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Size<a href="basic-network-analysis-in-r.html#size" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="size" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Size<a href="basic-network-analysis-in-r.html#size" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Probably the most basic property of a network is its <em>size</em>, that is, the number of vertices and the number of edges. While <code>igraph</code> already reported them above (if you knew where to look), we can ask for these numbers specifically:</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="basic-network-analysis-in-r.html#cb52-1" tabindex="-1"></a><span class="fu">ecount</span>(z)</span></code></pre></div>
 <pre><code>## [1] 78</code></pre>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="basic-network-analysis-in-r.html#cb54-1" tabindex="-1"></a><span class="fu">vcount</span>(z)</span></code></pre></div>
 <pre><code>## [1] 34</code></pre>
 </div>
-<div id="density" class="section level3 hasAnchor" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> Density<a href="basic-network-analysis-in-r.html#density" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="density" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Density<a href="basic-network-analysis-in-r.html#density" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <em>density</em> of a network is the ratio of existing edges and the maximum possible number of edges that could exist, given the number of vertices. We can let R calculate it for us:</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="basic-network-analysis-in-r.html#cb56-1" tabindex="-1"></a><span class="fu">edge_density</span>(z)</span></code></pre></div>
 <pre><code>## [1] 0.1390374</code></pre>
@@ -243,9 +242,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If desired, we can also add such network-level results to the network object, for later use:</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="basic-network-analysis-in-r.html#cb58-1" tabindex="-1"></a>z<span class="sc">$</span>density <span class="ot">&lt;-</span> <span class="fu">edge_density</span>(z)</span>
 <span id="cb58-2"><a href="basic-network-analysis-in-r.html#cb58-2" tabindex="-1"></a>z</span></code></pre></div>
-<pre><code>## IGRAPH 9e7c550 U--- 34 78 -- Zachary
+<pre><code>## IGRAPH 15414c8 U--- 34 78 -- Zachary
 ## + attr: name (g/c), density (g/n)
-## + edges from 9e7c550:
+## + edges from 15414c8:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  1-- 7  1-- 8  1-- 9  1--11  1--12
 ## [11]  1--13  1--14  1--18  1--20  1--22  1--32  2-- 3  2-- 4  2-- 8  2--14
 ## [21]  2--18  2--20  2--22  2--31  3-- 4  3-- 8  3--28  3--29  3--33  3--10
@@ -256,39 +255,78 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [71] 29--34 30--33 30--34 31--33 31--34 32--33 32--34 33--34</code></pre>
 <p>‘Density’ is now listed as one of the attributes of the object, where ‘g/n’ indicates that it is a graph-level attribute.</p>
 </div>
-<div id="components" class="section level3 hasAnchor" number="3.1.3">
-<h3><span class="header-section-number">3.1.3</span> Components<a href="basic-network-analysis-in-r.html#components" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="components" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Components<a href="basic-network-analysis-in-r.html#components" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The number of components is the number of unconnected parts of the network (which may be parts consisting of one node, that is, isolates). The number of components in this network is, quite trivially, just one, but the way to get it is:</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="basic-network-analysis-in-r.html#cb60-1" tabindex="-1"></a><span class="fu">count_components</span>(z)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
-<div id="diameter-and-distances" class="section level3 hasAnchor" number="3.1.4">
-<h3><span class="header-section-number">3.1.4</span> Diameter (and distances)<a href="basic-network-analysis-in-r.html#diameter-and-distances" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="diameter-and-distances" class="section level3 hasAnchor" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Diameter (and distances)<a href="basic-network-analysis-in-r.html#diameter-and-distances" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The diameter of a network is the “longest shortest path” in the network</p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="basic-network-analysis-in-r.html#cb62-1" tabindex="-1"></a><span class="fu">diameter</span>(z)</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
+<p>A related an much-studied property is the <em>average</em> shortest path length, that is, the average of all the shortest path over all pairs of vertices in the network. For example, this is the key indicator in the “small world phenomenon”.</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="basic-network-analysis-in-r.html#cb64-1" tabindex="-1"></a><span class="fu">mean_distance</span>(z)</span></code></pre></div>
 <pre><code>## [1] 2.4082</code></pre>
 </div>
-<div id="clustering-coefficient" class="section level3 hasAnchor" number="3.1.5">
-<h3><span class="header-section-number">3.1.5</span> Clustering Coefficient<a href="basic-network-analysis-in-r.html#clustering-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="clustering-coefficient" class="section level3 hasAnchor" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> Clustering Coefficient<a href="basic-network-analysis-in-r.html#clustering-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Clustering, or transitivity, relates to the extent to which triangles tend to be closed in the network, or put differently, to what extent neighbors of nodes tend to be connected themselves. There are many ways to quantify this tendency (which also differ for directed an undirected networks), and the <code>transitivity()</code> function covers many of them. Note that in the literature and elsewhere in the field, terms like ‘transitivity’ and ‘clustering’ are often used quite loosely, so it is always wise to look closely at the formal specifications (if provided) to know what is meant in a specific use case.</p>
+<p>We here compute what is most commonly known as the ‘clustering coefficient’. This computes, for each vertex, the proportion of the potential ties between the vertex’ neighbors that actually exist (in the ego networks literature, this is referred to as local density), and averages this over all vertices.</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="basic-network-analysis-in-r.html#cb66-1" tabindex="-1"></a><span class="fu">transitivity</span>(z, <span class="at">type=</span><span class="st">&quot;average&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0.5879306</code></pre>
+<p>Interestingly, the specification of ‘average’ for the ‘type’ parameter is not explained in the <code>igraph</code> documentation, but this is what it does.</p>
 </div>
 </div>
-<div id="individual-level-centrality" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Individual level: centrality<a href="basic-network-analysis-in-r.html#individual-level-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="degree-centrality" class="section level3 hasAnchor" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> Degree centrality<a href="basic-network-analysis-in-r.html#degree-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="individual-level-centrality" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Individual level: centrality<a href="basic-network-analysis-in-r.html#individual-level-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Moving to the individual (that is, node-level) measures, we concentrate here on centrality measures. Obviously, there are many other measures related to individual network position that may be relevant (and are included in <code>igraph</code>, see the <a href="https://r.igraph.org/reference/index.html#structural-properties">reference manual</a>).</p>
+<div id="degree-centrality" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Degree centrality<a href="basic-network-analysis-in-r.html#degree-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The most straightforward measure of centrality is <em>degree centrality</em>, or simply the number of connections per node. We obtain it using the <code>degree()</code> function from <code>igraph</code>:</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="basic-network-analysis-in-r.html#cb68-1" tabindex="-1"></a><span class="fu">degree</span>(z)</span></code></pre></div>
 <pre><code>##  [1] 16  9 10  6  3  4  4  4  5  2  3  1  2  5  2  2  2  2  2  3  2  2  2  5  3
 ## [26]  3  2  4  3  4  4  6 12 17</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="basic-network-analysis-in-r.html#cb70-1" tabindex="-1"></a><span class="fu">V</span>(z)<span class="sc">$</span>degree <span class="ot">&lt;-</span> <span class="fu">degree</span>(z)</span></code></pre></div>
-<p>Alternatively, we could have used <code>set_vertex_attr()</code>, which would work better in a “pipeline” workflow (using <code>%&gt;%</code>).</p>
+<p>Because degree is an individual-level property, the result from the function is no longer a single number as before, but a vector of numbers, one for each node. Of course we can use this vector for further calculations:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="basic-network-analysis-in-r.html#cb70-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">degree</span>(z))</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.000   2.000   3.000   4.588   5.000  17.000</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="basic-network-analysis-in-r.html#cb72-1" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">degree</span>(z))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>(Note that there are of course much nicer and better ways to analyze and visualize distributions like this, but that is not the point of this tutorial.)</p>
+<p>In many other cases, we’d want to keep the individual-level results on centrality and add them to the network object for later use:</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="basic-network-analysis-in-r.html#cb73-1" tabindex="-1"></a><span class="fu">V</span>(z)<span class="sc">$</span>degree <span class="ot">&lt;-</span> <span class="fu">degree</span>(z)</span></code></pre></div>
+<p>We may, for example, want to use it in a plot:</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="basic-network-analysis-in-r.html#cb74-1" tabindex="-1"></a><span class="co">#We add  + 8 to degree to avoid that the lowest-degree nodes become really small and specify margin = -0.1 to reduce the whitespace around the plot</span></span>
+<span id="cb74-2"><a href="basic-network-analysis-in-r.html#cb74-2" tabindex="-1"></a><span class="fu">plot</span>(z, <span class="at">vertex.size =</span> <span class="fu">V</span>(z)<span class="sc">$</span>degree<span class="sc">+</span><span class="dv">8</span>, <span class="at">margin=</span> <span class="sc">-</span><span class="fl">0.1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>Finally, if you run <code>?degree()</code> on your console, you’ll note that the function has a number of other useful options. For example, we can also extract the degree of a <em>specific</em> vertex:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="basic-network-analysis-in-r.html#cb75-1" tabindex="-1"></a><span class="fu">degree</span>(z, <span class="at">v =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<p>Furthermore, for directed networks, you can also specify whether you want indegree, outdegree, or the total degree (but that does not apply to our undirected example network).</p>
 </div>
-<div id="betweenness-centrality" class="section level3 hasAnchor" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Betweenness centrality<a href="basic-network-analysis-in-r.html#betweenness-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="betweenness-centrality" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Betweenness centrality<a href="basic-network-analysis-in-r.html#betweenness-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A fancier centrality measure is <em>betweenness centrality</em>, which relies on the shortest paths between all pairs of vertices to assess to what extent nodes sit on shortest paths between other nodes.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="basic-network-analysis-in-r.html#cb77-1" tabindex="-1"></a><span class="fu">betweenness</span>(z)</span></code></pre></div>
+<pre><code>##  [1] 231.0714286  28.4785714  75.8507937   6.2880952   0.3333333  15.8333333
+##  [7]  15.8333333   0.0000000  29.5293651   0.4476190   0.3333333   0.0000000
+## [13]   0.0000000  24.2158730   0.0000000   0.0000000   0.0000000   0.0000000
+## [19]   0.0000000  17.1468254   0.0000000   0.0000000   0.0000000   9.3000000
+## [25]   1.1666667   2.0277778   0.0000000  11.7920635   0.9476190   1.5428571
+## [31]   7.6095238  73.0095238  76.6904762 160.5515873</code></pre>
+<p>We again add it to the network object. This time, we use <code>set_vertex_attr()</code> rather than <code>V()</code> just to demonstrate that this may work better in a “pipeline” workflow:</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="basic-network-analysis-in-r.html#cb79-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> z <span class="sc">%&gt;%</span> </span>
+<span id="cb79-2"><a href="basic-network-analysis-in-r.html#cb79-2" tabindex="-1"></a>  <span class="fu">set_vertex_attr</span>(</span>
+<span id="cb79-3"><a href="basic-network-analysis-in-r.html#cb79-3" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;betweenness&quot;</span>,</span>
+<span id="cb79-4"><a href="basic-network-analysis-in-r.html#cb79-4" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">betweenness</span>(z)</span>
+<span id="cb79-5"><a href="basic-network-analysis-in-r.html#cb79-5" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
-<div id="closeness-centrality" class="section level3 hasAnchor" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> Closeness centrality<a href="basic-network-analysis-in-r.html#closeness-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="closeness-centrality" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Closeness centrality<a href="basic-network-analysis-in-r.html#closeness-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Finally, we add <em>closeness centrality</em>, which also relies on shortest paths, but instead assesses how close each node is to the other nodes.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="basic-network-analysis-in-r.html#cb80-1" tabindex="-1"></a><span class="fu">V</span>(z)<span class="sc">$</span>closeness <span class="ot">&lt;-</span> <span class="fu">closeness</span>(z)</span></code></pre></div>
 
 </div>
 </div>

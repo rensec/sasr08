@@ -16,7 +16,7 @@ library(reshape2)
 library(tidyverse)
 ```
 
-## Getting network data into R: igraph
+## Getting network data into R: the igraph package
 
 We start by reading some network data from disk (or from the internet, in this case). A simple and very common way to store data is as "comma-separated values" (CSV). Let's load some "toy data":
 
@@ -188,7 +188,7 @@ Note that now, once more, we have lost our isolated node 5! To get all nodes, we
 igraph::as_data_frame(g_from_elist, what = "vertices") 
 ```
 
-### Back to an adjacency list from igraph
+### From igraph to adjacency list
 
 ```{r}
 edgelist_2 <- igraph::as_data_frame(g_from_elist, what = "edges")
@@ -207,7 +207,7 @@ d
 
 ...and we're back!
 
-### From edge list to network package object
+## Getting network data into R: the network package
 
 An alternative to `igraph` is the `network` package, which has its own type of network data object (as used by, for example, the `sna` and `ergm` packages), and its own set of functions for handling network data. Note that we've already loaded the `network` package at the start of the tutorial. We can import our data into a `network` object (using the edge list that we've created before) as follows:
 
@@ -224,7 +224,7 @@ plot(g_np)
 
 We don't discuss `network` in-depth for now; it suffices to say that the choice between `igraph` and `network` will typically depend on the specific needs of your research project. Both packages include a large set of functions for handling network data, but as `igraph` is a bit more comprehensive in terms of functions for network *analysis*, it tends to be somewhat [more popular](https://www.r-bloggers.com/2016/01/r-graph-objects-igraph-vs-network/). There are also companion packages for `network` that allow various types of analyses, included in the `statnet` suite. Finally, for converting between `network`- and `igraph`- objects, look at `intergraph`.
 
-## Modifying networks
+## Modifying networks in igraph
 
 We now turn back to `igraph`. Once we have our data wrapped into a network object, we can use `igraph` functions to make changes to the data. For example, we may remove a node:
 
