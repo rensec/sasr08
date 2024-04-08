@@ -4,7 +4,7 @@ In this tutorial we'll use the `igraph` package to do some basic descriptive soc
 
 As an example network, we'll use the famous "karate club" data studied by Zachary (1977), included with `igraph`.
 
-```{r}
+```{r  message=F, warning =FALSE}
 library(igraph)
 z <- make_graph("Zachary")
 z
@@ -98,16 +98,36 @@ Moving to the individual (that is, node-level) measures, we concentrate here on 
 
 ### Degree centrality
 
+The most straightforward measure of centrality is *degree centrality*, or simply the number of connections per node. We obtain it using the `degree()` function from `igraph`:
+
 ```{r}
 degree(z)
 ```
+
+Because degree is an individual-level property, the result from the function is no longer a single number as before, but a vector of numbers, one for each node. Of course we can use this vector for further calculations:
+```{r}
+summary(degree(z))
+```
+
+```{r}
+hist(degree(z))
+```
+
+(Note that there are of course much nicer and better ways to analyze and visualize distributions like this, but that is not the point of this tutorial.)
+
+In many other cases, we'd want to keep the individual-level results on centrality and add them to the network object for later use: 
 
 ```{r}
 V(z)$degree <- degree(z)
 ```
 
-Alternatively, we could have used `set_vertex_attr()`, which would work better in a "pipeline" workflow (using `%>%`).
+Finally, if you run `?degree()` on your console, you'll note that the function has a number of other useful options. For example, we can also extract the degree of a  *specific*  vertex:
 
+```{r}
+degree(z, v = 3)
+```
+
+Furthermore, for directed networks, you can also specify whether you want indegree, outdegree, or the total degree (but that does not apply to our undirected example network).
 
 ### Betweenness centrality
 
