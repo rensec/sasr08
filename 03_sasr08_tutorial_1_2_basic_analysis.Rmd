@@ -121,6 +121,15 @@ In many other cases, we'd want to keep the individual-level results on centralit
 V(z)$degree <- degree(z)
 ```
 
+
+We may, for example, want to use it in a plot:
+
+```{r}
+#We add  + 8 to degree to avoid that the lowest-degree nodes become really small and specify margin = -0.1 to reduce the whitespace around the plot
+plot(z, vertex.size = V(z)$degree+8, margin= -0.1)
+```
+
+
 Finally, if you run `?degree()` on your console, you'll note that the function has a number of other useful options. For example, we can also extract the degree of a  *specific*  vertex:
 
 ```{r}
@@ -131,4 +140,29 @@ Furthermore, for directed networks, you can also specify whether you want indegr
 
 ### Betweenness centrality
 
+A fancier centrality measure is *betweenness centrality*, which relies on the shortest paths between all pairs of vertices to assess to what extent nodes sit on shortest paths between other nodes. 
+
+```{r}
+betweenness(z)
+```
+
+We again add it to the network object. This time, we use `set_vertex_attr()` rather than `V()` just to demonstrate that this may work better in a "pipeline" workflow:
+
+
+```{r}
+z <- z %>% 
+  set_vertex_attr(
+    name = "betweenness",
+    value = betweenness(z)
+  )
+```
+
+
 ### Closeness centrality
+
+Finally, we add *closeness centrality*, which also relies on shortest paths, but instead assesses how close each node is to the other nodes.
+
+```{r}
+V(z)$closeness <- closeness(z)
+```
+
