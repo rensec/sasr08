@@ -28,14 +28,17 @@ A good starting point of any network analysis project is to look at some basic p
 
 ### Size
 
-Probably the most basic property of a network is its *size*, that is, the number of vertices and the number of edges. While `igraph` already reported them above (if you knew where to look), we can ask for these numbers specifically:
+Probably the most basic property of a network is its *size*, that is, the number of vertices and the number of edges (of course these are actually already two numbers, but well..). While `igraph` already reported them above (if you knew where to look), we can ask for these numbers specifically:
+
+```{r}
+vcount(z)
+```
+
 
 ```{r}
 ecount(z)
 ```
-```{r}
-vcount(z)
-```
+
 
 
 ### Density
