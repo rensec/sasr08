@@ -1,13 +1,27 @@
----
-title: "first_knecht_solutions"
-output: html_document
-author: "Rense Corten"  
-date: "`r Sys.Date()`"
----
+# Solutions to: a first look at the Knecht data
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+## Preliminaries
+
+```{r  message=F, warning =FALSE}
+library(igraph)
+library(haven) # to read Stata files
+library(reshape2)
+library(tidyverse)
 ```
+
+```{r}
+PupilsWaveV <- read_dta(file = "PupilsWaveV.dta")
+```
+
+
+```{r}
+class12b <- PupilsWaveV %>% 
+  filter(schoolnr == "12b")  # keep only one class
+```
+
+
+
+## Importing the data
 
 ```{r}
 elist <- class12b %>% 
@@ -29,14 +43,34 @@ nodelist <- class12b %>%
 classnet <- graph_from_data_frame(elist, vertices = nodelist)
 ```
 
+## Is the network directed?
+
 ```{r}
 is_directed(classnet)
 ```
+
+Yes it is (as expected)!
+
+## A first visualization
 
 ```{r}
 plot(classnet)
 ```
 
+**EXTRA:** This doesn't look very nice. Somehow the layout that `plot()` uses here doesn't seem to work out very well in this case (even thought the default algorithm tries to optimize the layout for the graph), so perhaps we can try another one, such as the Kamada-Kawai algorithm which often works well for smaller graphs (see [here](https://r.igraph.org/articles/igraph.html#drawing-a-graph-using-a-layout) for more details on layout options for `plot()`).
+
+Also, the arrowheads seem a bit large, so let's give them a smaller size.
+
+```{r}
+layout <- layout_with_kk(classnet)
+plot(classnet, layout = layout, edge.arrow.size = .5)
+```
+
+That's already better!
+
+## A 'five(ish) number summary'
+
+### Size
 
 ```{r}
 ecount(classnet)
@@ -46,13 +80,19 @@ ecount(classnet)
 vcount(classnet)
 ```
 
+### Density
+
 ```{r}
 edge_density(classnet)
 ```
 
+### Components
+
 ```{r}
 count_components(classnet)
 ```
+
+### Diameter and average distance
 
 ```{r}
 diameter(classnet)
@@ -62,9 +102,13 @@ diameter(classnet)
 mean_distance(classnet)
 ```
 
+### Clustering coefficient
+
 ```{r}
 transitivity(classnet, type="average")
 ```
+
+## Comparing degree centrality
 
 ```{r}
 V(classnet)$degree <- degree(classnet)
@@ -80,7 +124,35 @@ t.test(degree ~ sex, alternative = "less",
 
 ```
 
+Indeed, girls have lower degree, but the difference is not significant. How do we know that '2' means 'male'? Check out the code book (on Blackboard)!
+
+### Visualization with degree and gender
+
 ```{r}
-plot(classnet, vertex.size = V(classnet)$degree +5, vertex.color= V(classnet)$sex, margin = -.1)
+plot(classnet, 
+     vertex.size = V(classnet)$degree +8, 
+     vertex.color= V(classnet)$sex, 
+     edge.arrow.size = .5,
+     layout=layout_with_kk(classnet),
+     margin = -.1
+     
+     )
 ```
+
+**Note:** For vertex colors, we here simply let the colors be determined by the values that go with 'female' (1) and 'male' (2). A more elegant way is the following (in which we also drop the vertex labels):
+
+```{r}
+plot(classnet, 
+     vertex.size = V(classnet)$degree +8, 
+     vertex.color= ifelse(V(classnet)$sex == 2, "royalblue", "red3"), 
+     edge.arrow.size = .5,
+     layout=layout_with_kk(classnet),
+     vertex.label = NA,
+     margin = -.1
+     
+     )
+```
+
+
+
 

@@ -38,7 +38,7 @@ The name generator question for "best friends" asked the pupils to nominate up t
 
 In the following assignment, you are asked to perform a first descriptive network analysis of the friendship network in class 12b, using the techniques in the tutorials so far. Please complete the following tasks:
 
-1.  Import the data into an `igraph` network object. For note attributes, include age and gender.
+1.  Import the data into an `igraph` network object. For the network, use the 'friend..' variables; for node attributes, include *age* and *gender*.
 2.  Establish whether, from an empirical perspective, this is a directed or an undirected network. First, think about what it *should* be, given the data collection method, and then verify that this is indeed correct in the data.
 3.  Make a first visualization of the network.
 4.  Make a 'five number summary' of the network.
