@@ -3,3 +3,9 @@ output_dir: "docs"
 language:
   ui:
     chapter_name: ""
+rmd_files:
+  - index.rmd
+  - 02_sasr08_tutorial_1_1_data_handling.Rmd
+  - 03_sasr08_tutorial_1_2_basic_analysis.Rmd
+  - 04_sasr08_tutorial_first_knecht.Rmd
+#  - first_knecht_solutions.rmd
