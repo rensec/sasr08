@@ -1,0 +1,47 @@
+# Introducing the Knecht data
+
+In this tutorial, we take some real network data that we will use throughout the course. The goal is to import the data, and perform some data management tasks as we’ve done in the previous tutorials, as well as some basic analysis, but now with real data instead of “toy data”. In the first part of the tutorial, we'll have a first look at the data and select some data to work with. The second part is an assignment in which you apply your knowledge from the previous tutorials to these data.
+
+First we need to load some packages:
+
+```{r  message=F, warning =FALSE}
+library(igraph)
+library(haven) # to read Stata files
+library(reshape2)
+library(tidyverse)
+```
+
+## A first look at the data
+
+The data we are using is the longitudinal [dataset](https://ssh.datastations.nl/dataset.xhtml?persistentId=doi:10.17026/dans-z9b-h2bp) collected by Andrea Knecht for her dissertation at Utrecht University in 2003-2004. Using questionnaires, she colelcted data from 3171 students in 126 first-grade classes of 14 secondary schoola in the Netherlands.he students were surveyed at three-month invervals one the academic year. The survey included (among many other things) name generator questions for friendship networks, support networks, interaction networks, and a number of other networks. You can find the datafile for one wave on [Blackboard](https://uu.blackboard.com), under Course Content/data. Download this file and save it in the same directory as your R-script.
+
+We first load the dataset (note the use of the function to import Stata's \*.dta format):
+
+```{r}
+PupilsWaveV <- read_dta(file = "PupilsWaveV.dta")
+```
+
+The variables *schoolnr* and *namenr* represent, respectively, classes (in schools) and pupils in classes.
+
+**QUESTION**: Have a close look at these two variables, comparing the *namenr* values for different classes (just eyeballing the data should be sufficient). What do you notice?
+
+To keep things manageable for now, we select only one class:
+
+```{r}
+class12b <- PupilsWaveV %>% 
+  filter(schoolnr == "12b")  # keep only one class
+```
+
+The name generator question for "best friends" asked the pupils to nominate up to 12 of their best friends in class; the resulting nominations are stored in the variables friend1, friend2,... friend12. This is the network we will work with in this tutorial (but there are many other interesting name generators in the data set!).
+
+## Assignment
+
+In the following assignment, you are asked to perform a first descriptive network analysis of the friendship network in class 12b, using the techniques in the tutorials so far. Please complete the following tasks:
+
+1.  Import the data into an `igraph` network object. For note attributes, include age and gender.
+2.  Establish whether, from an empirical perspective, this is a directed or an undirected network. First, think about what it *should* be, given the data collection method, and then verify that this is indeed correct in the data.
+3.  Make a first visualization of the network.
+4.  Make a 'five number summary' of the network.
+5.  Test the hypothesis that girls have higher degree than boys in this network.
+6.  Visualize the network again, this time making vertex size dependent on degree, and vertex color on gender (the relevant parameter is `vertex.color`). What strikes you about this network?
+

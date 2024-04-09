@@ -1,0 +1,86 @@
+---
+title: "first_knecht_solutions"
+output: html_document
+author: "Rense Corten"  
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+elist <- class12b %>% 
+  select(namenr, friend1:friend12) %>%   # select only the " best friends"  network
+  pivot_longer(c(friend1:friend12)) %>% 
+  filter(!is.na(value)) %>% # drop the missings
+  rename(from ="namenr", to = "value", sourcevar= "name") %>% #just nice for interpretation
+  relocate(to, .after=from) #move around the columns
+
+```
+
+```{r}
+nodelist <- class12b %>% 
+  select(namenr,sex, age) %>% 
+  rename(name = "namenr")
+```
+
+```{r}
+classnet <- graph_from_data_frame(elist, vertices = nodelist)
+```
+
+```{r}
+is_directed(classnet)
+```
+
+```{r}
+plot(classnet)
+```
+
+
+```{r}
+ecount(classnet)
+```
+
+```{r}
+vcount(classnet)
+```
+
+```{r}
+edge_density(classnet)
+```
+
+```{r}
+count_components(classnet)
+```
+
+```{r}
+diameter(classnet)
+```
+
+```{r}
+mean_distance(classnet)
+```
+
+```{r}
+transitivity(classnet, type="average")
+```
+
+```{r}
+V(classnet)$degree <- degree(classnet)
+```
+
+```{r}
+d <- igraph::as_data_frame(classnet, what = "vertices")
+
+t.test(degree ~ sex, alternative = "less", 
+       conf.level = .95, 
+       var.equal = TRUE, 
+       data = d)
+
+```
+
+```{r}
+plot(classnet, vertex.size = V(classnet)$degree +5, vertex.color= V(classnet)$sex, margin = -.1)
+```
+
