@@ -19,3 +19,6 @@ individual-level-centrality
 degree-centrality
 betweenness-centrality
 closeness-centrality
+introducing-the-knecht-data
+a-first-look-at-the-data
+assignment

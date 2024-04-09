@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>SaSR 8: Social Network Analysis</title>
+  <title>3 Introducing the Knecht data | SaSR 8: Social Network Analysis</title>
   <meta name="description" content="This page contains tutorials for SaSR 8" />
   <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="SaSR 8: Social Network Analysis" />
+  <meta property="og:title" content="3 Introducing the Knecht data | SaSR 8: Social Network Analysis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This page contains tutorials for SaSR 8" />
   <meta name="github-repo" content="rensec/sasr08" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="SaSR 8: Social Network Analysis" />
+  <meta name="twitter:title" content="3 Introducing the Knecht data | SaSR 8: Social Network Analysis" />
   
   <meta name="twitter:description" content="This page contains tutorials for SaSR 8" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="basic-network-analysis-in-r.html"/>
 
-<link rel="next" href="handling-social-network-data-in-r.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -203,32 +203,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">SaSR 8: Social Network Analysis</h1>
-<p class="author"><em>Rense Corten</em></p>
-<p class="date"><em>2024-04-09</em></p>
+<div id="introducing-the-knecht-data" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Introducing the Knecht data<a href="introducing-the-knecht-data.html#introducing-the-knecht-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this tutorial, we take some real network data that we will use throughout the course. The goal is to import the data, and perform some data management tasks as we’ve done in the previous tutorials, as well as some basic analysis, but now with real data instead of “toy data”. In the first part of the tutorial, we’ll have a first look at the data and select some data to work with. The second part is an assignment in which you apply your knowledge from the previous tutorials to these data.</p>
+<p>First we need to load some packages:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="introducing-the-knecht-data.html#cb81-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb81-2"><a href="introducing-the-knecht-data.html#cb81-2" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co"># to read Stata files</span></span>
+<span id="cb81-3"><a href="introducing-the-knecht-data.html#cb81-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb81-4"><a href="introducing-the-knecht-data.html#cb81-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="a-first-look-at-the-data" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> A first look at the data<a href="introducing-the-knecht-data.html#a-first-look-at-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The data we are using is the longitudinal <a href="https://ssh.datastations.nl/dataset.xhtml?persistentId=doi:10.17026/dans-z9b-h2bp">dataset</a> collected by Andrea Knecht for her dissertation at Utrecht University in 2003-2004. Using questionnaires, she colelcted data from 3171 students in 126 first-grade classes of 14 secondary schoola in the Netherlands.he students were surveyed at three-month invervals one the academic year. The survey included (among many other things) name generator questions for friendship networks, support networks, interaction networks, and a number of other networks. You can find the datafile for one wave on <a href="https://uu.blackboard.com">Blackboard</a>, under Course Content/data. Download this file and save it in the same directory as your R-script.</p>
+<p>We first load the dataset (note the use of the function to import Stata’s *.dta format):</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="introducing-the-knecht-data.html#cb82-1" tabindex="-1"></a>PupilsWaveV <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="at">file =</span> <span class="st">&quot;PupilsWaveV.dta&quot;</span>)</span></code></pre></div>
+<p>The variables <em>schoolnr</em> and <em>namenr</em> represent, respectively, classes (in schools) and pupils in classes.</p>
+<p><strong>QUESTION</strong>: Have a close look at these two variables, comparing the <em>namenr</em> values for different classes (just eyeballing the data should be sufficient). What do you notice?</p>
+<p>To keep things manageable for now, we select only one class:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="introducing-the-knecht-data.html#cb83-1" tabindex="-1"></a>class12b <span class="ot">&lt;-</span> PupilsWaveV <span class="sc">%&gt;%</span> </span>
+<span id="cb83-2"><a href="introducing-the-knecht-data.html#cb83-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> <span class="st">&quot;12b&quot;</span>)  <span class="co"># keep only one class</span></span></code></pre></div>
+<p>The name generator question for “best friends” asked the pupils to nominate up to 12 of their best friends in class; the resulting nominations are stored in the variables friend1, friend2,… friend12. This is the network we will work with in this tutorial (but there are many other interesting name generators in the data set!).</p>
 </div>
-<div id="about" class="section level1 unnumbered hasAnchor">
-<h1>About<a href="index.html#about" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This page contains tutorials for the Utrecht University course SaSR 8/Research practicum 2: Social network analysis (200400071).</p>
-<div id="usage" class="section level2 unnumbered hasAnchor">
-<h2>Usage<a href="index.html#usage" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>To use these tutorials, we suggest that you :</p>
-<ul>
-<li>Open new R script;</li>
-<li>Copy-paste the code from the tutorials into your R script as you read along;</li>
-<li>Run the code from your script while reading along, to verify that your results are the same;</li>
-<li>Afterwards, save your R-script under an informative name so that you can refer to it and reuse it later. A big part of effective data analysis is realizing that you’ve solved particular problems before and being able to find and recycle your earlier code!</li>
-</ul>
-</div>
-<div id="credits-and-further-resources" class="section level2 unnumbered hasAnchor">
-<h2>Credits and further resources<a href="index.html#credits-and-further-resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There are many excellent tutorials for social network analysis in R, and the tutorials on this page is inspired by and builds on some of them. Particularly useful were:</p>
-<ul>
-<li><p>The <a href="https://inarwhal.github.io/NetworkAnalysisR-book/">tutorials</a> that accompany the book <em>Network Analysis: Integrating Social Network Theory, Method, and Application with R</em> by Craig Rawlings, Jeffrey A. Smith, James Moody, and Daniel McFarland (2023);</p></li>
-<li><p>The <a href="https://www.analyzingsocialnetworksusingr.com/home">tutorials</a> that accompany the book <em>Analyzing Social Networks Using R</em> by Stephen Borgatti, Martin Everett, Jeffrey Johnson and Filip Agneessens;</p></li>
-<li><p>The tutorials available on the <a href="https://statnet.org/workshops/">Statnet</a> website, created by the Statnet <a href="https://statnet.org/about/">team</a>.</p></li>
-</ul>
+<div id="assignment" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Assignment<a href="introducing-the-knecht-data.html#assignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the following assignment, you are asked to perform a first descriptive network analysis of the friendship network in class 12b, using the techniques in the tutorials so far. Please complete the following tasks:</p>
+<ol style="list-style-type: decimal">
+<li>Import the data into an <code>igraph</code> network object. For the network, use the ‘friend..’ variables; for node attributes, include <em>age</em> and <em>gender</em>.</li>
+<li>Establish whether, from an empirical perspective, this is a directed or an undirected network. First, think about what it <em>should</em> be, given the data collection method, and then verify that this is indeed correct in the data.</li>
+<li>Make a first visualization of the network.</li>
+<li>Make a ‘five number summary’ of the network.</li>
+<li>Test the hypothesis that girls have higher degree than boys in this network.</li>
+<li>Visualize the network again, this time making vertex size dependent on degree, and vertex color on gender (the relevant parameter is <code>vertex.color</code>). What strikes you about this network?</li>
+</ol>
 
 </div>
 </div>
@@ -237,8 +242,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
+<a href="basic-network-analysis-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="handling-social-network-data-in-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -269,7 +274,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/index.rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04_sasr08_tutorial_first_knecht.Rmd",
 "text": "Edit"
 },
 "history": {
