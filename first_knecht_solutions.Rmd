@@ -13,13 +13,10 @@ library(tidyverse)
 PupilsWaveV <- read_dta(file = "PupilsWaveV.dta")
 ```
 
-
 ```{r}
 class12b <- PupilsWaveV %>% 
   filter(schoolnr == "12b")  # keep only one class
 ```
-
-
 
 ## Importing the data
 
@@ -152,7 +149,3 @@ plot(classnet,
      
      )
 ```
-
-
-
-
