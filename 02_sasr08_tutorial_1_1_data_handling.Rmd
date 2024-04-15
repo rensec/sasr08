@@ -1,13 +1,18 @@
 # Handling social network data in R
 
-This tutorial demonstrates some data handling procedures for relational (social network) data. In particular, we'll learn: -     How to read network data from disk and convert them into a 'network object' that R can work with, using the common network-oriented packages `igraph`  and `network`;
+This tutorial demonstrates some data handling procedures for relational (social network) data. In particular, we'll learn:
+
+-   How to read network data from disk and convert them into a 'network object' that R can work with, using the common network-oriented packages `igraph` and `network`;
+
 -   How to move back and forth between different types of data formats for relational data;
--   How to perform basic data manipulation procedures in ` igraph`;
--   How to produce a basic visualization of a network. 
+
+-   How to perform basic data manipulation procedures in `igraph`;
+
+-    How to produce a basic visualization of a network.
 
 We start by loading some useful packages:
 
--   `igrapg` and `network` are packages specifically for handling network data;
+-   `igraph` and `network` are packages specifically for handling network data;
 -   `reshape2` and `tidyverse` are more general-purpose packages that included useful procedures.
 
 **NOTE:** if you get any "there is no package called..." error messages, make sure you install these packages first using the `install.packages()` function (not included here).
