@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten" />
 
 
-<meta name="date" content="2024-04-09" />
+<meta name="date" content="2024-04-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -205,13 +205,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="handling-social-network-data-in-r" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Handling social network data in R<a href="handling-social-network-data-in-r.html#handling-social-network-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This tutorial demonstrates some data handling procedures for relational (social network) data. In particular, we’ll learn: - How to read network data from disk and convert them into a ‘network object’ that R can work with, using the common network-oriented packages <code>igraph</code> and <code>network</code>;
-- How to move back and forth between different types of data formats for relational data;
-- How to perform basic data manipulation procedures in <code>igraph</code>;
-- How to produce a basic visualization of a network.</p>
+<p>This tutorial demonstrates some data handling procedures for relational (social network) data. In particular, we’ll learn:</p>
+<ul>
+<li><p>How to read network data from disk and convert them into a ‘network object’ that R can work with, using the common network-oriented packages <code>igraph</code> and <code>network</code>;</p></li>
+<li><p>How to move back and forth between different types of data formats for relational data;</p></li>
+<li><p>How to perform basic data manipulation procedures in <code>igraph</code>;</p></li>
+<li><p>How to produce a basic visualization of a network.</p></li>
+</ul>
 <p>We start by loading some useful packages:</p>
 <ul>
-<li><code>igrapg</code> and <code>network</code> are packages specifically for handling network data;</li>
+<li><code>igraph</code> and <code>network</code> are packages specifically for handling network data;</li>
 <li><code>reshape2</code> and <code>tidyverse</code> are more general-purpose packages that included useful procedures.</li>
 </ul>
 <p><strong>NOTE:</strong> if you get any “there is no package called…” error messages, make sure you install these packages first using the <code>install.packages()</code> function (not included here).</p>
@@ -273,9 +276,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-2"><a href="handling-social-network-data-in-r.html#cb12-2" tabindex="-1"></a><span class="fu">class</span>(g)</span></code></pre></div>
 <pre><code>## [1] &quot;igraph&quot;</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="handling-social-network-data-in-r.html#cb14-1" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 4f76ae9 DN-- 5 4 -- 
+<pre><code>## IGRAPH dbb0143 DN-- 5 4 -- 
 ## + attr: name (v/c)
-## + edges from 4f76ae9 (vertex names):
+## + edges from dbb0143 (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>The output from running “g” already shows that this is now a network object (specifically: an object of the class “igraph”, as shown by <code>class()</code>): R interprets the object as a network and shows us the edges in the network. This also means that other R functions - to the extent that they have network methods implemented - now automatically recognize <code>g</code> as a network object and will behave accordingly (note that this is a key feature of R as an “object-oriented language”). For example, we can now run the standard <code>plot()</code> function and it will create a network map:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="handling-social-network-data-in-r.html#cb16-1" tabindex="-1"></a><span class="fu">plot</span>(g)</span></code></pre></div>
@@ -409,7 +412,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb36-9"><a href="handling-social-network-data-in-r.html#cb36-9" tabindex="-1"></a>  <span class="fu">relocate</span>(age, <span class="at">.after =</span> id) <span class="sc">%&gt;%</span> </span>
 <span id="cb36-10"><a href="handling-social-network-data-in-r.html#cb36-10" tabindex="-1"></a>  <span class="fu">type_convert</span>() <span class="co">#as_data_frame returns characters; this transforms it back to numeric</span></span></code></pre></div>
 <pre><code>## 
-## ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ──────────────────────────────────────────────
 ## cols(
 ##   id = col_double(),
 ##   friend1 = col_double(),
@@ -466,9 +469,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We have already seen the use of <code>set_vertex_attr()</code> to add node attributes, of <code>V()</code> to get all nodes. As an alternative to <code>set_vertex_attr()</code>, we can also use <code>V()</code> for the same purpose:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="handling-social-network-data-in-r.html#cb45-1" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;male&quot;</span>) </span>
 <span id="cb45-2"><a href="handling-social-network-data-in-r.html#cb45-2" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 4f76ae9 DN-- 5 4 -- 
+<pre><code>## IGRAPH dbb0143 DN-- 5 4 -- 
 ## + attr: name (v/c), age (v/n), gender (v/c)
-## + edges from 4f76ae9 (vertex names):
+## + edges from dbb0143 (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>Similarly, we can use <code>E()</code> to access, add and modify edge attributes.</p>
 <p>For more information on all the graph manipulation functions included in <code>igraph</code>, see the <a href="https://r.igraph.org/articles/igraph.html">package’s website</a> and, of course, the help pages in R.</p>
