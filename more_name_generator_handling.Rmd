@@ -203,16 +203,13 @@ plot(g2, vertex.color = ifelse(V(g2)$schoolnr=="1a", "lightblue", "red"))
 Almost correct! The one thing to fix is that now we don't have the schoolnr for node 2b6. The approach that we used earlier doesn't work now (why not?), but recall that we already have schoolnr for each edge in 'edge_list'. We use that to keep schoolnr with the list of all vertices (all_vertices) and keep it in the merge with the node list. The method for constructing `all_vertices` is a little different now. 
 
 ```{r}
+all_vertices <- edge_list %>%
+  select(id_pupil = from, schoolnr) %>%
+  bind_rows(edge_list %>%
+        select(id_pupil = to, schoolnr)) %>%
+  unique() %>%
+  rename(schoolnr_from_edges = schoolnr)
 
-all_from <- select(edge_list, from,schoolnr) %>% 
-  rename(id_pupil = "from")
-all_to <- select(edge_list,to, schoolnr) %>% 
-  rename(id_pupil = "to")
-
-all_vertices <- rbind(all_to, all_from)   %>% 
-  unique() %>% 
-  rename(schoolnr_from_edges = "schoolnr")
-  
 nodelist <- df %>% 
   select(id_pupil,age, schoolnr) %>% 
   merge(all_vertices, by = "id_pupil", all.y = T, all.x = T)
