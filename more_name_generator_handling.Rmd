@@ -1,0 +1,197 @@
+# A deeper dive into data handling: complications in name generator data
+
+```{r, echo=FALSE, message=FALSE}
+library(igraph)
+library(tidyverse)
+library(reshape2)
+```
+
+
+
+```{r}
+df <- read.csv("toy_name_generator_data.csv")
+table(df$schoolnr)
+df
+
+```
+
+
+
+## The case of the missing nominee
+
+Let's start with importing one class, as before:
+
+
+```{r}
+cls <- "1a"
+edge_list <- df %>% 
+  filter(schoolnr == cls) %>% 
+  select(namenr, friend1:friend2) %>% 
+  melt(id.vars = "namenr") %>% #make long
+  filter(!is.na(value)) %>% # drop the missings
+  rename(from ="namenr", to = "value", sourcevar= "variable") %>% #just nice for interpretation
+  relocate(to, .after=from) #move around the columns
+edge_list
+```
+
+
+```{r}
+nodelist <- df %>% 
+  filter(schoolnr == cls) %>% 
+  select(namenr,age)
+
+g1a <- graph_from_data_frame(edge_list, vertices = nodelist)
+plot(g1a)
+```
+
+So far, so good.
+
+Now let's try with the other class:
+
+
+```{r}
+cls <- "2b"
+edge_list <- df %>% 
+  filter(schoolnr == cls) %>% 
+  select(namenr, friend1:friend2) %>% 
+  melt(id.vars = "namenr") %>% #make long
+  filter(!is.na(value)) %>% # drop the missings
+  rename(from ="namenr", to = "value", sourcevar= "variable") %>% #just nice for interpretation
+  relocate(to, .after=from) #move around the columns
+edge_list
+```
+
+
+```{r}
+nodelist <- df %>% 
+  filter(schoolnr == cls) %>% 
+  select(namenr,age)
+
+g2b <- graph_from_data_frame(edge_list, vertices = nodelist) 
+
+```
+***Problem:*** Now this leads to an error, as there is a vertex nominated as friend who is not in the data as an 'ego'. The `igraph` function `graph_from_data_frame()` does not allow this. 
+
+***QUESTION: What is a plausible data collection scenario under which this could happen? ***
+
+***Solution:*** We need to fix the node list to include this missing vertex. First let's create a list of all the vertices that appear in the edge list:
+
+```{r}
+all_vertices <- append(edge_list$from, edge_list$to)
+```
+
+Then, we remove duplicates: 
+```{r}
+all_vertices <- unique(all_vertices) %>% 
+  as.data.frame() %>% 
+  rename(namenr = ".")
+```
+
+```{r}
+
+nodelist <- df %>% 
+  filter(schoolnr == cls) %>% 
+  select(namenr,age, schoolnr) %>% 
+  merge(all_vertices, by = "namenr", all.y = T)
+
+nodelist
+```
+
+We now have a node list that includes *all* the nodes. Obviously, 'age' is missing for node 6 in these data, as node 6 was not included as a respondent in the data in the first place. However, 'schoolnr' is also missing, even if we *know* that node 6 was in this class too. So let's fix that:
+
+```{r}
+
+nodelist <- nodelist %>% 
+  replace_na(list(schoolnr = cls))
+
+nodelist
+```
+
+
+```{r}
+g2b <- graph_from_data_frame(edge_list, vertices = nodelist) 
+plot(g2b)
+```
+
+## Multiple networks
+
+Now let's try to import the two classes into a network object *at once*, as if they are a single network. 
+
+```{r}
+
+edge_list <- df %>% 
+  select(namenr, friend1:friend2) %>% 
+  melt(id.vars = "namenr") %>% #make long
+  filter(!is.na(value)) %>% # drop the missings
+  rename(from ="namenr", to = "value", sourcevar= "variable") %>% #just nice for interpretation
+  relocate(to, .after=from) #move around the columns
+edge_list
+
+all_vertices <- append(edge_list$from, edge_list$to) %>% 
+  unique() %>% 
+  as.data.frame() %>% 
+  rename(namenr = ".")
+
+
+nodelist <- df %>% 
+  select(namenr,age, schoolnr) %>% 
+  merge(all_vertices, by = "namenr", all.y = T, all.x = T)
+
+nodelist
+
+```
+
+Houston, we've got a problem. 
+
+We need to be able to differentiate between the nodes from different classes, both for repondents ("egos") and nominees ("alters"). Let's start with the ego, which is the simplest case. We can create a unique student ID by combining the class identifier and the within-class identifier:
+
+```{r}
+df <- df %>% 
+  mutate(id_pupil = paste0(schoolnr,namenr))
+```
+
+Now let's start over, using this new identifier instead of 'namenr'.
+
+```{r}
+edge_list <- df %>% 
+  select(id_pupil, schoolnr, friend1:friend2) %>% 
+  melt(id.vars = c("id_pupil","schoolnr")) %>% #make long
+  filter(!is.na(value)) %>% # drop the missings
+  rename(from ="id_pupil", to = "value", sourcevar= "variable") %>% #just nice for interpretation
+  relocate(to, .after=from) #move around the columns
+edge_list
+
+
+```
+
+Now we can also create the unique student ID for alters in the 'to' column of the edge list:
+
+```{r}
+edge_list <- edge_list %>% 
+  mutate(to = paste0(schoolnr,to))
+edge_list
+```
+The result is a neat list of within-class ties. We continue with creating the node list: 
+
+```{r}
+all_vertices <- append(edge_list$from, edge_list$to) %>% 
+  unique() %>% 
+  as.data.frame() %>% 
+  rename(id_pupil = ".")
+
+
+nodelist <- df %>% 
+  select(id_pupil,age, schoolnr) %>% 
+  merge(all_vertices, by = "id_pupil", all.y = T, all.x = T)
+
+nodelist
+
+```
+
+```{r}
+g2 <- graph_from_data_frame(edge_list, vertices = nodelist) 
+plot(g2, vertex.color = ifelse(V(g2)$schoolnr=="1a", "lightblue", "red"))
+```
+
+Almost correct! The one thing to fix is that now we don't have the schoolnr for node 2b6.
+
