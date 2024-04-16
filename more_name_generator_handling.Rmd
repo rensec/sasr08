@@ -71,7 +71,7 @@ edge_list
 ```
 
 
-```{r}
+```{r, error=TRUE}
 nodelist <- df %>% 
   filter(schoolnr == cls) %>% 
   select(namenr,age)
@@ -126,7 +126,7 @@ plot(g2b)
 
 Now let's try to import the two classes into a network object *at once*, as if they are a single network. 
 
-```{r}
+```{r, error=TRUE}
 
 edge_list <- df %>% 
   select(namenr, friend1:friend2) %>% 
@@ -186,14 +186,12 @@ The result is a neat list of within-class ties. We continue with creating the no
 all_vertices <- append(edge_list$from, edge_list$to) %>% 
   unique() %>% 
   as.data.frame() %>% 
-  rename(namenr = ".")
+  rename(id_pupil = ".")
 
 
 nodelist <- df %>% 
   select(id_pupil,age, schoolnr) %>% 
   merge(all_vertices, by = "id_pupil", all.y = T, all.x = T)
-
-nodelist
 
 ```
 
@@ -233,3 +231,4 @@ plot(g2, vertex.color = ifelse(V(g2)$schoolnr=="1a", "lightblue", "red"))
 
 ```
 
+Done!
