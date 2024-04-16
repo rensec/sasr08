@@ -13,7 +13,7 @@ library(tidyverse)
 
 ## A first look at the data
 
-The data we are using is the longitudinal [dataset](https://ssh.datastations.nl/dataset.xhtml?persistentId=doi:10.17026/dans-z9b-h2bp) collected by Andrea Knecht for her dissertation at Utrecht University in 2003-2004. Using questionnaires, she collected data from 3171 students in 126 first-grade classes of 14 secondary schoola in the Netherlands. The students were surveyed at three-month intervals one the academic year. The survey included (among many other things) name generator questions for friendship networks, support networks, interaction networks, and a number of other networks. You can find the data file for one wave on [Blackboard](https://uu.blackboard.com), under Course Content/data. Download this file and save it in the same directory as your R-script.
+The data we are using is the longitudinal [dataset](https://ssh.datastations.nl/dataset.xhtml?persistentId=doi:10.17026/dans-z9b-h2bp) collected by Andrea Knecht for her dissertation at Utrecht University in 2003-2004. Using questionnaires, she collected data from 3171 students in 126 first-grade classes of 14 secondary schools in the Netherlands. The students were surveyed at three-month intervals one the academic year. The survey included (among many other things) name generator questions for friendship networks, support networks, interaction networks, and a number of other networks. You can find the data file for one wave on [Blackboard](https://uu.blackboard.com), under Course Content/data. Download this file and save it in the same directory as your R-script.
 
 We first load the data set (note the use of the function to import Stata's \*.dta format):
 
