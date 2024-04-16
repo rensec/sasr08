@@ -125,7 +125,6 @@ edge_list <- df %>%
   filter(!is.na(value)) %>% # drop the missings
   rename(from ="namenr", to = "value", sourcevar= "variable") %>% #just nice for interpretation
   relocate(to, .after=from) #move around the columns
-edge_list
 
 all_vertices <- append(edge_list$from, edge_list$to) %>% 
   unique() %>% 
@@ -137,7 +136,8 @@ nodelist <- df %>%
   select(namenr,age, schoolnr) %>% 
   merge(all_vertices, by = "namenr", all.y = T, all.x = T)
 
-nodelist
+g2 <- graph_from_data_frame(edge_list, vertices = nodelist) 
+
 
 ```
 
@@ -177,7 +177,7 @@ The result is a neat list of within-class ties. We continue with creating the no
 all_vertices <- append(edge_list$from, edge_list$to) %>% 
   unique() %>% 
   as.data.frame() %>% 
-  rename(id_pupil = ".")
+  rename(namenr = ".")
 
 
 nodelist <- df %>% 
@@ -193,5 +193,34 @@ g2 <- graph_from_data_frame(edge_list, vertices = nodelist)
 plot(g2, vertex.color = ifelse(V(g2)$schoolnr=="1a", "lightblue", "red"))
 ```
 
-Almost correct! The one thing to fix is that now we don't have the schoolnr for node 2b6.
+Almost correct! The one thing to fix is that now we don't have the schoolnr for node 2b6. The approach that we used earlier doesn't work now (why not?), but recall that we already have schoolnr for each edge in 'edge_list'. We use that to keep schoolnr with the list of all vertices (all_vertices) and keep it in the merge with the node list.
+
+```{r}
+
+all_from <- select(edge_list, from,schoolnr) %>% 
+  rename(id_pupil = "from")
+all_to <- select(edge_list,to, schoolnr) %>% 
+  rename(id_pupil = "to")
+
+all_vertices <- rbind(all_to, all_from)   %>% 
+  unique() %>% 
+  rename(schoolnr_from_edges = "schoolnr")
+  
+nodelist <- df %>% 
+  select(id_pupil,age, schoolnr) %>% 
+  merge(all_vertices, by = "id_pupil", all.y = T, all.x = T)
+
+```
+
+We now replace any NA's in schoolnr with the value in schoolnr_from_edges. For tidiness, we remove schoolnr_from_edges as we don't need it to be imported in our network object (of course there may be scenarios where you may want to keep it). 
+
+```{r}
+nodelist <- nodelist %>% 
+  mutate(schoolnr = coalesce(schoolnr,schoolnr_from_edges)) %>% 
+  select(-schoolnr_from_edges)
+
+g2 <- graph_from_data_frame(edge_list, vertices = nodelist) 
+plot(g2, vertex.color = ifelse(V(g2)$schoolnr=="1a", "lightblue", "red"))
+
+```
 
