@@ -22,3 +22,7 @@ closeness-centrality
 introducing-the-knecht-data
 a-first-look-at-the-data
 assignment
+networks-as-causes-spatial-regression-analysis
+a-deeper-dive-into-data-handling-complications-in-name-generator-data
+the-case-of-the-missing-ego
+multiple-networks
