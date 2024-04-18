@@ -1,0 +1,47 @@
+---
+title: "A toy dataset for SaSR 08"
+output: html_notebook
+---
+
+```{r eval = FALSE}
+library(network)
+library(igraph)
+library(tidyverse)
+library(reshape2)
+```
+
+We first create two data frames with mock-up name generator data:
+
+```{r}
+
+df1a <- data.frame(
+  schoolnr = rep("1a"),
+  namenr = c(1,2,3,4,5),
+  age = c(20,21,25,NA,21),
+  friend1 = c(2,3,1,NA,NA),
+  friend2 = c(4,NA,NA,NA,NA))
+```
+
+
+```{r}
+df2b <- data.frame(
+  schoolnr = rep("2b"),
+  namenr = c(1,2,3,4,5),
+  age = c(22,24,NA,21,20),
+  friend1 = c(2,1,NA,2,6),
+  friend2 = c(3,3,4,5,NA))
+```
+
+
+Combining and writing the data:
+```{r}
+
+df_combined <-rbind(df1a,df2b)
+write.csv(df_combined, file = "toy_name_generator_data.csv", row.names = F)
+
+```
+
+
+
+
+
