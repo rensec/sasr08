@@ -2,7 +2,7 @@
 
 This tutorial demonstrates some data handling procedures for relational (social network) data. In particular, we'll learn:
 
--   How to read network data from disk and convert them into a 'network object' that R can work with, using the common network-oriented packages `igraph` and `network`;
+-   How to read network data from a file and convert them into a 'network object' that R can work with, using the common network-oriented packages `igraph` and `network`;
 
 -   How to move back and forth between different types of data formats for relational data;
 
@@ -26,7 +26,7 @@ library(tidyverse)
 
 ## Getting network data into R: the igraph package
 
-We start by reading some network data from disk (or from the internet, in this case). A simple and very common way to store data is as "comma-separated values" (CSV). Let's load some "toy data":
+We start by reading some network data from a file (from the internet, in this case). A simple and very common way to store data is as "comma-separated values" (CSV). Let's load some "toy data":
 
 ```{r}
 url1 <- "https://github.com/rensec/sasr08/raw/main/g_adj_matrix_simple.csv"
@@ -66,7 +66,7 @@ g_nodes_age
 
 We now have information about nodes and edges loaded in R . However, to R, these are just like *any* data; it doesn't "know" that these are network data. In order to be able to use specific SNA procedures, we first need to create *network objects*, which is what we'll do next.
 
-**NOTE:** the data that we've loaded now just happened to be stored as an adjacency matrix; it is also possible to store network data on disk in other formats. We'll get to that later.
+**NOTE:** the data that we've loaded now just happened to be stored as an adjacency matrix; it is also possible to store network data to a file in other formats. We'll get to that later.
 
 ### Creating network objects in igraph
 
@@ -173,7 +173,7 @@ g_adj_matrix
 
 ```
 
-We here specify `sparse = FALSE` because by default, `as_adjacency_matrix()` will return a "sparse matrix" (just run `as_adjacenct_matrix(g)` on your R console and see what comes out), which is a somewhat more efficient way of handling matrices with many zeroes. To demonstrate that we can recreate our original adjacency matrix however, we don't want that here. To check whether the resulting matrix is indeed identical to what we originally read from disk we can do:
+We here specify `sparse = FALSE` because by default, `as_adjacency_matrix()` will return a "sparse matrix" (just run `as_adjacenct_matrix(g)` on your R console and see what comes out), which is a somewhat more efficient way of handling matrices with many zeroes. To demonstrate that we can recreate our original adjacency matrix however, we don't want that here. To check whether the resulting matrix is indeed identical to what we originally read from a file we can do:
 
 ```{r}
 all(g_adj_matrix == g_matrix)
