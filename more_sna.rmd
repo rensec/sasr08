@@ -1,0 +1,25 @@
+# Further network analysis
+
+```{r}
+library(igraph)
+```
+
+
+```{r}
+g <- make_graph("Zachary")
+plot(g)
+
+```
+
+
+## Community dectection
+
+
+
+```{r}
+
+ceb <- cluster_louvain(g )
+plot(ceb, g)
+
+```
+
