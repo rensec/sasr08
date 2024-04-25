@@ -9,5 +9,6 @@ rmd_files:
   - 03_sasr08_tutorial_1_2_basic_analysis.Rmd
   - 04_sasr08_tutorial_first_knecht.Rmd
   - 05_Spatial_Regression.RMD
+  - 06_ergm.rmd
   - more_name_generator_handling.Rmd
 #  - first_knecht_solutions.rmd
