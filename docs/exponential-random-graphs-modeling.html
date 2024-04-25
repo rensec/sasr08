@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Exponential Random Graphs Modeling | SaSR 8: Social Network Analysis</title>
+  <meta name="description" content="This page contains tutorials for SaSR 8" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Exponential Random Graphs Modeling | SaSR 8: Social Network Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This page contains tutorials for SaSR 8" />
+  <meta name="github-repo" content="rensec/sasr08" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Exponential Random Graphs Modeling | SaSR 8: Social Network Analysis" />
+  
+  <meta name="twitter:description" content="This page contains tutorials for SaSR 8" />
+  
+
+<meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
+
+
+<meta name="date" content="2024-04-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="networks-as-causes-spatial-regression-analysis.html"/>
+<link rel="next" href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SaSR8 </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i>Usage</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#credits-and-further-resources"><i class="fa fa-check"></i>Credits and further resources</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html"><i class="fa fa-check"></i><b>1</b> Handling social network data in R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#getting-network-data-into-r-the-igraph-package"><i class="fa fa-check"></i><b>1.1</b> Getting network data into R: the igraph package</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#creating-network-objects-in-igraph"><i class="fa fa-check"></i><b>1.1.1</b> Creating network objects in igraph</a></li>
+<li class="chapter" data-level="1.1.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#creating-network-objects-from-adjacency-list-data"><i class="fa fa-check"></i><b>1.1.2</b> Creating network objects from adjacency list data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#the-reverse-direction-exporting-from-igraph-objects"><i class="fa fa-check"></i><b>1.2</b> The reverse direction: exporting from igraph objects</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-adjacency-matrix"><i class="fa fa-check"></i><b>1.2.1</b> From igraph to adjacency matrix</a></li>
+<li class="chapter" data-level="1.2.2" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-edge-list"><i class="fa fa-check"></i><b>1.2.2</b> From igraph to edge list</a></li>
+<li class="chapter" data-level="1.2.3" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#from-igraph-to-adjacency-list"><i class="fa fa-check"></i><b>1.2.3</b> From igraph to adjacency list</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#getting-network-data-into-r-the-network-package"><i class="fa fa-check"></i><b>1.3</b> Getting network data into R: the network package</a></li>
+<li class="chapter" data-level="1.4" data-path="handling-social-network-data-in-r.html"><a href="handling-social-network-data-in-r.html#modifying-networks-in-igraph"><i class="fa fa-check"></i><b>1.4</b> Modifying networks in igraph</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html"><i class="fa fa-check"></i><b>2</b> Basic network analysis in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#network-level-a-five-number-summary"><i class="fa fa-check"></i><b>2.1</b> Network level: a “five number summary”</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#size"><i class="fa fa-check"></i><b>2.1.1</b> Size</a></li>
+<li class="chapter" data-level="2.1.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#density"><i class="fa fa-check"></i><b>2.1.2</b> Density</a></li>
+<li class="chapter" data-level="2.1.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#components"><i class="fa fa-check"></i><b>2.1.3</b> Components</a></li>
+<li class="chapter" data-level="2.1.4" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#diameter-and-distances"><i class="fa fa-check"></i><b>2.1.4</b> Diameter (and distances)</a></li>
+<li class="chapter" data-level="2.1.5" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#clustering-coefficient"><i class="fa fa-check"></i><b>2.1.5</b> Clustering Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#individual-level-centrality"><i class="fa fa-check"></i><b>2.2</b> Individual level: centrality</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#degree-centrality"><i class="fa fa-check"></i><b>2.2.1</b> Degree centrality</a></li>
+<li class="chapter" data-level="2.2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#betweenness-centrality"><i class="fa fa-check"></i><b>2.2.2</b> Betweenness centrality</a></li>
+<li class="chapter" data-level="2.2.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#closeness-centrality"><i class="fa fa-check"></i><b>2.2.3</b> Closeness centrality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introducing-the-knecht-data.html"><a href="introducing-the-knecht-data.html"><i class="fa fa-check"></i><b>3</b> Introducing the Knecht data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introducing-the-knecht-data.html"><a href="introducing-the-knecht-data.html#a-first-look-at-the-data"><i class="fa fa-check"></i><b>3.1</b> A first look at the data</a></li>
+<li class="chapter" data-level="3.2" data-path="introducing-the-knecht-data.html"><a href="introducing-the-knecht-data.html#assignment"><i class="fa fa-check"></i><b>3.2</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html"><i class="fa fa-check"></i><b>4</b> Networks as causes: Spatial regression analysis</a></li>
+<li class="chapter" data-level="5" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html"><i class="fa fa-check"></i><b>5</b> Exponential Random Graphs Modeling</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#data-preparation"><i class="fa fa-check"></i><b>5.1</b> Data preparation</a></li>
+<li class="chapter" data-level="5.2" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#model-estimation"><i class="fa fa-check"></i><b>5.2</b> Model estimation</a></li>
+<li class="chapter" data-level="5.3" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#goodness-of-fit"><i class="fa fa-check"></i><b>5.3</b> Goodness of fit</a></li>
+<li class="chapter" data-level="5.4" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#further-resources-on-ergms"><i class="fa fa-check"></i><b>5.4</b> Further resources on ERGMs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><i class="fa fa-check"></i><b>6</b> A deeper dive into data handling: complications in name generator data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>6.1</b> The case of the missing ego</a></li>
+<li class="chapter" data-level="6.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>6.2</b> Multiple networks</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SaSR 8: Social Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exponential-random-graphs-modeling" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Exponential Random Graphs Modeling<a href="exponential-random-graphs-modeling.html#exponential-random-graphs-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="exponential-random-graphs-modeling.html#cb84-1" tabindex="-1"></a><span class="fu">library</span>(network)</span>
+<span id="cb84-2"><a href="exponential-random-graphs-modeling.html#cb84-2" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb84-3"><a href="exponential-random-graphs-modeling.html#cb84-3" tabindex="-1"></a><span class="fu">library</span>(intergraph)</span>
+<span id="cb84-4"><a href="exponential-random-graphs-modeling.html#cb84-4" tabindex="-1"></a><span class="fu">library</span>(sna)</span>
+<span id="cb84-5"><a href="exponential-random-graphs-modeling.html#cb84-5" tabindex="-1"></a><span class="fu">library</span>(ergm)</span>
+<span id="cb84-6"><a href="exponential-random-graphs-modeling.html#cb84-6" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span></code></pre></div>
+<div id="data-preparation" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Data preparation<a href="exponential-random-graphs-modeling.html#data-preparation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We’ll work with the same single class (“12b”) from the Knecht data as before. To keep things very concise here, we simply load an <code>igraph</code> network object that we’ve saved to disk before.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="exponential-random-graphs-modeling.html#cb85-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;classnet.rdata&quot;</span>)</span>
+<span id="cb85-2"><a href="exponential-random-graphs-modeling.html#cb85-2" tabindex="-1"></a><span class="fu">summary</span>(classnet)</span></code></pre></div>
+<pre><code>## IGRAPH 963ef71 DN-- 26 91 -- 
+## + attr: name (v/c), sex (v/n), age (v/n), sourcevar (e/c)</code></pre>
+<p>However, for exponential random graph modeling, we’ll actually need network objects from the <code>network</code> class (that is, as generated by the <code>network</code> package). For this, we’ll use the <code>intergraph</code> package, already loaded above. Unfortunately, <code>network</code> does not handle factor variables, so we first need to convert ‘sex’ to a numeric variable.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="exponential-random-graphs-modeling.html#cb87-1" tabindex="-1"></a><span class="fu">V</span>(classnet)<span class="sc">$</span>sex <span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">V</span>(classnet)<span class="sc">$</span>sex)</span>
+<span id="cb87-2"><a href="exponential-random-graphs-modeling.html#cb87-2" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">asNetwork</span>(classnet)</span>
+<span id="cb87-3"><a href="exponential-random-graphs-modeling.html#cb87-3" tabindex="-1"></a>g</span></code></pre></div>
+<pre><code>##  Network attributes:
+##   vertices = 26 
+##   directed = TRUE 
+##   hyper = FALSE 
+##   loops = FALSE 
+##   multiple = FALSE 
+##   bipartite = FALSE 
+##   total edges= 91 
+##     missing edges= 0 
+##     non-missing edges= 91 
+## 
+##  Vertex attribute names: 
+##     age sex vertex.names 
+## 
+##  Edge attribute names: 
+##     sourcevar</code></pre>
+<p>The alternative approach would be to load the original data set, filter out the class, prepare the data as an edge list and node list as we’ve done before, and then import it directly into a <code>network</code> object using one of the <code>as.network...()</code> function from the <code>network</code> package.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="exponential-random-graphs-modeling.html#cb89-1" tabindex="-1"></a><span class="fu">gplot</span>(g,  <span class="at">vertex.col=</span>g <span class="sc">%v%</span> <span class="st">&quot;sex&quot;</span><span class="sc">*</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" />
+Looks like we have some gender homophily going on here, as well as a lot of reciprocity! With ERGM, we can test this statistically.</p>
+</div>
+<div id="model-estimation" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Model estimation<a href="exponential-random-graphs-modeling.html#model-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now let’s estimate a simple model. First we test the hypothesis that ties are likely to be reciprocated. In this case we add, besides the “edges” term,</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="exponential-random-graphs-modeling.html#cb90-1" tabindex="-1"></a>M1.g<span class="ot">&lt;-</span><span class="fu">ergm</span>(g <span class="sc">~</span> edges <span class="sc">+</span>  mutual )</span></code></pre></div>
+<pre><code>## Starting maximum pseudolikelihood estimation (MPLE):</code></pre>
+<pre><code>## Obtaining the responsible dyads.</code></pre>
+<pre><code>## Evaluating the predictor and response matrix.</code></pre>
+<pre><code>## Maximizing the pseudolikelihood.</code></pre>
+<pre><code>## Finished MPLE.</code></pre>
+<pre><code>## Starting Monte Carlo maximum likelihood estimation (MCMLE):</code></pre>
+<pre><code>## Iteration 1 of at most 60:</code></pre>
+<pre><code>## Warning: &#39;glpk&#39; selected as the solver, but package &#39;Rglpk&#39; is not available;
+## falling back to &#39;lpSolveAPI&#39;. This should be fine unless the sample size and/or
+## the number of parameters is very big.</code></pre>
+<pre><code>## Optimizing with step length 1.0000.</code></pre>
+<pre><code>## The log-likelihood improved by 0.0296.</code></pre>
+<pre><code>## Convergence test p-value: 0.0043. Converged with 99% confidence.
+## Finished MCMLE.
+## Evaluating log-likelihood at the estimate. Fitting the dyad-independent submodel...
+## Bridging between the dyad-independent submodel and the full model...
+## Setting up bridge sampling...
+## Using 16 bridges: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 .
+## Bridging finished.
+## 
+## This model was fit using MCMC.  To examine model diagnostics and check
+## for degeneracy, use the mcmc.diagnostics() function.</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="exponential-random-graphs-modeling.html#cb102-1" tabindex="-1"></a><span class="fu">summary</span>(M1.g)</span></code></pre></div>
+<pre><code>## Call:
+## ergm(formula = g ~ edges + mutual)
+## 
+## Monte Carlo Maximum Likelihood Results:
+## 
+##        Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
+## edges   -2.7126     0.1922      0 -14.113   &lt;1e-04 ***
+## mutual   3.2421     0.4436      0   7.308   &lt;1e-04 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##      Null Deviance: 901.1  on 650  degrees of freedom
+##  Residual Deviance: 455.4  on 648  degrees of freedom
+##  
+## AIC: 459.4  BIC: 468.4  (Smaller is better. MC Std. Err. = 0.8174)</code></pre>
+<p>Indeed, we find a positive and significant effect for the number of reciprocated ties.</p>
+<p>Now let’s add the homophily effect (as well as a gender differential effect):</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="exponential-random-graphs-modeling.html#cb104-1" tabindex="-1"></a>M2.g<span class="ot">&lt;-</span><span class="fu">ergm</span>(g <span class="sc">~</span> edges <span class="sc">+</span> mutual <span class="sc">+</span>  <span class="fu">nodefactor</span>(<span class="st">&quot;sex&quot;</span>, <span class="at">levels =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">&quot;sex&quot;</span> ))</span>
+<span id="cb104-2"><a href="exponential-random-graphs-modeling.html#cb104-2" tabindex="-1"></a></span>
+<span id="cb104-3"><a href="exponential-random-graphs-modeling.html#cb104-3" tabindex="-1"></a><span class="fu">summary</span>(M2.g)</span></code></pre></div>
+<pre><code>## Call:
+## ergm(formula = g ~ edges + mutual + nodefactor(&quot;sex&quot;, levels = 2) + 
+##     nodematch(&quot;sex&quot;))
+## 
+## Monte Carlo Maximum Likelihood Results:
+## 
+##                  Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
+## edges             -3.7697     0.3080      0 -12.241   &lt;1e-04 ***
+## mutual             2.8488     0.4189      0   6.801   &lt;1e-04 ***
+## nodefactor.sex.2   0.1979     0.1202      0   1.647   0.0996 .  
+## nodematch.sex      1.4778     0.2968      0   4.980   &lt;1e-04 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##      Null Deviance: 901.1  on 650  degrees of freedom
+##  Residual Deviance: 416.5  on 646  degrees of freedom
+##  
+## AIC: 424.5  BIC: 442.4  (Smaller is better. MC Std. Err. = 0.7361)</code></pre>
+<p>Indeed, we find a positive effect of gender homophily.</p>
+</div>
+<div id="goodness-of-fit" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Goodness of fit<a href="exponential-random-graphs-modeling.html#goodness-of-fit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Finally, let’s look at goodness of fit:</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="exponential-random-graphs-modeling.html#cb106-1" tabindex="-1"></a>M2.g.gof <span class="ot">&lt;-</span> <span class="fu">gof</span>(M2.g)</span>
+<span id="cb106-2"><a href="exponential-random-graphs-modeling.html#cb106-2" tabindex="-1"></a>M2.g.gof</span></code></pre></div>
+<pre><code>## 
+## Goodness-of-fit for in-degree 
+## 
+##           obs min mean max MC p-value
+## idegree0    0   0 0.61   3       1.00
+## idegree1    4   0 2.50   7       0.50
+## idegree2    7   1 4.37   9       0.38
+## idegree3    4   3 6.36  12       0.38
+## idegree4    1   1 5.27  13       0.02
+## idegree5    6   0 3.76  10       0.38
+## idegree6    1   0 2.05   7       0.74
+## idegree7    3   0 0.77   4       0.12
+## idegree8    0   0 0.20   2       1.00
+## idegree9    0   0 0.09   1       1.00
+## idegree11   0   0 0.01   1       1.00
+## idegree12   0   0 0.01   1       1.00
+## 
+## Goodness-of-fit for out-degree 
+## 
+##           obs min mean max MC p-value
+## odegree0    1   0 0.55   2       0.86
+## odegree1    4   0 2.30   7       0.42
+## odegree2    4   1 5.00  12       0.88
+## odegree3    5   2 6.13  12       0.82
+## odegree4    6   1 5.40  10       0.84
+## odegree5    3   0 3.40   7       0.96
+## odegree6    0   0 1.94   6       0.34
+## odegree7    1   0 0.86   6       1.00
+## odegree8    1   0 0.26   2       0.46
+## odegree9    0   0 0.11   2       1.00
+## odegree10   1   0 0.04   1       0.08
+## odegree11   0   0 0.01   1       1.00
+## 
+## Goodness-of-fit for edgewise shared partner 
+## 
+##          obs min  mean max MC p-value
+## esp.OTP0  19  32 48.48  68       0.00
+## esp.OTP1  24  12 29.60  58       0.62
+## esp.OTP2  27   1  9.98  25       0.00
+## esp.OTP3  14   0  2.17  10       0.00
+## esp.OTP4   6   0  0.25   6       0.02
+## esp.OTP5   1   0  0.05   1       0.10
+## 
+## Goodness-of-fit for minimum geodesic distance 
+## 
+##     obs min   mean max MC p-value
+## 1    91  68  90.53 121       0.96
+## 2   104 105 188.84 271       0.00
+## 3    80 112 189.30 243       0.00
+## 4    57  48  96.66 145       0.08
+## 5    48   1  33.73  83       0.52
+## 6    18   0  11.60  70       0.48
+## 7     5   0   3.64  49       0.42
+## 8     0   0   1.05  20       1.00
+## 9     0   0   0.32   9       1.00
+## 10    0   0   0.07   5       1.00
+## 11    0   0   0.01   1       1.00
+## Inf 247   0  34.25 178       0.00
+## 
+## Goodness-of-fit for model statistics 
+## 
+##                  obs min  mean max MC p-value
+## edges             91  68 90.53 121       0.96
+## mutual            28  16 27.90  44       1.00
+## nodefactor.sex.2  58  33 57.79  86       1.00
+## nodematch.sex     79  57 78.60 107       0.96</code></pre>
+<p>This looks OK for the model statistics, but less so for the for network statistics <em>not</em> in the model. Let’s have a closer look at those:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="exponential-random-graphs-modeling.html#cb108-1" tabindex="-1"></a><span class="fu">plot</span>(M2.g.gof)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-5.png" width="672" /></p>
+<p>Indeed, some of these are quite off, indicating that we might want to include some other effects in the model. Indeed, for directed networks, it is common to include at least somethign related to degree, reciprocity, and something related to triadic closure. The exact choice of effects is not trivial though and may lead to compuational complications, so we leave it at this for now.</p>
+</div>
+<div id="further-resources-on-ergms" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Further resources on ERGMs<a href="exponential-random-graphs-modeling.html#further-resources-on-ergms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For further introductions to ERGM, we suggest <a href="https://statnet.org/workshop-ergm/ergm_tutorial.html#1_Statistical_network_modeling_with_ERGMs">this tutorial</a> by the Statnet team and <a href="https://inarwhal.github.io/NetworkAnalysisR-book/ch13-Cross-Sectional-Network-Models-ERGM-R.html">this tutorial</a> by Rawlings et al. The latter in particular has an informative illustration of the inclusion of triadic effects and the computational issues involved. Also helpful is <a href="https://statnet.org/nme/d2-ergmterms.html">this short list</a> of common ERGM terms. A longer list is <a href="https://search.r-project.org/CRAN/refmans/ergm/html/ergmTerm.html">here</a>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="networks-as-causes-spatial-regression-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/06_ergm.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

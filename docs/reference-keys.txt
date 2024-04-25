@@ -23,6 +23,11 @@ introducing-the-knecht-data
 a-first-look-at-the-data
 assignment
 networks-as-causes-spatial-regression-analysis
+exponential-random-graphs-modeling
+data-preparation
+model-estimation
+goodness-of-fit
+further-resources-on-ergms
 a-deeper-dive-into-data-handling-complications-in-name-generator-data
 the-case-of-the-missing-ego
 multiple-networks

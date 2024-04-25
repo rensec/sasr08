@@ -4,33 +4,33 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 A deeper dive into data handling: complications in name generator data | SaSR 8: Social Network Analysis</title>
+  <title>6 A deeper dive into data handling: complications in name generator data | SaSR 8: Social Network Analysis</title>
   <meta name="description" content="This page contains tutorials for SaSR 8" />
   <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 A deeper dive into data handling: complications in name generator data | SaSR 8: Social Network Analysis" />
+  <meta property="og:title" content="6 A deeper dive into data handling: complications in name generator data | SaSR 8: Social Network Analysis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This page contains tutorials for SaSR 8" />
   <meta name="github-repo" content="rensec/sasr08" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 A deeper dive into data handling: complications in name generator data | SaSR 8: Social Network Analysis" />
+  <meta name="twitter:title" content="6 A deeper dive into data handling: complications in name generator data | SaSR 8: Social Network Analysis" />
   
   <meta name="twitter:description" content="This page contains tutorials for SaSR 8" />
   
 
-<meta name="author" content="Rense Corten" />
+<meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2024-04-18" />
+<meta name="date" content="2024-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="networks-as-causes-spatial-regression-analysis.html"/>
+<link rel="prev" href="exponential-random-graphs-modeling.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -184,10 +184,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2" data-path="introducing-the-knecht-data.html"><a href="introducing-the-knecht-data.html#assignment"><i class="fa fa-check"></i><b>3.2</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html"><i class="fa fa-check"></i><b>4</b> Networks as causes: Spatial regression analysis</a></li>
-<li class="chapter" data-level="5" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><i class="fa fa-check"></i><b>5</b> A deeper dive into data handling: complications in name generator data</a>
+<li class="chapter" data-level="5" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html"><i class="fa fa-check"></i><b>5</b> Exponential Random Graphs Modeling</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>5.1</b> The case of the missing ego</a></li>
-<li class="chapter" data-level="5.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>5.2</b> Multiple networks</a></li>
+<li class="chapter" data-level="5.1" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#data-preparation"><i class="fa fa-check"></i><b>5.1</b> Data preparation</a></li>
+<li class="chapter" data-level="5.2" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#model-estimation"><i class="fa fa-check"></i><b>5.2</b> Model estimation</a></li>
+<li class="chapter" data-level="5.3" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#goodness-of-fit"><i class="fa fa-check"></i><b>5.3</b> Goodness of fit</a></li>
+<li class="chapter" data-level="5.4" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#further-resources-on-ergms"><i class="fa fa-check"></i><b>5.4</b> Further resources on ERGMs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><i class="fa fa-check"></i><b>6</b> A deeper dive into data handling: complications in name generator data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>6.1</b> The case of the missing ego</a></li>
+<li class="chapter" data-level="6.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>6.2</b> Multiple networks</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -209,8 +216,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="a-deeper-dive-into-data-handling-complications-in-name-generator-data" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">5</span> A deeper dive into data handling: complications in name generator data<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#a-deeper-dive-into-data-handling-complications-in-name-generator-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="a-deeper-dive-into-data-handling-complications-in-name-generator-data" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> A deeper dive into data handling: complications in name generator data<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#a-deeper-dive-into-data-handling-complications-in-name-generator-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In a previous tutorial, we’ve covered processing ‘adjacency list’ data, as typically generated by surveys with name generator questions, as network data. With real-life data, such data sets often have quirks that can create havoc in your data processing procedures if you’re not carefull. In the earlie tutorial, we already discussed one such quirk, namely the presences of isolates. In this tutorial, we cover two more challenges:</p>
 <ol style="list-style-type: decimal">
 <li>The presence of alters who are missing as respondents (egos);</li>
@@ -218,12 +225,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>Let’s get started.</p>
 <p>For practice, we use a toy dataset that was designed for looking just like the Knecht data (but smaller).</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb84-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;toy_name_generator_data.csv&quot;</span>)</span>
-<span id="cb84-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb84-2" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>schoolnr)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb109-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;toy_name_generator_data.csv&quot;</span>)</span>
+<span id="cb109-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb109-2" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>schoolnr)</span></code></pre></div>
 <pre><code>## 
 ## 1a 2b 
 ##  5  5</code></pre>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb86-1" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb111-1" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>##    schoolnr namenr age friend1 friend2
 ## 1        1a      1  20       2       4
 ## 2        1a      2  21       3      NA
@@ -235,41 +242,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 8        2b      3  NA      NA       4
 ## 9        2b      4  21       2       5
 ## 10       2b      5  20       6      NA</code></pre>
-<div id="the-case-of-the-missing-ego" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> The case of the missing ego<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-case-of-the-missing-ego" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> The case of the missing ego<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s start with importing one class, as before:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb88-1" tabindex="-1"></a>cls <span class="ot">&lt;-</span> <span class="st">&quot;1a&quot;</span></span>
-<span id="cb88-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb88-2" tabindex="-1"></a>edge_list <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb88-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb88-3" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
-<span id="cb88-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb88-4" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> </span>
-<span id="cb88-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb88-5" tabindex="-1"></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="st">&quot;namenr&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#make long</span></span>
-<span id="cb88-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb88-6" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
-<span id="cb88-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb88-7" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
-<span id="cb88-8"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb88-8" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
-<span id="cb88-9"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb88-9" tabindex="-1"></a>edge_list</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb113-1" tabindex="-1"></a>cls <span class="ot">&lt;-</span> <span class="st">&quot;1a&quot;</span></span>
+<span id="cb113-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb113-2" tabindex="-1"></a>edge_list <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb113-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb113-3" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
+<span id="cb113-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb113-4" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> </span>
+<span id="cb113-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb113-5" tabindex="-1"></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="st">&quot;namenr&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#make long</span></span>
+<span id="cb113-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb113-6" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
+<span id="cb113-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb113-7" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
+<span id="cb113-8"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb113-8" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
+<span id="cb113-9"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb113-9" tabindex="-1"></a>edge_list</span></code></pre></div>
 <pre><code>##   from to sourcevar
 ## 1    1  2   friend1
 ## 2    2  3   friend1
 ## 3    3  1   friend1
 ## 4    1  4   friend2</code></pre>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb90-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb90-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb90-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
-<span id="cb90-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb90-3" tabindex="-1"></a>  <span class="fu">select</span>(namenr,age)</span>
-<span id="cb90-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb90-4" tabindex="-1"></a></span>
-<span id="cb90-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb90-5" tabindex="-1"></a>g1a <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist)</span>
-<span id="cb90-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb90-6" tabindex="-1"></a><span class="fu">plot</span>(g1a)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb115-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb115-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb115-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
+<span id="cb115-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb115-3" tabindex="-1"></a>  <span class="fu">select</span>(namenr,age)</span>
+<span id="cb115-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb115-4" tabindex="-1"></a></span>
+<span id="cb115-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb115-5" tabindex="-1"></a>g1a <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist)</span>
+<span id="cb115-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb115-6" tabindex="-1"></a><span class="fu">plot</span>(g1a)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
 <p>So far, so good.</p>
 <p>Now let’s try with the other class:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb91-1" tabindex="-1"></a>cls <span class="ot">&lt;-</span> <span class="st">&quot;2b&quot;</span></span>
-<span id="cb91-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb91-2" tabindex="-1"></a>edge_list <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb91-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb91-3" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
-<span id="cb91-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb91-4" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> </span>
-<span id="cb91-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb91-5" tabindex="-1"></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="st">&quot;namenr&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#make long</span></span>
-<span id="cb91-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb91-6" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
-<span id="cb91-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb91-7" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
-<span id="cb91-8"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb91-8" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
-<span id="cb91-9"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb91-9" tabindex="-1"></a>edge_list</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb116-1" tabindex="-1"></a>cls <span class="ot">&lt;-</span> <span class="st">&quot;2b&quot;</span></span>
+<span id="cb116-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb116-2" tabindex="-1"></a>edge_list <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb116-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb116-3" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
+<span id="cb116-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb116-4" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> </span>
+<span id="cb116-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb116-5" tabindex="-1"></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="st">&quot;namenr&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#make long</span></span>
+<span id="cb116-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb116-6" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
+<span id="cb116-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb116-7" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
+<span id="cb116-8"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb116-8" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
+<span id="cb116-9"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb116-9" tabindex="-1"></a>edge_list</span></code></pre></div>
 <pre><code>##   from to sourcevar
 ## 1    1  2   friend1
 ## 2    2  1   friend1
@@ -279,26 +286,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6    2  3   friend2
 ## 7    3  4   friend2
 ## 8    4  5   friend2</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb93-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb93-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb93-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
-<span id="cb93-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb93-3" tabindex="-1"></a>  <span class="fu">select</span>(namenr,age)</span>
-<span id="cb93-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb93-4" tabindex="-1"></a></span>
-<span id="cb93-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb93-5" tabindex="-1"></a>g2b <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb118-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb118-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb118-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
+<span id="cb118-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb118-3" tabindex="-1"></a>  <span class="fu">select</span>(namenr,age)</span>
+<span id="cb118-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb118-4" tabindex="-1"></a></span>
+<span id="cb118-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb118-5" tabindex="-1"></a>g2b <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span></code></pre></div>
 <pre><code>## Error in graph_from_data_frame(edge_list, vertices = nodelist): Some vertex names in edge list are not listed in vertex data frame</code></pre>
 <p><strong><em>Problem:</em></strong> Now this leads to an error, as there is a vertex nominated as friend who is not in the data as an ‘ego’. The <code>igraph</code> function <code>graph_from_data_frame()</code> does not allow this.</p>
 <p><strong><em>QUESTION: What is a plausible data collection scenario under which this could happen? </em></strong></p>
 <p><strong><em>Solution:</em></strong> We need to fix the node list to include this missing vertex. First let’s create a list of all the vertices that appear in the edge list:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb95-1" tabindex="-1"></a>all_vertices <span class="ot">&lt;-</span> <span class="fu">append</span>(edge_list<span class="sc">$</span>from, edge_list<span class="sc">$</span>to)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb120-1" tabindex="-1"></a>all_vertices <span class="ot">&lt;-</span> <span class="fu">append</span>(edge_list<span class="sc">$</span>from, edge_list<span class="sc">$</span>to)</span></code></pre></div>
 <p>Then, we remove duplicates:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb96-1" tabindex="-1"></a>all_vertices <span class="ot">&lt;-</span> <span class="fu">unique</span>(all_vertices) <span class="sc">%&gt;%</span> </span>
-<span id="cb96-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb96-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb96-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb96-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">namenr =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb97-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb97-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb97-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
-<span id="cb97-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb97-3" tabindex="-1"></a>  <span class="fu">select</span>(namenr,age, schoolnr) <span class="sc">%&gt;%</span> </span>
-<span id="cb97-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb97-4" tabindex="-1"></a>  <span class="fu">merge</span>(all_vertices, <span class="at">by =</span> <span class="st">&quot;namenr&quot;</span>, <span class="at">all.y =</span> T)</span>
-<span id="cb97-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb97-5" tabindex="-1"></a></span>
-<span id="cb97-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb97-6" tabindex="-1"></a>nodelist</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb121-1" tabindex="-1"></a>all_vertices <span class="ot">&lt;-</span> <span class="fu">unique</span>(all_vertices) <span class="sc">%&gt;%</span> </span>
+<span id="cb121-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb121-2" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb121-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb121-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">namenr =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb122-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb122-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb122-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
+<span id="cb122-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb122-3" tabindex="-1"></a>  <span class="fu">select</span>(namenr,age, schoolnr) <span class="sc">%&gt;%</span> </span>
+<span id="cb122-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb122-4" tabindex="-1"></a>  <span class="fu">merge</span>(all_vertices, <span class="at">by =</span> <span class="st">&quot;namenr&quot;</span>, <span class="at">all.y =</span> T)</span>
+<span id="cb122-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb122-5" tabindex="-1"></a></span>
+<span id="cb122-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb122-6" tabindex="-1"></a>nodelist</span></code></pre></div>
 <pre><code>##   namenr age schoolnr
 ## 1      1  22       2b
 ## 2      2  24       2b
@@ -307,10 +314,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5      5  20       2b
 ## 6      6  NA     &lt;NA&gt;</code></pre>
 <p>We now have a node list that includes <em>all</em> the nodes. Obviously, ‘age’ is missing for node 6 in these data, as node 6 was not included as a respondent in the data in the first place. However, ‘schoolnr’ is also missing, even if we <em>know</em> that node 6 was in this class too. So let’s fix that:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb99-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> nodelist <span class="sc">%&gt;%</span> </span>
-<span id="cb99-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb99-2" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">schoolnr =</span> cls))</span>
-<span id="cb99-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb99-3" tabindex="-1"></a></span>
-<span id="cb99-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb99-4" tabindex="-1"></a>nodelist</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb124-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> nodelist <span class="sc">%&gt;%</span> </span>
+<span id="cb124-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb124-2" tabindex="-1"></a>  <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">schoolnr =</span> cls))</span>
+<span id="cb124-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb124-3" tabindex="-1"></a></span>
+<span id="cb124-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb124-4" tabindex="-1"></a>nodelist</span></code></pre></div>
 <pre><code>##   namenr age schoolnr
 ## 1      1  22       2b
 ## 2      2  24       2b
@@ -318,44 +325,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4      4  21       2b
 ## 5      5  20       2b
 ## 6      6  NA       2b</code></pre>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb101-1" tabindex="-1"></a>g2b <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span>
-<span id="cb101-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb101-2" tabindex="-1"></a><span class="fu">plot</span>(g2b)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb126-1" tabindex="-1"></a>g2b <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span>
+<span id="cb126-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb126-2" tabindex="-1"></a><span class="fu">plot</span>(g2b)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
 </div>
-<div id="multiple-networks" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Multiple networks<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="multiple-networks" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Multiple networks<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now let’s try to import the two classes into a network object <em>at once</em>, as if they are a single network.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-1" tabindex="-1"></a>edge_list <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb102-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> </span>
-<span id="cb102-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-3" tabindex="-1"></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="st">&quot;namenr&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#make long</span></span>
-<span id="cb102-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
-<span id="cb102-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
-<span id="cb102-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-6" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
-<span id="cb102-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-7" tabindex="-1"></a></span>
-<span id="cb102-8"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-8" tabindex="-1"></a>all_vertices <span class="ot">&lt;-</span> <span class="fu">append</span>(edge_list<span class="sc">$</span>from, edge_list<span class="sc">$</span>to) <span class="sc">%&gt;%</span> </span>
-<span id="cb102-9"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-9" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb102-10"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-10" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb102-11"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-11" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">namenr =</span> <span class="st">&quot;.&quot;</span>)</span>
-<span id="cb102-12"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-12" tabindex="-1"></a></span>
-<span id="cb102-13"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-13" tabindex="-1"></a></span>
-<span id="cb102-14"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-14" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb102-15"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-15" tabindex="-1"></a>  <span class="fu">select</span>(namenr,age, schoolnr) <span class="sc">%&gt;%</span> </span>
-<span id="cb102-16"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-16" tabindex="-1"></a>  <span class="fu">merge</span>(all_vertices, <span class="at">by =</span> <span class="st">&quot;namenr&quot;</span>, <span class="at">all.y =</span> T, <span class="at">all.x =</span> T)</span>
-<span id="cb102-17"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-17" tabindex="-1"></a></span>
-<span id="cb102-18"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb102-18" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-1" tabindex="-1"></a>edge_list <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb127-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> </span>
+<span id="cb127-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-3" tabindex="-1"></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="st">&quot;namenr&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#make long</span></span>
+<span id="cb127-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
+<span id="cb127-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
+<span id="cb127-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-6" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
+<span id="cb127-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-7" tabindex="-1"></a></span>
+<span id="cb127-8"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-8" tabindex="-1"></a>all_vertices <span class="ot">&lt;-</span> <span class="fu">append</span>(edge_list<span class="sc">$</span>from, edge_list<span class="sc">$</span>to) <span class="sc">%&gt;%</span> </span>
+<span id="cb127-9"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-9" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb127-10"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-10" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb127-11"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-11" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">namenr =</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb127-12"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-12" tabindex="-1"></a></span>
+<span id="cb127-13"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-13" tabindex="-1"></a></span>
+<span id="cb127-14"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-14" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb127-15"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-15" tabindex="-1"></a>  <span class="fu">select</span>(namenr,age, schoolnr) <span class="sc">%&gt;%</span> </span>
+<span id="cb127-16"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-16" tabindex="-1"></a>  <span class="fu">merge</span>(all_vertices, <span class="at">by =</span> <span class="st">&quot;namenr&quot;</span>, <span class="at">all.y =</span> T, <span class="at">all.x =</span> T)</span>
+<span id="cb127-17"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-17" tabindex="-1"></a></span>
+<span id="cb127-18"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb127-18" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span></code></pre></div>
 <pre><code>## Error in graph_from_data_frame(edge_list, vertices = nodelist): Duplicate vertex names</code></pre>
 <p>Houston, we’ve got a problem.</p>
 <p>We need to be able to differentiate between the nodes from different classes, both for repondents (“egos”) and nominees (“alters”). Let’s start with the ego, which is the simplest case. We can create a unique student ID by combining the class identifier and the within-class identifier:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb104-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb104-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb104-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_pupil =</span> <span class="fu">paste0</span>(schoolnr,namenr))</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb129-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb129-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb129-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_pupil =</span> <span class="fu">paste0</span>(schoolnr,namenr))</span></code></pre></div>
 <p>Now let’s start over, using this new identifier instead of ‘namenr’.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb105-1" tabindex="-1"></a>edge_list <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb105-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb105-2" tabindex="-1"></a>  <span class="fu">select</span>(id_pupil, schoolnr, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> </span>
-<span id="cb105-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb105-3" tabindex="-1"></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">&quot;id_pupil&quot;</span>,<span class="st">&quot;schoolnr&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co">#make long</span></span>
-<span id="cb105-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb105-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
-<span id="cb105-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb105-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;id_pupil&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
-<span id="cb105-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb105-6" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
-<span id="cb105-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb105-7" tabindex="-1"></a>edge_list</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb130-1" tabindex="-1"></a>edge_list <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb130-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb130-2" tabindex="-1"></a>  <span class="fu">select</span>(id_pupil, schoolnr, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> </span>
+<span id="cb130-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb130-3" tabindex="-1"></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">&quot;id_pupil&quot;</span>,<span class="st">&quot;schoolnr&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co">#make long</span></span>
+<span id="cb130-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb130-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
+<span id="cb130-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb130-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;id_pupil&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
+<span id="cb130-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb130-6" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
+<span id="cb130-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb130-7" tabindex="-1"></a>edge_list</span></code></pre></div>
 <pre><code>##    from to schoolnr sourcevar
 ## 1   1a1  2       1a   friend1
 ## 2   1a2  3       1a   friend1
@@ -370,9 +377,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 11  2b3  4       2b   friend2
 ## 12  2b4  5       2b   friend2</code></pre>
 <p>Now we can also create the unique student ID for alters in the ‘to’ column of the edge list:</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb107-1" tabindex="-1"></a>edge_list <span class="ot">&lt;-</span> edge_list <span class="sc">%&gt;%</span> </span>
-<span id="cb107-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb107-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">to =</span> <span class="fu">paste0</span>(schoolnr,to))</span>
-<span id="cb107-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb107-3" tabindex="-1"></a>edge_list</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb132-1" tabindex="-1"></a>edge_list <span class="ot">&lt;-</span> edge_list <span class="sc">%&gt;%</span> </span>
+<span id="cb132-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb132-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">to =</span> <span class="fu">paste0</span>(schoolnr,to))</span>
+<span id="cb132-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb132-3" tabindex="-1"></a>edge_list</span></code></pre></div>
 <pre><code>##    from  to schoolnr sourcevar
 ## 1   1a1 1a2       1a   friend1
 ## 2   1a2 1a3       1a   friend1
@@ -387,37 +394,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 11  2b3 2b4       2b   friend2
 ## 12  2b4 2b5       2b   friend2</code></pre>
 <p>The result is a neat list of within-class ties. We continue with creating the node list:</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb109-1" tabindex="-1"></a>all_vertices <span class="ot">&lt;-</span> <span class="fu">append</span>(edge_list<span class="sc">$</span>from, edge_list<span class="sc">$</span>to) <span class="sc">%&gt;%</span> </span>
-<span id="cb109-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb109-2" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb109-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb109-3" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb109-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb109-4" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id_pupil =</span> <span class="st">&quot;.&quot;</span>)</span>
-<span id="cb109-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb109-5" tabindex="-1"></a></span>
-<span id="cb109-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb109-6" tabindex="-1"></a></span>
-<span id="cb109-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb109-7" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb109-8"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb109-8" tabindex="-1"></a>  <span class="fu">select</span>(id_pupil,age, schoolnr) <span class="sc">%&gt;%</span> </span>
-<span id="cb109-9"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb109-9" tabindex="-1"></a>  <span class="fu">merge</span>(all_vertices, <span class="at">by =</span> <span class="st">&quot;id_pupil&quot;</span>, <span class="at">all.y =</span> T, <span class="at">all.x =</span> T)</span></code></pre></div>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb110-1" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span>
-<span id="cb110-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb110-2" tabindex="-1"></a><span class="fu">plot</span>(g2, <span class="at">vertex.color =</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(g2)<span class="sc">$</span>schoolnr<span class="sc">==</span><span class="st">&quot;1a&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb134-1" tabindex="-1"></a>all_vertices <span class="ot">&lt;-</span> <span class="fu">append</span>(edge_list<span class="sc">$</span>from, edge_list<span class="sc">$</span>to) <span class="sc">%&gt;%</span> </span>
+<span id="cb134-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb134-2" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb134-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb134-3" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb134-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb134-4" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id_pupil =</span> <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb134-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb134-5" tabindex="-1"></a></span>
+<span id="cb134-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb134-6" tabindex="-1"></a></span>
+<span id="cb134-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb134-7" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb134-8"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb134-8" tabindex="-1"></a>  <span class="fu">select</span>(id_pupil,age, schoolnr) <span class="sc">%&gt;%</span> </span>
+<span id="cb134-9"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb134-9" tabindex="-1"></a>  <span class="fu">merge</span>(all_vertices, <span class="at">by =</span> <span class="st">&quot;id_pupil&quot;</span>, <span class="at">all.y =</span> T, <span class="at">all.x =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb135-1" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span>
+<span id="cb135-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb135-2" tabindex="-1"></a><span class="fu">plot</span>(g2, <span class="at">vertex.color =</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(g2)<span class="sc">$</span>schoolnr<span class="sc">==</span><span class="st">&quot;1a&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
 <p>Almost correct! The one thing to fix is that now we don’t have the schoolnr for node 2b6. The approach that we used earlier doesn’t work now (why not?), but recall that we already have schoolnr for each edge in ‘edge_list’. We use that to keep schoolnr with the list of all vertices (all_vertices) and keep it in the merge with the node list. The method for constructing <code>all_vertices</code> is a little different now.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb111-1" tabindex="-1"></a>all_vertices <span class="ot">&lt;-</span> edge_list <span class="sc">%&gt;%</span></span>
-<span id="cb111-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb111-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">id_pupil =</span> from, schoolnr) <span class="sc">%&gt;%</span></span>
-<span id="cb111-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb111-3" tabindex="-1"></a>  <span class="fu">bind_rows</span>(edge_list <span class="sc">%&gt;%</span></span>
-<span id="cb111-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb111-4" tabindex="-1"></a>        <span class="fu">select</span>(<span class="at">id_pupil =</span> to, schoolnr)) <span class="sc">%&gt;%</span></span>
-<span id="cb111-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb111-5" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb111-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb111-6" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">schoolnr_from_edges =</span> schoolnr)</span>
-<span id="cb111-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb111-7" tabindex="-1"></a></span>
-<span id="cb111-8"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb111-8" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb111-9"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb111-9" tabindex="-1"></a>  <span class="fu">select</span>(id_pupil,age, schoolnr) <span class="sc">%&gt;%</span> </span>
-<span id="cb111-10"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb111-10" tabindex="-1"></a>  <span class="fu">merge</span>(all_vertices, <span class="at">by =</span> <span class="st">&quot;id_pupil&quot;</span>, <span class="at">all.y =</span> T, <span class="at">all.x =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb136-1" tabindex="-1"></a>all_vertices <span class="ot">&lt;-</span> edge_list <span class="sc">%&gt;%</span></span>
+<span id="cb136-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb136-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">id_pupil =</span> from, schoolnr) <span class="sc">%&gt;%</span></span>
+<span id="cb136-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb136-3" tabindex="-1"></a>  <span class="fu">bind_rows</span>(edge_list <span class="sc">%&gt;%</span></span>
+<span id="cb136-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb136-4" tabindex="-1"></a>        <span class="fu">select</span>(<span class="at">id_pupil =</span> to, schoolnr)) <span class="sc">%&gt;%</span></span>
+<span id="cb136-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb136-5" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb136-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb136-6" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">schoolnr_from_edges =</span> schoolnr)</span>
+<span id="cb136-7"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb136-7" tabindex="-1"></a></span>
+<span id="cb136-8"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb136-8" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb136-9"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb136-9" tabindex="-1"></a>  <span class="fu">select</span>(id_pupil,age, schoolnr) <span class="sc">%&gt;%</span> </span>
+<span id="cb136-10"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb136-10" tabindex="-1"></a>  <span class="fu">merge</span>(all_vertices, <span class="at">by =</span> <span class="st">&quot;id_pupil&quot;</span>, <span class="at">all.y =</span> T, <span class="at">all.x =</span> T)</span></code></pre></div>
 <p>We now replace any NA’s in schoolnr with the value in schoolnr_from_edges. For tidiness, we remove schoolnr_from_edges as we don’t need it to be imported in our network object (of course there may be scenarios where you may want to keep it).</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb112-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> nodelist <span class="sc">%&gt;%</span> </span>
-<span id="cb112-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb112-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">schoolnr =</span> <span class="fu">coalesce</span>(schoolnr,schoolnr_from_edges)) <span class="sc">%&gt;%</span> </span>
-<span id="cb112-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb112-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>schoolnr_from_edges)</span>
-<span id="cb112-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb112-4" tabindex="-1"></a></span>
-<span id="cb112-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb112-5" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span>
-<span id="cb112-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb112-6" tabindex="-1"></a><span class="fu">plot</span>(g2, <span class="at">vertex.color =</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(g2)<span class="sc">$</span>schoolnr<span class="sc">==</span><span class="st">&quot;1a&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb137-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> nodelist <span class="sc">%&gt;%</span> </span>
+<span id="cb137-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb137-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">schoolnr =</span> <span class="fu">coalesce</span>(schoolnr,schoolnr_from_edges)) <span class="sc">%&gt;%</span> </span>
+<span id="cb137-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb137-3" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>schoolnr_from_edges)</span>
+<span id="cb137-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb137-4" tabindex="-1"></a></span>
+<span id="cb137-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb137-5" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span>
+<span id="cb137-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb137-6" tabindex="-1"></a><span class="fu">plot</span>(g2, <span class="at">vertex.color =</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(g2)<span class="sc">$</span>schoolnr<span class="sc">==</span><span class="st">&quot;1a&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
 <p>Done!</p>
 
 </div>
@@ -427,7 +434,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="networks-as-causes-spatial-regression-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exponential-random-graphs-modeling.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

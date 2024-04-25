@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Networks as causes: Spatial regression analysis | SaSR 8: Social Network Analysis</title>
+  <title>6 Model estimation | SaSR 8: Social Network Analysis</title>
   <meta name="description" content="This page contains tutorials for SaSR 8" />
   <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Networks as causes: Spatial regression analysis | SaSR 8: Social Network Analysis" />
+  <meta property="og:title" content="6 Model estimation | SaSR 8: Social Network Analysis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This page contains tutorials for SaSR 8" />
   <meta name="github-repo" content="rensec/sasr08" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Networks as causes: Spatial regression analysis | SaSR 8: Social Network Analysis" />
+  <meta name="twitter:title" content="6 Model estimation | SaSR 8: Social Network Analysis" />
   
   <meta name="twitter:description" content="This page contains tutorials for SaSR 8" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="introducing-the-knecht-data.html"/>
-<link rel="next" href="exponential-random-graphs-modeling.html"/>
+<link rel="prev" href="exponential-random-graphs-modeling.html"/>
+<link rel="next" href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -187,14 +187,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html"><i class="fa fa-check"></i><b>5</b> Exponential Random Graphs Modeling</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#data-preparation"><i class="fa fa-check"></i><b>5.1</b> Data preparation</a></li>
-<li class="chapter" data-level="5.2" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#model-estimation"><i class="fa fa-check"></i><b>5.2</b> Model estimation</a></li>
-<li class="chapter" data-level="5.3" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#goodness-of-fit"><i class="fa fa-check"></i><b>5.3</b> Goodness of fit</a></li>
-<li class="chapter" data-level="5.4" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#further-resources-on-ergms"><i class="fa fa-check"></i><b>5.4</b> Further resources on ERGMs</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><i class="fa fa-check"></i><b>6</b> A deeper dive into data handling: complications in name generator data</a>
+<li class="chapter" data-level="6" data-path="model-estimation.html"><a href="model-estimation.html"><i class="fa fa-check"></i><b>6</b> Model estimation</a></li>
+<li class="chapter" data-level="7" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><i class="fa fa-check"></i><b>7</b> A deeper dive into data handling: complications in name generator data</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>6.1</b> The case of the missing ego</a></li>
-<li class="chapter" data-level="6.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>6.2</b> Multiple networks</a></li>
+<li class="chapter" data-level="7.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>7.1</b> The case of the missing ego</a></li>
+<li class="chapter" data-level="7.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>7.2</b> Multiple networks</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -216,9 +214,146 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="networks-as-causes-spatial-regression-analysis" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">4</span> Networks as causes: Spatial regression analysis<a href="networks-as-causes-spatial-regression-analysis.html#networks-as-causes-spatial-regression-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Coming soon!</p>
+<div id="model-estimation" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Model estimation<a href="model-estimation.html#model-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Now let’s estimate a simple model. First we test the hypothesis that ties are likely to be reciprocated. In this case we add, besides the “edges” term,</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="model-estimation.html#cb90-1" tabindex="-1"></a>M1.g<span class="ot">&lt;-</span><span class="fu">ergm</span>(g <span class="sc">~</span> edges <span class="sc">+</span>  mutual )</span></code></pre></div>
+<pre><code>## Starting maximum pseudolikelihood estimation (MPLE):</code></pre>
+<pre><code>## Obtaining the responsible dyads.</code></pre>
+<pre><code>## Evaluating the predictor and response matrix.</code></pre>
+<pre><code>## Maximizing the pseudolikelihood.</code></pre>
+<pre><code>## Finished MPLE.</code></pre>
+<pre><code>## Starting Monte Carlo maximum likelihood estimation (MCMLE):</code></pre>
+<pre><code>## Iteration 1 of at most 60:</code></pre>
+<pre><code>## Warning: &#39;glpk&#39; selected as the solver, but package &#39;Rglpk&#39; is not available;
+## falling back to &#39;lpSolveAPI&#39;. This should be fine unless the sample size and/or
+## the number of parameters is very big.</code></pre>
+<pre><code>## Optimizing with step length 1.0000.</code></pre>
+<pre><code>## The log-likelihood improved by 0.0296.</code></pre>
+<pre><code>## Convergence test p-value: 0.0043. Converged with 99% confidence.
+## Finished MCMLE.
+## Evaluating log-likelihood at the estimate. Fitting the dyad-independent submodel...
+## Bridging between the dyad-independent submodel and the full model...
+## Setting up bridge sampling...
+## Using 16 bridges: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 .
+## Bridging finished.
+## 
+## This model was fit using MCMC.  To examine model diagnostics and check
+## for degeneracy, use the mcmc.diagnostics() function.</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="model-estimation.html#cb102-1" tabindex="-1"></a><span class="fu">summary</span>(M1.g)</span></code></pre></div>
+<pre><code>## Call:
+## ergm(formula = g ~ edges + mutual)
+## 
+## Monte Carlo Maximum Likelihood Results:
+## 
+##        Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
+## edges   -2.7126     0.1922      0 -14.113   &lt;1e-04 ***
+## mutual   3.2421     0.4436      0   7.308   &lt;1e-04 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##      Null Deviance: 901.1  on 650  degrees of freedom
+##  Residual Deviance: 455.4  on 648  degrees of freedom
+##  
+## AIC: 459.4  BIC: 468.4  (Smaller is better. MC Std. Err. = 0.8174)</code></pre>
+<p>Indeed, we find a positive and significant effect for the number of reciprocated ties.</p>
+<p>Now let’s add the homophily effect (as well as a gender differential effect):</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="model-estimation.html#cb104-1" tabindex="-1"></a>M2.g<span class="ot">&lt;-</span><span class="fu">ergm</span>(g <span class="sc">~</span> edges <span class="sc">+</span> mutual <span class="sc">+</span>  <span class="fu">nodefactor</span>(<span class="st">&quot;sex&quot;</span>, <span class="at">levels =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">&quot;sex&quot;</span> ))</span>
+<span id="cb104-2"><a href="model-estimation.html#cb104-2" tabindex="-1"></a></span>
+<span id="cb104-3"><a href="model-estimation.html#cb104-3" tabindex="-1"></a><span class="fu">summary</span>(M2.g)</span></code></pre></div>
+<pre><code>## Call:
+## ergm(formula = g ~ edges + mutual + nodefactor(&quot;sex&quot;, levels = 2) + 
+##     nodematch(&quot;sex&quot;))
+## 
+## Monte Carlo Maximum Likelihood Results:
+## 
+##                  Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
+## edges             -3.7697     0.3080      0 -12.241   &lt;1e-04 ***
+## mutual             2.8488     0.4189      0   6.801   &lt;1e-04 ***
+## nodefactor.sex.2   0.1979     0.1202      0   1.647   0.0996 .  
+## nodematch.sex      1.4778     0.2968      0   4.980   &lt;1e-04 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##      Null Deviance: 901.1  on 650  degrees of freedom
+##  Residual Deviance: 416.5  on 646  degrees of freedom
+##  
+## AIC: 424.5  BIC: 442.4  (Smaller is better. MC Std. Err. = 0.7361)</code></pre>
+<p>Indeed, we find a positive effect of gender homophily.</p>
+<p>Finally, let’s look at goodness of fit:</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="model-estimation.html#cb106-1" tabindex="-1"></a>M2.g.gof <span class="ot">&lt;-</span> <span class="fu">gof</span>(M2.g)</span>
+<span id="cb106-2"><a href="model-estimation.html#cb106-2" tabindex="-1"></a>M2.g.gof</span></code></pre></div>
+<pre><code>## 
+## Goodness-of-fit for in-degree 
+## 
+##           obs min mean max MC p-value
+## idegree0    0   0 0.61   3       1.00
+## idegree1    4   0 2.50   7       0.50
+## idegree2    7   1 4.37   9       0.38
+## idegree3    4   3 6.36  12       0.38
+## idegree4    1   1 5.27  13       0.02
+## idegree5    6   0 3.76  10       0.38
+## idegree6    1   0 2.05   7       0.74
+## idegree7    3   0 0.77   4       0.12
+## idegree8    0   0 0.20   2       1.00
+## idegree9    0   0 0.09   1       1.00
+## idegree11   0   0 0.01   1       1.00
+## idegree12   0   0 0.01   1       1.00
+## 
+## Goodness-of-fit for out-degree 
+## 
+##           obs min mean max MC p-value
+## odegree0    1   0 0.55   2       0.86
+## odegree1    4   0 2.30   7       0.42
+## odegree2    4   1 5.00  12       0.88
+## odegree3    5   2 6.13  12       0.82
+## odegree4    6   1 5.40  10       0.84
+## odegree5    3   0 3.40   7       0.96
+## odegree6    0   0 1.94   6       0.34
+## odegree7    1   0 0.86   6       1.00
+## odegree8    1   0 0.26   2       0.46
+## odegree9    0   0 0.11   2       1.00
+## odegree10   1   0 0.04   1       0.08
+## odegree11   0   0 0.01   1       1.00
+## 
+## Goodness-of-fit for edgewise shared partner 
+## 
+##          obs min  mean max MC p-value
+## esp.OTP0  19  32 48.48  68       0.00
+## esp.OTP1  24  12 29.60  58       0.62
+## esp.OTP2  27   1  9.98  25       0.00
+## esp.OTP3  14   0  2.17  10       0.00
+## esp.OTP4   6   0  0.25   6       0.02
+## esp.OTP5   1   0  0.05   1       0.10
+## 
+## Goodness-of-fit for minimum geodesic distance 
+## 
+##     obs min   mean max MC p-value
+## 1    91  68  90.53 121       0.96
+## 2   104 105 188.84 271       0.00
+## 3    80 112 189.30 243       0.00
+## 4    57  48  96.66 145       0.08
+## 5    48   1  33.73  83       0.52
+## 6    18   0  11.60  70       0.48
+## 7     5   0   3.64  49       0.42
+## 8     0   0   1.05  20       1.00
+## 9     0   0   0.32   9       1.00
+## 10    0   0   0.07   5       1.00
+## 11    0   0   0.01   1       1.00
+## Inf 247   0  34.25 178       0.00
+## 
+## Goodness-of-fit for model statistics 
+## 
+##                  obs min  mean max MC p-value
+## edges             91  68 90.53 121       0.96
+## mutual            28  16 27.90  44       1.00
+## nodefactor.sex.2  58  33 57.79  86       1.00
+## nodematch.sex     79  57 78.60 107       0.96</code></pre>
+<p>This looks OK for the model statistics, but less so for the for network statistics <em>not</em> in the model. Let’s have a closer look at those:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="model-estimation.html#cb108-1" tabindex="-1"></a><span class="fu">plot</span>(M2.g.gof)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-5.png" width="672" /></p>
+<p>Indeed, some of these are quite off, indicating that we might want to include some other effects in the model. Indeed, for directed networks, it is common to include at least somethign related to degree, reciprocity, and something related to triadic closure. The exact choice of effects is not trivial though and may lead to compuational complications, so we leave it at this for now.</p>
+<p>For further introductions to ERGM, we suggest <a href="https://statnet.org/workshop-ergm/ergm_tutorial.html#1_Statistical_network_modeling_with_ERGMs">this tutorial</a> by the Statnet team and <a href="https://inarwhal.github.io/NetworkAnalysisR-book/ch13-Cross-Sectional-Network-Models-ERGM-R.html">this tutorial</a> by Rawlings et al. The latter in particular has an informative illustration of the inclusion of triadic effects and the computational issues involved. Also helpful is <a href="https://statnet.org/nme/d2-ergmterms.html">this short list</a> of common ERGM terms. A longer list is <a href="https://search.r-project.org/CRAN/refmans/ergm/html/ergmTerm.html">here</a>.</p>
 
 </div>
             </section>
@@ -226,8 +361,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="introducing-the-knecht-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exponential-random-graphs-modeling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="exponential-random-graphs-modeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -258,7 +393,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05_Spatial_Regression.RMD",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/06_ergm.rmd",
 "text": "Edit"
 },
 "history": {

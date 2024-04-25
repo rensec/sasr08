@@ -20,10 +20,10 @@
   <meta name="twitter:description" content="This page contains tutorials for SaSR 8" />
   
 
-<meta name="author" content="Rense Corten" />
+<meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2024-04-18" />
+<meta name="date" content="2024-04-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -184,10 +184,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2" data-path="introducing-the-knecht-data.html"><a href="introducing-the-knecht-data.html#assignment"><i class="fa fa-check"></i><b>3.2</b> Assignment</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html"><i class="fa fa-check"></i><b>4</b> Networks as causes: Spatial regression analysis</a></li>
-<li class="chapter" data-level="5" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><i class="fa fa-check"></i><b>5</b> A deeper dive into data handling: complications in name generator data</a>
+<li class="chapter" data-level="5" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html"><i class="fa fa-check"></i><b>5</b> Exponential Random Graphs Modeling</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>5.1</b> The case of the missing ego</a></li>
-<li class="chapter" data-level="5.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>5.2</b> Multiple networks</a></li>
+<li class="chapter" data-level="5.1" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#data-preparation"><i class="fa fa-check"></i><b>5.1</b> Data preparation</a></li>
+<li class="chapter" data-level="5.2" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#model-estimation"><i class="fa fa-check"></i><b>5.2</b> Model estimation</a></li>
+<li class="chapter" data-level="5.3" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#goodness-of-fit"><i class="fa fa-check"></i><b>5.3</b> Goodness of fit</a></li>
+<li class="chapter" data-level="5.4" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#further-resources-on-ergms"><i class="fa fa-check"></i><b>5.4</b> Further resources on ERGMs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><i class="fa fa-check"></i><b>6</b> A deeper dive into data handling: complications in name generator data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>6.1</b> The case of the missing ego</a></li>
+<li class="chapter" data-level="6.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>6.2</b> Multiple networks</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -213,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">1</span> Handling social network data in R<a href="handling-social-network-data-in-r.html#handling-social-network-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This tutorial demonstrates some data handling procedures for relational (social network) data. In particular, we’ll learn:</p>
 <ul>
-<li><p>How to read network data from disk and convert them into a ‘network object’ that R can work with, using the common network-oriented packages <code>igraph</code> and <code>network</code>;</p></li>
+<li><p>How to read network data from a file and convert them into a ‘network object’ that R can work with, using the common network-oriented packages <code>igraph</code> and <code>network</code>;</p></li>
 <li><p>How to move back and forth between different types of data formats for relational data;</p></li>
 <li><p>How to perform basic data manipulation procedures in <code>igraph</code>;</p></li>
 <li><p>How to produce a basic visualization of a network.</p></li>
@@ -230,7 +237,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-4"><a href="handling-social-network-data-in-r.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <div id="getting-network-data-into-r-the-igraph-package" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Getting network data into R: the igraph package<a href="handling-social-network-data-in-r.html#getting-network-data-into-r-the-igraph-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We start by reading some network data from disk (or from the internet, in this case). A simple and very common way to store data is as “comma-separated values” (CSV). Let’s load some “toy data”:</p>
+<p>We start by reading some network data from a file (from the internet, in this case). A simple and very common way to store data is as “comma-separated values” (CSV). Let’s load some “toy data”:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="handling-social-network-data-in-r.html#cb2-1" tabindex="-1"></a>url1 <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/rensec/sasr08/raw/main/g_adj_matrix_simple.csv&quot;</span></span>
 <span id="cb2-2"><a href="handling-social-network-data-in-r.html#cb2-2" tabindex="-1"></a>g_matrix <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> url1, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb2-3"><a href="handling-social-network-data-in-r.html#cb2-3" tabindex="-1"></a>g_matrix</span></code></pre></div>
@@ -273,7 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4  4  NA
 ## 5  5  21</code></pre>
 <p>We now have information about nodes and edges loaded in R . However, to R, these are just like <em>any</em> data; it doesn’t “know” that these are network data. In order to be able to use specific SNA procedures, we first need to create <em>network objects</em>, which is what we’ll do next.</p>
-<p><strong>NOTE:</strong> the data that we’ve loaded now just happened to be stored as an adjacency matrix; it is also possible to store network data on disk in other formats. We’ll get to that later.</p>
+<p><strong>NOTE:</strong> the data that we’ve loaded now just happened to be stored as an adjacency matrix; it is also possible to store network data to a file in other formats. We’ll get to that later.</p>
 <div id="creating-network-objects-in-igraph" class="section level3 hasAnchor" number="1.1.1">
 <h3><span class="header-section-number">1.1.1</span> Creating network objects in igraph<a href="handling-social-network-data-in-r.html#creating-network-objects-in-igraph" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Network analysis packages such as <code>igraph</code> handle data efficiently by storing data in their own type of <em>objects</em>, which basically ensure that all procedures make sense for network data. A network object as used by <code>igraph</code> includes the information on both edges and nodes of a network in a single “box” (and potentially other information about the network too).</p>
@@ -282,9 +289,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-2"><a href="handling-social-network-data-in-r.html#cb12-2" tabindex="-1"></a><span class="fu">class</span>(g)</span></code></pre></div>
 <pre><code>## [1] &quot;igraph&quot;</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="handling-social-network-data-in-r.html#cb14-1" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 3d98ab6 DN-- 5 4 -- 
+<pre><code>## IGRAPH 37284bd DN-- 5 4 -- 
 ## + attr: name (v/c)
-## + edges from 3d98ab6 (vertex names):
+## + edges from 37284bd (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>The output from running “g” already shows that this is now a network object (specifically: an object of the class “igraph”, as shown by <code>class()</code>): R interprets the object as a network and shows us the edges in the network. This also means that other R functions - to the extent that they have network methods implemented - now automatically recognize <code>g</code> as a network object and will behave accordingly (note that this is a key feature of R as an “object-oriented language”). For example, we can now run the standard <code>plot()</code> function and it will create a network map:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="handling-social-network-data-in-r.html#cb16-1" tabindex="-1"></a><span class="fu">plot</span>(g)</span></code></pre></div>
@@ -382,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 1 0 0 0 0
 ## 4 0 0 0 0 0
 ## 5 0 0 0 0 0</code></pre>
-<p>We here specify <code>sparse = FALSE</code> because by default, <code>as_adjacency_matrix()</code> will return a “sparse matrix” (just run <code>as_adjacenct_matrix(g)</code> on your R console and see what comes out), which is a somewhat more efficient way of handling matrices with many zeroes. To demonstrate that we can recreate our original adjacency matrix however, we don’t want that here. To check whether the resulting matrix is indeed identical to what we originally read from disk we can do:</p>
+<p>We here specify <code>sparse = FALSE</code> because by default, <code>as_adjacency_matrix()</code> will return a “sparse matrix” (just run <code>as_adjacenct_matrix(g)</code> on your R console and see what comes out), which is a somewhat more efficient way of handling matrices with many zeroes. To demonstrate that we can recreate our original adjacency matrix however, we don’t want that here. To check whether the resulting matrix is indeed identical to what we originally read from a file we can do:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="handling-social-network-data-in-r.html#cb30-1" tabindex="-1"></a><span class="fu">all</span>(g_adj_matrix <span class="sc">==</span> g_matrix)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
@@ -418,7 +425,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb36-9"><a href="handling-social-network-data-in-r.html#cb36-9" tabindex="-1"></a>  <span class="fu">relocate</span>(age, <span class="at">.after =</span> id) <span class="sc">%&gt;%</span> </span>
 <span id="cb36-10"><a href="handling-social-network-data-in-r.html#cb36-10" tabindex="-1"></a>  <span class="fu">type_convert</span>() <span class="co">#as_data_frame returns characters; this transforms it back to numeric</span></span></code></pre></div>
 <pre><code>## 
-## ── Column specification ─────────────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────────────────────
 ## cols(
 ##   id = col_double(),
 ##   friend1 = col_double(),
@@ -475,9 +482,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We have already seen the use of <code>set_vertex_attr()</code> to add node attributes, of <code>V()</code> to get all nodes. As an alternative to <code>set_vertex_attr()</code>, we can also use <code>V()</code> for the same purpose:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="handling-social-network-data-in-r.html#cb45-1" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;male&quot;</span>) </span>
 <span id="cb45-2"><a href="handling-social-network-data-in-r.html#cb45-2" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 3d98ab6 DN-- 5 4 -- 
+<pre><code>## IGRAPH 37284bd DN-- 5 4 -- 
 ## + attr: name (v/c), age (v/n), gender (v/c)
-## + edges from 3d98ab6 (vertex names):
+## + edges from 37284bd (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>Similarly, we can use <code>E()</code> to access, add and modify edge attributes.</p>
 <p>For more information on all the graph manipulation functions included in <code>igraph</code>, see the <a href="https://r.igraph.org/articles/igraph.html">package’s website</a> and, of course, the help pages in R.</p>
