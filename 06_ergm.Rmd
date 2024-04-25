@@ -3,9 +3,8 @@
 
 
 
-```{r}
+```{r  message=F, warning =FALSE}
 
-library(haven) #For reading Stata files
 library(network)
 library(igraph)
 library(intergraph)
@@ -18,7 +17,7 @@ library(tidyverse)
 
 ## Data preparation
 
-We'll work with the same single class ("12b") from the Knecht data as before. To keep things very consise here, we simply load an `igraph` network object that we've saved to disk before.
+We'll work with the same single class ("12b") from the Knecht data as before. To keep things very concise here, we simply load an `igraph` network object that we've saved to disk before.
 
 
 ```{r}
@@ -76,5 +75,10 @@ This looks OK for the model statistics, but less so for the for network statisti
 plot(M2.g.gof)
 ```
 
-Indeed, some of these are quite off, indicating that we might want to include some other effects in the model. Indeed, for directed networks, it is common to include at least indegree-, outdegree-, reciprocity, and something related to triadic closure. The exact choice of effects is not trivial though, so we leave it at this for now. 
+Indeed, some of these are quite off, indicating that we might want to include some other effects in the model. Indeed, for directed networks, it is common to include at least somethign related to degree, reciprocity, and something related to triadic closure. The exact choice of effects is not trivial though and may lead to compuational complications, so we leave it at this for now. 
+
+For further introductions to ERGM, we suggest [this  tutorial](https://statnet.org/workshop-ergm/ergm_tutorial.html#1_Statistical_network_modeling_with_ERGMs)  by the Statnet team and [this tutorial](https://inarwhal.github.io/NetworkAnalysisR-book/ch13-Cross-Sectional-Network-Models-ERGM-R.html) by Rawlings et al. The latter in particular has an informative illustration of the inclusion of triadic effects and the computational issues involved. Also helpful is [this short list](https://statnet.org/nme/d2-ergmterms.html) of common ERGM terms. A longer list is [here](https://search.r-project.org/CRAN/refmans/ergm/html/ergmTerm.html). 
+
+
+
 
