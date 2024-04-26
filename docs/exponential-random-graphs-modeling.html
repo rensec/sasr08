@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2024-04-25" />
+<meta name="date" content="2024-04-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -183,7 +183,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="introducing-the-knecht-data.html"><a href="introducing-the-knecht-data.html#a-first-look-at-the-data"><i class="fa fa-check"></i><b>3.1</b> A first look at the data</a></li>
 <li class="chapter" data-level="3.2" data-path="introducing-the-knecht-data.html"><a href="introducing-the-knecht-data.html#assignment"><i class="fa fa-check"></i><b>3.2</b> Assignment</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html"><i class="fa fa-check"></i><b>4</b> Networks as causes: Spatial regression analysis</a></li>
+<li class="chapter" data-level="4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html"><i class="fa fa-check"></i><b>4</b> Networks as causes: Spatial regression analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#constructing-a-spatial-weight-matrix"><i class="fa fa-check"></i><b>4.1</b> Constructing a Spatial Weight Matrix</a></li>
+<li class="chapter" data-level="4.2" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#linear-regression-analysis"><i class="fa fa-check"></i><b>4.2</b> Linear Regression Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-analysis"><i class="fa fa-check"></i><b>4.3</b> Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#morans-i-test"><i class="fa fa-check"></i><b>4.3.1</b> Moran’s I test</a></li>
+<li class="chapter" data-level="4.3.2" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#lagrange-multiplier-tests-for-spatial-lag-and-spatial-error-dependencies"><i class="fa fa-check"></i><b>4.3.2</b> Lagrange multiplier tests for spatial lag and spatial error dependencies</a></li>
+<li class="chapter" data-level="4.3.3" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-lag-model"><i class="fa fa-check"></i><b>4.3.3</b> Spatial lag model</a></li>
+<li class="chapter" data-level="4.3.4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-error-model"><i class="fa fa-check"></i><b>4.3.4</b> Spatial error model</a></li>
+<li class="chapter" data-level="4.3.5" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-autoregressive-combined-model"><i class="fa fa-check"></i><b>4.3.5</b> Spatial autoregressive combined model</a></li>
+<li class="chapter" data-level="4.3.6" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-durbin-model"><i class="fa fa-check"></i><b>4.3.6</b> Spatial Durbin model</a></li>
+<li class="chapter" data-level="4.3.7" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-durbin-error-model"><i class="fa fa-check"></i><b>4.3.7</b> Spatial Durbin error model</a></li>
+<li class="chapter" data-level="4.3.8" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#general-nested-model"><i class="fa fa-check"></i><b>4.3.8</b> General nested model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#knecht-assignment"><i class="fa fa-check"></i><b>4.4</b> Knecht Assignment</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html"><i class="fa fa-check"></i><b>5</b> Exponential Random Graphs Modeling</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#data-preparation"><i class="fa fa-check"></i><b>5.1</b> Data preparation</a></li>
@@ -218,23 +234,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="exponential-random-graphs-modeling" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">5</span> Exponential Random Graphs Modeling<a href="exponential-random-graphs-modeling.html#exponential-random-graphs-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="exponential-random-graphs-modeling.html#cb84-1" tabindex="-1"></a><span class="fu">library</span>(network)</span>
-<span id="cb84-2"><a href="exponential-random-graphs-modeling.html#cb84-2" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb84-3"><a href="exponential-random-graphs-modeling.html#cb84-3" tabindex="-1"></a><span class="fu">library</span>(intergraph)</span>
-<span id="cb84-4"><a href="exponential-random-graphs-modeling.html#cb84-4" tabindex="-1"></a><span class="fu">library</span>(sna)</span>
-<span id="cb84-5"><a href="exponential-random-graphs-modeling.html#cb84-5" tabindex="-1"></a><span class="fu">library</span>(ergm)</span>
-<span id="cb84-6"><a href="exponential-random-graphs-modeling.html#cb84-6" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="exponential-random-graphs-modeling.html#cb121-1" tabindex="-1"></a><span class="fu">library</span>(network)</span>
+<span id="cb121-2"><a href="exponential-random-graphs-modeling.html#cb121-2" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb121-3"><a href="exponential-random-graphs-modeling.html#cb121-3" tabindex="-1"></a><span class="fu">library</span>(intergraph)</span>
+<span id="cb121-4"><a href="exponential-random-graphs-modeling.html#cb121-4" tabindex="-1"></a><span class="fu">library</span>(sna)</span>
+<span id="cb121-5"><a href="exponential-random-graphs-modeling.html#cb121-5" tabindex="-1"></a><span class="fu">library</span>(ergm)</span>
+<span id="cb121-6"><a href="exponential-random-graphs-modeling.html#cb121-6" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span></code></pre></div>
 <div id="data-preparation" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Data preparation<a href="exponential-random-graphs-modeling.html#data-preparation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We’ll work with the same single class (“12b”) from the Knecht data as before. To keep things very concise here, we simply load an <code>igraph</code> network object that we’ve saved to disk before.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="exponential-random-graphs-modeling.html#cb85-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;classnet.rdata&quot;</span>)</span>
-<span id="cb85-2"><a href="exponential-random-graphs-modeling.html#cb85-2" tabindex="-1"></a><span class="fu">summary</span>(classnet)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="exponential-random-graphs-modeling.html#cb122-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;classnet.rdata&quot;</span>)</span>
+<span id="cb122-2"><a href="exponential-random-graphs-modeling.html#cb122-2" tabindex="-1"></a><span class="fu">summary</span>(classnet)</span></code></pre></div>
 <pre><code>## IGRAPH 963ef71 DN-- 26 91 -- 
 ## + attr: name (v/c), sex (v/n), age (v/n), sourcevar (e/c)</code></pre>
 <p>However, for exponential random graph modeling, we’ll actually need network objects from the <code>network</code> class (that is, as generated by the <code>network</code> package). For this, we’ll use the <code>intergraph</code> package, already loaded above. Unfortunately, <code>network</code> does not handle factor variables, so we first need to convert ‘sex’ to a numeric variable.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="exponential-random-graphs-modeling.html#cb87-1" tabindex="-1"></a><span class="fu">V</span>(classnet)<span class="sc">$</span>sex <span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">V</span>(classnet)<span class="sc">$</span>sex)</span>
-<span id="cb87-2"><a href="exponential-random-graphs-modeling.html#cb87-2" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">asNetwork</span>(classnet)</span>
-<span id="cb87-3"><a href="exponential-random-graphs-modeling.html#cb87-3" tabindex="-1"></a>g</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="exponential-random-graphs-modeling.html#cb124-1" tabindex="-1"></a><span class="fu">V</span>(classnet)<span class="sc">$</span>sex <span class="ot">&lt;-</span><span class="fu">as.numeric</span>(<span class="fu">V</span>(classnet)<span class="sc">$</span>sex)</span>
+<span id="cb124-2"><a href="exponential-random-graphs-modeling.html#cb124-2" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">asNetwork</span>(classnet)</span>
+<span id="cb124-3"><a href="exponential-random-graphs-modeling.html#cb124-3" tabindex="-1"></a>g</span></code></pre></div>
 <pre><code>##  Network attributes:
 ##   vertices = 26 
 ##   directed = TRUE 
@@ -252,14 +268,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  Edge attribute names: 
 ##     sourcevar</code></pre>
 <p>The alternative approach would be to load the original data set, filter out the class, prepare the data as an edge list and node list as we’ve done before, and then import it directly into a <code>network</code> object using one of the <code>as.network...()</code> function from the <code>network</code> package.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="exponential-random-graphs-modeling.html#cb89-1" tabindex="-1"></a><span class="fu">gplot</span>(g,  <span class="at">vertex.col=</span>g <span class="sc">%v%</span> <span class="st">&quot;sex&quot;</span><span class="sc">*</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" />
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="exponential-random-graphs-modeling.html#cb126-1" tabindex="-1"></a><span class="fu">gplot</span>(g,  <span class="at">vertex.col=</span>g <span class="sc">%v%</span> <span class="st">&quot;sex&quot;</span><span class="sc">*</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672" />
 Looks like we have some gender homophily going on here, as well as a lot of reciprocity! With ERGM, we can test this statistically.</p>
 </div>
 <div id="model-estimation" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Model estimation<a href="exponential-random-graphs-modeling.html#model-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now let’s estimate a simple model. First we test the hypothesis that ties are likely to be reciprocated. In this case we add, besides the “edges” term,</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="exponential-random-graphs-modeling.html#cb90-1" tabindex="-1"></a>M1.g<span class="ot">&lt;-</span><span class="fu">ergm</span>(g <span class="sc">~</span> edges <span class="sc">+</span>  mutual )</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="exponential-random-graphs-modeling.html#cb127-1" tabindex="-1"></a>M1.g<span class="ot">&lt;-</span><span class="fu">ergm</span>(g <span class="sc">~</span> edges <span class="sc">+</span>  mutual )</span></code></pre></div>
 <pre><code>## Starting maximum pseudolikelihood estimation (MPLE):</code></pre>
 <pre><code>## Obtaining the responsible dyads.</code></pre>
 <pre><code>## Evaluating the predictor and response matrix.</code></pre>
@@ -271,8 +287,8 @@ Looks like we have some gender homophily going on here, as well as a lot of reci
 ## falling back to &#39;lpSolveAPI&#39;. This should be fine unless the sample size and/or
 ## the number of parameters is very big.</code></pre>
 <pre><code>## Optimizing with step length 1.0000.</code></pre>
-<pre><code>## The log-likelihood improved by 0.0296.</code></pre>
-<pre><code>## Convergence test p-value: 0.0043. Converged with 99% confidence.
+<pre><code>## The log-likelihood improved by 0.0014.</code></pre>
+<pre><code>## Convergence test p-value: 0.0001. Converged with 99% confidence.
 ## Finished MCMLE.
 ## Evaluating log-likelihood at the estimate. Fitting the dyad-independent submodel...
 ## Bridging between the dyad-independent submodel and the full model...
@@ -282,27 +298,27 @@ Looks like we have some gender homophily going on here, as well as a lot of reci
 ## 
 ## This model was fit using MCMC.  To examine model diagnostics and check
 ## for degeneracy, use the mcmc.diagnostics() function.</code></pre>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="exponential-random-graphs-modeling.html#cb102-1" tabindex="-1"></a><span class="fu">summary</span>(M1.g)</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="exponential-random-graphs-modeling.html#cb139-1" tabindex="-1"></a><span class="fu">summary</span>(M1.g)</span></code></pre></div>
 <pre><code>## Call:
 ## ergm(formula = g ~ edges + mutual)
 ## 
 ## Monte Carlo Maximum Likelihood Results:
 ## 
 ##        Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-## edges   -2.7126     0.1922      0 -14.113   &lt;1e-04 ***
-## mutual   3.2421     0.4436      0   7.308   &lt;1e-04 ***
+## edges   -2.6967     0.1814      0 -14.866   &lt;1e-04 ***
+## mutual   3.1599     0.4081      0   7.742   &lt;1e-04 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ##      Null Deviance: 901.1  on 650  degrees of freedom
-##  Residual Deviance: 455.4  on 648  degrees of freedom
+##  Residual Deviance: 454.5  on 648  degrees of freedom
 ##  
-## AIC: 459.4  BIC: 468.4  (Smaller is better. MC Std. Err. = 0.8174)</code></pre>
+## AIC: 458.5  BIC: 467.5  (Smaller is better. MC Std. Err. = 0.7468)</code></pre>
 <p>Indeed, we find a positive and significant effect for the number of reciprocated ties.</p>
 <p>Now let’s add the homophily effect (as well as a gender differential effect):</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="exponential-random-graphs-modeling.html#cb104-1" tabindex="-1"></a>M2.g<span class="ot">&lt;-</span><span class="fu">ergm</span>(g <span class="sc">~</span> edges <span class="sc">+</span> mutual <span class="sc">+</span>  <span class="fu">nodefactor</span>(<span class="st">&quot;sex&quot;</span>, <span class="at">levels =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">&quot;sex&quot;</span> ))</span>
-<span id="cb104-2"><a href="exponential-random-graphs-modeling.html#cb104-2" tabindex="-1"></a></span>
-<span id="cb104-3"><a href="exponential-random-graphs-modeling.html#cb104-3" tabindex="-1"></a><span class="fu">summary</span>(M2.g)</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="exponential-random-graphs-modeling.html#cb141-1" tabindex="-1"></a>M2.g<span class="ot">&lt;-</span><span class="fu">ergm</span>(g <span class="sc">~</span> edges <span class="sc">+</span> mutual <span class="sc">+</span>  <span class="fu">nodefactor</span>(<span class="st">&quot;sex&quot;</span>, <span class="at">levels =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">&quot;sex&quot;</span> ))</span>
+<span id="cb141-2"><a href="exponential-random-graphs-modeling.html#cb141-2" tabindex="-1"></a></span>
+<span id="cb141-3"><a href="exponential-random-graphs-modeling.html#cb141-3" tabindex="-1"></a><span class="fu">summary</span>(M2.g)</span></code></pre></div>
 <pre><code>## Call:
 ## ergm(formula = g ~ edges + mutual + nodefactor(&quot;sex&quot;, levels = 2) + 
 ##     nodematch(&quot;sex&quot;))
@@ -310,93 +326,89 @@ Looks like we have some gender homophily going on here, as well as a lot of reci
 ## Monte Carlo Maximum Likelihood Results:
 ## 
 ##                  Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-## edges             -3.7697     0.3080      0 -12.241   &lt;1e-04 ***
-## mutual             2.8488     0.4189      0   6.801   &lt;1e-04 ***
-## nodefactor.sex.2   0.1979     0.1202      0   1.647   0.0996 .  
-## nodematch.sex      1.4778     0.2968      0   4.980   &lt;1e-04 ***
+## edges             -3.7416     0.3062      0 -12.219   &lt;1e-04 ***
+## mutual             2.8209     0.3836      0   7.354   &lt;1e-04 ***
+## nodefactor.sex.2   0.1871     0.1176      0   1.591    0.112    
+## nodematch.sex      1.4815     0.3072      0   4.823   &lt;1e-04 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ##      Null Deviance: 901.1  on 650  degrees of freedom
-##  Residual Deviance: 416.5  on 646  degrees of freedom
+##  Residual Deviance: 416.8  on 646  degrees of freedom
 ##  
-## AIC: 424.5  BIC: 442.4  (Smaller is better. MC Std. Err. = 0.7361)</code></pre>
+## AIC: 424.8  BIC: 442.7  (Smaller is better. MC Std. Err. = 0.649)</code></pre>
 <p>Indeed, we find a positive effect of gender homophily.</p>
 </div>
 <div id="goodness-of-fit" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Goodness of fit<a href="exponential-random-graphs-modeling.html#goodness-of-fit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Finally, let’s look at goodness of fit:</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="exponential-random-graphs-modeling.html#cb106-1" tabindex="-1"></a>M2.g.gof <span class="ot">&lt;-</span> <span class="fu">gof</span>(M2.g)</span>
-<span id="cb106-2"><a href="exponential-random-graphs-modeling.html#cb106-2" tabindex="-1"></a>M2.g.gof</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="exponential-random-graphs-modeling.html#cb143-1" tabindex="-1"></a>M2.g.gof <span class="ot">&lt;-</span> <span class="fu">gof</span>(M2.g)</span>
+<span id="cb143-2"><a href="exponential-random-graphs-modeling.html#cb143-2" tabindex="-1"></a>M2.g.gof</span></code></pre></div>
 <pre><code>## 
 ## Goodness-of-fit for in-degree 
 ## 
-##           obs min mean max MC p-value
-## idegree0    0   0 0.61   3       1.00
-## idegree1    4   0 2.50   7       0.50
-## idegree2    7   1 4.37   9       0.38
-## idegree3    4   3 6.36  12       0.38
-## idegree4    1   1 5.27  13       0.02
-## idegree5    6   0 3.76  10       0.38
-## idegree6    1   0 2.05   7       0.74
-## idegree7    3   0 0.77   4       0.12
-## idegree8    0   0 0.20   2       1.00
-## idegree9    0   0 0.09   1       1.00
-## idegree11   0   0 0.01   1       1.00
-## idegree12   0   0 0.01   1       1.00
+##          obs min mean max MC p-value
+## idegree0   0   0 0.40   4       1.00
+## idegree1   4   0 2.24   7       0.34
+## idegree2   7   0 4.76   9       0.46
+## idegree3   4   1 6.32  12       0.40
+## idegree4   1   1 5.41  10       0.04
+## idegree5   6   0 3.77   9       0.32
+## idegree6   1   0 1.85   6       1.00
+## idegree7   3   0 0.83   3       0.10
+## idegree8   0   0 0.33   2       1.00
+## idegree9   0   0 0.09   2       1.00
 ## 
 ## Goodness-of-fit for out-degree 
 ## 
 ##           obs min mean max MC p-value
-## odegree0    1   0 0.55   2       0.86
-## odegree1    4   0 2.30   7       0.42
-## odegree2    4   1 5.00  12       0.88
-## odegree3    5   2 6.13  12       0.82
-## odegree4    6   1 5.40  10       0.84
-## odegree5    3   0 3.40   7       0.96
-## odegree6    0   0 1.94   6       0.34
-## odegree7    1   0 0.86   6       1.00
-## odegree8    1   0 0.26   2       0.46
-## odegree9    0   0 0.11   2       1.00
-## odegree10   1   0 0.04   1       0.08
-## odegree11   0   0 0.01   1       1.00
+## odegree0    1   0 0.58   3       0.86
+## odegree1    4   0 2.11   6       0.30
+## odegree2    4   1 4.64  10       1.00
+## odegree3    5   1 6.20  12       0.70
+## odegree4    6   1 5.76  11       1.00
+## odegree5    3   0 3.69  11       0.98
+## odegree6    0   0 1.74   6       0.30
+## odegree7    1   0 0.76   3       1.00
+## odegree8    1   0 0.36   3       0.58
+## odegree9    0   0 0.15   2       1.00
+## odegree10   1   0 0.01   1       0.02
 ## 
 ## Goodness-of-fit for edgewise shared partner 
 ## 
 ##          obs min  mean max MC p-value
-## esp.OTP0  19  32 48.48  68       0.00
-## esp.OTP1  24  12 29.60  58       0.62
-## esp.OTP2  27   1  9.98  25       0.00
-## esp.OTP3  14   0  2.17  10       0.00
-## esp.OTP4   6   0  0.25   6       0.02
-## esp.OTP5   1   0  0.05   1       0.10
+## esp.OTP0  19  25 48.38  65       0.00
+## esp.OTP1  24   7 31.58  58       0.52
+## esp.OTP2  27   0  9.41  26       0.00
+## esp.OTP3  14   0  1.92  10       0.00
+## esp.OTP4   6   0  0.26   5       0.00
+## esp.OTP5   1   0  0.01   1       0.02
+## esp.OTP6   0   0  0.01   1       1.00
 ## 
 ## Goodness-of-fit for minimum geodesic distance 
 ## 
 ##     obs min   mean max MC p-value
-## 1    91  68  90.53 121       0.96
-## 2   104 105 188.84 271       0.00
-## 3    80 112 189.30 243       0.00
-## 4    57  48  96.66 145       0.08
-## 5    48   1  33.73  83       0.52
-## 6    18   0  11.60  70       0.48
-## 7     5   0   3.64  49       0.42
-## 8     0   0   1.05  20       1.00
-## 9     0   0   0.32   9       1.00
-## 10    0   0   0.07   5       1.00
-## 11    0   0   0.01   1       1.00
-## Inf 247   0  34.25 178       0.00
+## 1    91  64  91.57 128       1.00
+## 2   104 110 194.77 293       0.00
+## 3    80 127 195.47 237       0.00
+## 4    57  31  97.78 146       0.02
+## 5    48   0  30.39  74       0.38
+## 6    18   0   7.84  53       0.28
+## 7     5   0   1.71  24       0.26
+## 8     0   0   0.40  10       1.00
+## 9     0   0   0.05   3       1.00
+## Inf 247   0  30.02 194       0.00
 ## 
 ## Goodness-of-fit for model statistics 
 ## 
 ##                  obs min  mean max MC p-value
-## edges             91  68 90.53 121       0.96
-## mutual            28  16 27.90  44       1.00
-## nodefactor.sex.2  58  33 57.79  86       1.00
-## nodematch.sex     79  57 78.60 107       0.96</code></pre>
+## edges             91  64 91.57 128       1.00
+## mutual            28  16 28.90  42       1.00
+## nodefactor.sex.2  58  34 58.04  78       0.96
+## nodematch.sex     79  53 79.25 107       1.00</code></pre>
 <p>This looks OK for the model statistics, but less so for the for network statistics <em>not</em> in the model. Let’s have a closer look at those:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="exponential-random-graphs-modeling.html#cb108-1" tabindex="-1"></a><span class="fu">plot</span>(M2.g.gof)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-56-5.png" width="672" /></p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="exponential-random-graphs-modeling.html#cb145-1" tabindex="-1"></a><span class="fu">plot</span>(M2.g.gof)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-74-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-74-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-74-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-74-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-74-5.png" width="672" /></p>
 <p>Indeed, some of these are quite off, indicating that we might want to include some other effects in the model. Indeed, for directed networks, it is common to include at least somethign related to degree, reciprocity, and something related to triadic closure. The exact choice of effects is not trivial though and may lead to compuational complications, so we leave it at this for now.</p>
 </div>
 <div id="further-resources-on-ergms" class="section level2 hasAnchor" number="5.4">

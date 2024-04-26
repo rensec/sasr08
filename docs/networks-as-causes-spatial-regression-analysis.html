@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2024-04-25" />
+<meta name="date" content="2024-04-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -183,7 +183,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="introducing-the-knecht-data.html"><a href="introducing-the-knecht-data.html#a-first-look-at-the-data"><i class="fa fa-check"></i><b>3.1</b> A first look at the data</a></li>
 <li class="chapter" data-level="3.2" data-path="introducing-the-knecht-data.html"><a href="introducing-the-knecht-data.html#assignment"><i class="fa fa-check"></i><b>3.2</b> Assignment</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html"><i class="fa fa-check"></i><b>4</b> Networks as causes: Spatial regression analysis</a></li>
+<li class="chapter" data-level="4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html"><i class="fa fa-check"></i><b>4</b> Networks as causes: Spatial regression analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#constructing-a-spatial-weight-matrix"><i class="fa fa-check"></i><b>4.1</b> Constructing a Spatial Weight Matrix</a></li>
+<li class="chapter" data-level="4.2" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#linear-regression-analysis"><i class="fa fa-check"></i><b>4.2</b> Linear Regression Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-analysis"><i class="fa fa-check"></i><b>4.3</b> Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#morans-i-test"><i class="fa fa-check"></i><b>4.3.1</b> Moran’s I test</a></li>
+<li class="chapter" data-level="4.3.2" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#lagrange-multiplier-tests-for-spatial-lag-and-spatial-error-dependencies"><i class="fa fa-check"></i><b>4.3.2</b> Lagrange multiplier tests for spatial lag and spatial error dependencies</a></li>
+<li class="chapter" data-level="4.3.3" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-lag-model"><i class="fa fa-check"></i><b>4.3.3</b> Spatial lag model</a></li>
+<li class="chapter" data-level="4.3.4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-error-model"><i class="fa fa-check"></i><b>4.3.4</b> Spatial error model</a></li>
+<li class="chapter" data-level="4.3.5" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-autoregressive-combined-model"><i class="fa fa-check"></i><b>4.3.5</b> Spatial autoregressive combined model</a></li>
+<li class="chapter" data-level="4.3.6" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-durbin-model"><i class="fa fa-check"></i><b>4.3.6</b> Spatial Durbin model</a></li>
+<li class="chapter" data-level="4.3.7" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-durbin-error-model"><i class="fa fa-check"></i><b>4.3.7</b> Spatial Durbin error model</a></li>
+<li class="chapter" data-level="4.3.8" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#general-nested-model"><i class="fa fa-check"></i><b>4.3.8</b> General nested model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#knecht-assignment"><i class="fa fa-check"></i><b>4.4</b> Knecht Assignment</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html"><i class="fa fa-check"></i><b>5</b> Exponential Random Graphs Modeling</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#data-preparation"><i class="fa fa-check"></i><b>5.1</b> Data preparation</a></li>
@@ -218,8 +234,391 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="networks-as-causes-spatial-regression-analysis" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">4</span> Networks as causes: Spatial regression analysis<a href="networks-as-causes-spatial-regression-analysis.html#networks-as-causes-spatial-regression-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Coming soon!</p>
+<div id="constructing-a-spatial-weight-matrix" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Constructing a Spatial Weight Matrix<a href="networks-as-causes-spatial-regression-analysis.html#constructing-a-spatial-weight-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We continue with the example from the lecture:
+we are interested in whether household income has an effect on the crime rate using neighborhood data.
+We control for house prices as house prices are correlated with both household income and crime rates.</p>
+<p>We use Anselinâs Columbus data for crime rates of neighborhoods in Columbus, Ohio, USA in 1980.
+The codebook can be found here: <a href="https://geodacenter.github.io/data-and-lab/columbus/" class="uri">https://geodacenter.github.io/data-and-lab/columbus/</a></p>
+<p>The data are already part of the spdep package and we obtain the data as follows:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb84-1" tabindex="-1"></a><span class="fu">data</span>(columbus)</span>
+<span id="cb84-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb84-2" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> columbus</span></code></pre></div>
+<p>Instead of using the tedious dollar sign every time we type a variable, we can attach the data and just type the variable:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb85-1" tabindex="-1"></a><span class="fu">attach</span>(mydata)</span></code></pre></div>
+<p>There are 49 neighborhoods in the data.
+Our dependent variable is the crime rate, measured as residential burglaries and vehicle thefts per 1000 households: CRIME.
+Our independent variable is the household income in 1,000 USD: INC.
+Our control variable is the housing value in 1,000 USD: HOVAL.</p>
+<p>Col.gal.nb provides an adjacency list of neighbors.
+We give it a better name:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb86-1" tabindex="-1"></a>neighbors <span class="ot">&lt;-</span> col.gal.nb</span></code></pre></div>
+<p>We check the class of the adjacency list:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb87-1" tabindex="-1"></a><span class="fu">class</span>(neighbors)</span></code></pre></div>
+<pre><code>## [1] &quot;nb&quot;</code></pre>
+<p>Note that it is an ‘nb’ or ‘neighborhood’ object.
+In spatial regression analysis, you need a so-called ‘weighted list - listw’ object.
+To arrive to a listw object, often it is easiest to first convert a dataframe to ‘nb’.</p>
+<p>You can do this simply with the command class(dataframe) &lt;- “nb”.
+And then, we can use nb2listw(nblist).</p>
+<p>Another approach (which is more suitable when having isolates) is to first make an adjacency matrix.
+Then you can use mat2listw(adjacencymatrix).</p>
+<p>In this case, however, we already have an nb object.
+So the only thing we need to do is to go to a listw object.
+We specify style ‘W’ to row-standardize:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb89-1" tabindex="-1"></a>listw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(neighbors, <span class="at">style =</span> <span class="st">&quot;W&quot;</span>)</span>
+<span id="cb89-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb89-2" tabindex="-1"></a><span class="fu">summary</span>(listw)</span></code></pre></div>
+<pre><code>## Characteristics of weights list object:
+## Neighbour list object:
+## Number of regions: 49 
+## Number of nonzero links: 230 
+## Percentage nonzero weights: 9.579342 
+## Average number of links: 4.693878 
+## Link number distribution:
+## 
+##  2  3  4  5  6  7  8  9 10 
+##  7  7 13  4  9  6  1  1  1 
+## 7 least connected regions:
+## 1005 1008 1045 1047 1049 1048 1015 with 2 links
+## 1 most connected region:
+## 1017 with 10 links
+## 
+## Weights style: W 
+## Weights constants summary:
+##    n   nn S0       S1       S2
+## W 49 2401 49 23.48489 204.6687</code></pre>
+<p>We see that an average region has about 5 neighbors.</p>
+</div>
+<div id="linear-regression-analysis" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Linear Regression Analysis<a href="networks-as-causes-spatial-regression-analysis.html#linear-regression-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We now turn to a linear regression model using OLS.
+ALWAYS START WITH THE EASIEST MODEL!
+The easiest model is more often than not sufficient for the main analyses.
+Before we estimate the model, let’s first summarize the variables:</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb91-1" tabindex="-1"></a><span class="fu">summary</span>(CRIME)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.1783 20.0485 34.0008 35.1288 48.5855 68.8920</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb93-1" tabindex="-1"></a><span class="fu">summary</span>(INC)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   4.477   9.963  13.380  14.375  18.324  31.070</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb95-1" tabindex="-1"></a><span class="fu">summary</span>(HOVAL)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   17.90   25.70   33.50   38.44   43.30   96.40</code></pre>
+<p>Nothing seems out of the ordinary.</p>
+<p>Now we would like to plot the neighborhoods to visualize the network.
+Coordinates of each neighborhood are provided in ‘coords’.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb97-1" tabindex="-1"></a><span class="fu">plot</span>(neighbors, coords)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p>We observe that some neighborhoods serve as bridges between neighborhoods that are distant from each other.
+Let’s now run a linear regression model:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb98-1" tabindex="-1"></a>olsreg <span class="ot">&lt;-</span> <span class="fu">lm</span>(CRIME <span class="sc">~</span> INC <span class="sc">+</span> HOVAL)</span>
+<span id="cb98-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb98-2" tabindex="-1"></a><span class="fu">summary</span>(olsreg)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = CRIME ~ INC + HOVAL)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -34.418  -6.388  -1.580   9.052  28.649 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  68.6190     4.7355  14.490  &lt; 2e-16 ***
+## INC          -1.5973     0.3341  -4.780 1.83e-05 ***
+## HOVAL        -0.2739     0.1032  -2.654   0.0109 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 11.43 on 46 degrees of freedom
+## Multiple R-squared:  0.5524, Adjusted R-squared:  0.5329 
+## F-statistic: 28.39 on 2 and 46 DF,  p-value: 9.341e-09</code></pre>
+<p>Higher household income and higher housing values lead to a significantly lower crime rate.</p>
+<p>However, we did not take the spatial dependence into account and our hypothesis tests may lead to erroneous conclusions.</p>
+</div>
+<div id="spatial-analysis" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Spatial Analysis<a href="networks-as-causes-spatial-regression-analysis.html#spatial-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="morans-i-test" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Moran’s I test<a href="networks-as-causes-spatial-regression-analysis.html#morans-i-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb100-1" tabindex="-1"></a><span class="fu">moran.test</span>(CRIME, listw)</span></code></pre></div>
+<pre><code>## 
+##  Moran I test under randomisation
+## 
+## data:  CRIME  
+## weights: listw    
+## 
+## Moran I statistic standard deviate = 5.3427, p-value = 4.578e-08
+## alternative hypothesis: greater
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##       0.485770914      -0.020833333       0.008991121</code></pre>
+<p>p-value is very small so we reject the null hypothesis of no spatial dependence.
+We should not use a linear regression.</p>
+</div>
+<div id="lagrange-multiplier-tests-for-spatial-lag-and-spatial-error-dependencies" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Lagrange multiplier tests for spatial lag and spatial error dependencies<a href="networks-as-causes-spatial-regression-analysis.html#lagrange-multiplier-tests-for-spatial-lag-and-spatial-error-dependencies" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb102-1" tabindex="-1"></a><span class="fu">lm.LMtests</span>(olsreg, listw, <span class="at">test=</span><span class="fu">c</span>(<span class="st">&quot;LMlag&quot;</span>, <span class="st">&quot;LMerr&quot;</span>))</span></code></pre></div>
+<pre><code>## Please update scripts to use lm.RStests in place of lm.LMtests</code></pre>
+<pre><code>## 
+##  Rao&#39;s score (a.k.a Lagrange multiplier) diagnostics for spatial
+##  dependence
+## 
+## data:  
+## model: lm(formula = CRIME ~ INC + HOVAL)
+## test weights: listw
+## 
+## RSerr = 4.6111, df = 1, p-value = 0.03177
+## 
+## 
+##  Rao&#39;s score (a.k.a Lagrange multiplier) diagnostics for spatial
+##  dependence
+## 
+## data:  
+## model: lm(formula = CRIME ~ INC + HOVAL)
+## test weights: listw
+## 
+## RSlag = 7.8557, df = 1, p-value = 0.005066</code></pre>
+<p>We reject both hypotheses.
+It appears that we should use both a spatial lag and a spatial error model.</p>
+</div>
+<div id="spatial-lag-model" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Spatial lag model<a href="networks-as-causes-spatial-regression-analysis.html#spatial-lag-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb105-1" tabindex="-1"></a>slm <span class="ot">&lt;-</span> <span class="fu">lagsarlm</span>(CRIME <span class="sc">~</span> INC <span class="sc">+</span> HOVAL, <span class="at">data =</span> mydata, listw, <span class="at">Durbin =</span> <span class="st">&quot;FALSE&quot;</span>)</span>
+<span id="cb105-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb105-2" tabindex="-1"></a><span class="fu">summary</span>(slm)</span></code></pre></div>
+<pre><code>## 
+## Call:lagsarlm(formula = CRIME ~ INC + HOVAL, data = mydata, listw = listw, 
+##     Durbin = &quot;FALSE&quot;)
+## 
+## Residuals:
+##         Min          1Q      Median          3Q         Max 
+## -37.4497093  -5.4565567   0.0016387   6.7159553  24.7107978 
+## 
+## Type: lag 
+## Coefficients: (asymptotic standard errors) 
+##              Estimate Std. Error z value  Pr(&gt;|z|)
+## (Intercept) 46.851431   7.314754  6.4051 1.503e-10
+## INC         -1.073533   0.310872 -3.4533 0.0005538
+## HOVAL       -0.269997   0.090128 -2.9957 0.0027381
+## 
+## Rho: 0.40389, LR test value: 8.4179, p-value: 0.0037154
+## Asymptotic standard error: 0.12071
+##     z-value: 3.3459, p-value: 0.00082027
+## Wald statistic: 11.195, p-value: 0.00082027
+## 
+## Log likelihood: -183.1683 for lag model
+## ML residual variance (sigma squared): 99.164, (sigma: 9.9581)
+## Number of observations: 49 
+## Number of parameters estimated: 5 
+## AIC: 376.34, (AIC for lm: 382.75)
+## LM test for residual autocorrelation
+## test value: 0.19184, p-value: 0.66139</code></pre>
+<p>Again a significantly negative effect of household income and housing values on the crime rate.
+Coefficients are very similar to the OLS coefficients.
+This is often the case given that OLS coefficients are most often still unbiased.
+The spatial parameter rho is positive and significant showing dependence.</p>
+<p>We now turn to the direct and indirect effects.
+For this purpose, we follow the approximation method by Lesage and Pase (2009) .
+We specify ‘zstats = TRUE’ to obtain p-values.
+We use a simulation with 200 iterations to obtain p-values.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb107-1" tabindex="-1"></a>im<span class="ot">&lt;-</span><span class="fu">impacts</span>(slm, <span class="at">listw =</span> listw, <span class="at">zstats=</span><span class="cn">TRUE</span>, <span class="at">R=</span><span class="dv">200</span>)</span>
+<span id="cb107-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb107-2" tabindex="-1"></a>sums<span class="ot">&lt;-</span><span class="fu">summary</span>(im,  <span class="at">zstats=</span>T)</span>
+<span id="cb107-3"><a href="networks-as-causes-spatial-regression-analysis.html#cb107-3" tabindex="-1"></a><span class="fu">data.frame</span>(sums<span class="sc">$</span>res)</span></code></pre></div>
+<pre><code>##       direct   indirect      total
+## 1 -1.1225156 -0.6783818 -1.8008973
+## 2 -0.2823163 -0.1706152 -0.4529315</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb109-1" tabindex="-1"></a><span class="fu">data.frame</span>(sums<span class="sc">$</span>pzmat)</span></code></pre></div>
+<pre><code>##             Direct   Indirect       Total
+## INC   0.0002350327 0.08614744 0.001672494
+## HOVAL 0.0046737504 0.17628996 0.027673812</code></pre>
+<p>Although both total effects are significant, they are mainly driven by direct effects.</p>
+</div>
+<div id="spatial-error-model" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Spatial error model<a href="networks-as-causes-spatial-regression-analysis.html#spatial-error-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb111-1" tabindex="-1"></a>sem <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(CRIME <span class="sc">~</span> INC <span class="sc">+</span> HOVAL, <span class="at">data =</span> mydata, listw, <span class="at">Durbin =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb111-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb111-2" tabindex="-1"></a><span class="fu">summary</span>(sem)</span></code></pre></div>
+<pre><code>## 
+## Call:errorsarlm(formula = CRIME ~ INC + HOVAL, data = mydata, listw = listw, 
+##     Durbin = FALSE)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -34.45950  -6.21730  -0.69775   7.65256  24.23631 
+## 
+## Type: error 
+## Coefficients: (asymptotic standard errors) 
+##              Estimate Std. Error z value  Pr(&gt;|z|)
+## (Intercept) 61.053618   5.314875 11.4873 &lt; 2.2e-16
+## INC         -0.995473   0.337025 -2.9537 0.0031398
+## HOVAL       -0.307979   0.092584 -3.3265 0.0008794
+## 
+## Lambda: 0.52089, LR test value: 6.4441, p-value: 0.011132
+## Asymptotic standard error: 0.14129
+##     z-value: 3.6868, p-value: 0.00022713
+## Wald statistic: 13.592, p-value: 0.00022713
+## 
+## Log likelihood: -184.1552 for error model
+## ML residual variance (sigma squared): 99.98, (sigma: 9.999)
+## Number of observations: 49 
+## Number of parameters estimated: 5 
+## AIC: 378.31, (AIC for lm: 382.75)</code></pre>
+<p>Again a significantly negative effect of household income and housing values on the crime rate.
+The spatial parameter lambda is positive and significant showing dependence.</p>
+</div>
+<div id="spatial-autoregressive-combined-model" class="section level3 hasAnchor" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Spatial autoregressive combined model<a href="networks-as-causes-spatial-regression-analysis.html#spatial-autoregressive-combined-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb113-1" tabindex="-1"></a>sac <span class="ot">&lt;-</span> <span class="fu">sacsarlm</span>(CRIME <span class="sc">~</span> INC <span class="sc">+</span> HOVAL, <span class="at">data =</span> mydata, listw, <span class="at">Durbin =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb113-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb113-2" tabindex="-1"></a><span class="fu">summary</span>(sac)</span></code></pre></div>
+<pre><code>## 
+## Call:sacsarlm(formula = CRIME ~ INC + HOVAL, data = mydata, listw = listw, 
+##     Durbin = FALSE)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -37.1121  -4.6324  -0.3040   7.0306  24.6929 
+## 
+## Type: sac 
+## Coefficients: (asymptotic standard errors) 
+##              Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept) 49.051432  10.054986  4.8783 1.07e-06
+## INC         -1.068781   0.332839 -3.2111 0.001322
+## HOVAL       -0.283114   0.091526 -3.0933 0.001980
+## 
+## Rho: 0.35326
+## Asymptotic standard error: 0.19669
+##     z-value: 1.796, p-value: 0.072494
+## Lambda: 0.13199
+## Asymptotic standard error: 0.29905
+##     z-value: 0.44138, p-value: 0.65894
+## 
+## LR test value: 8.6082, p-value: 0.013513
+## 
+## Log likelihood: -183.0731 for sac model
+## ML residual variance (sigma squared): 99.423, (sigma: 9.9711)
+## Number of observations: 49 
+## Number of parameters estimated: 6 
+## AIC: 378.15, (AIC for lm: 382.75)</code></pre>
+<p>Similar results, but rho is now not significant.</p>
+</div>
+<div id="spatial-durbin-model" class="section level3 hasAnchor" number="4.3.6">
+<h3><span class="header-section-number">4.3.6</span> Spatial Durbin model<a href="networks-as-causes-spatial-regression-analysis.html#spatial-durbin-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb115-1" tabindex="-1"></a>sdm <span class="ot">&lt;-</span> <span class="fu">lagsarlm</span>(CRIME <span class="sc">~</span> INC <span class="sc">+</span> HOVAL, <span class="at">data =</span> mydata, listw, <span class="at">Durbin =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb115-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb115-2" tabindex="-1"></a><span class="fu">summary</span>(sdm)</span></code></pre></div>
+<pre><code>## 
+## Call:lagsarlm(formula = CRIME ~ INC + HOVAL, data = mydata, listw = listw, 
+##     Durbin = TRUE)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -37.15904  -6.62594  -0.39823   6.57561  23.62757 
+## 
+## Type: mixed 
+## Coefficients: (asymptotic standard errors) 
+##              Estimate Std. Error z value  Pr(&gt;|z|)
+## (Intercept) 45.592893  13.128679  3.4728 0.0005151
+## INC         -0.939088   0.338229 -2.7765 0.0054950
+## HOVAL       -0.299605   0.090843 -3.2980 0.0009736
+## lag.INC     -0.618375   0.577052 -1.0716 0.2838954
+## lag.HOVAL    0.266615   0.183971  1.4492 0.1472760
+## 
+## Rho: 0.38251, LR test value: 4.1648, p-value: 0.041272
+## Asymptotic standard error: 0.16237
+##     z-value: 2.3557, p-value: 0.018488
+## Wald statistic: 5.5493, p-value: 0.018488
+## 
+## Log likelihood: -182.0161 for mixed model
+## ML residual variance (sigma squared): 95.051, (sigma: 9.7494)
+## Number of observations: 49 
+## Number of parameters estimated: 7 
+## AIC: 378.03, (AIC for lm: 380.2)
+## LM test for residual autocorrelation
+## test value: 0.101, p-value: 0.75063</code></pre>
+<p>We see that the results are similar and the lags are not significant.</p>
+</div>
+<div id="spatial-durbin-error-model" class="section level3 hasAnchor" number="4.3.7">
+<h3><span class="header-section-number">4.3.7</span> Spatial Durbin error model<a href="networks-as-causes-spatial-regression-analysis.html#spatial-durbin-error-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb117-1" tabindex="-1"></a>sdem <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(CRIME <span class="sc">~</span> INC <span class="sc">+</span> HOVAL, <span class="at">data =</span> mydata, listw, <span class="at">Durbin =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb117-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb117-2" tabindex="-1"></a><span class="fu">summary</span>(sdem)</span></code></pre></div>
+<pre><code>## 
+## Call:errorsarlm(formula = CRIME ~ INC + HOVAL, data = mydata, listw = listw, 
+##     Durbin = TRUE)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -37.02060  -6.68585  -0.15142   6.51557  24.18199 
+## 
+## Type: error 
+## Coefficients: (asymptotic standard errors) 
+##              Estimate Std. Error z value  Pr(&gt;|z|)
+## (Intercept) 73.258655   8.528044  8.5903 &lt; 2.2e-16
+## INC         -1.069530   0.324719 -3.2937 0.0009887
+## HOVAL       -0.280344   0.091809 -3.0535 0.0022615
+## lag.INC     -1.196774   0.568968 -2.1034 0.0354297
+## lag.HOVAL    0.146758   0.200872  0.7306 0.4650196
+## 
+## Lambda: 0.37613, LR test value: 3.7313, p-value: 0.053403
+## Asymptotic standard error: 0.16554
+##     z-value: 2.2721, p-value: 0.023079
+## Wald statistic: 5.1626, p-value: 0.023079
+## 
+## Log likelihood: -182.2329 for error model
+## ML residual variance (sigma squared): 96.022, (sigma: 9.7991)
+## Number of observations: 49 
+## Number of parameters estimated: 7 
+## AIC: 378.47, (AIC for lm: 380.2)</code></pre>
+<p>Results are again similar, but now the lag of household income is significant.</p>
+</div>
+<div id="general-nested-model" class="section level3 hasAnchor" number="4.3.8">
+<h3><span class="header-section-number">4.3.8</span> General nested model<a href="networks-as-causes-spatial-regression-analysis.html#general-nested-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb119-1" tabindex="-1"></a>gnm <span class="ot">&lt;-</span> <span class="fu">sacsarlm</span>(CRIME <span class="sc">~</span> INC <span class="sc">+</span> HOVAL, <span class="at">data =</span> mydata, listw, <span class="at">Durbin =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb119-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb119-2" tabindex="-1"></a><span class="fu">summary</span>(gnm)</span></code></pre></div>
+<pre><code>## 
+## Call:sacsarlm(formula = CRIME ~ INC + HOVAL, data = mydata, listw = listw, 
+##     Durbin = TRUE)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -37.36766  -6.68648  -0.44936   6.38015  23.80258 
+## 
+## Type: sacmixed 
+## Coefficients: (asymptotic standard errors) 
+##             Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept) 50.35976   63.33587  0.7951 0.426542
+## INC         -0.96203    0.43539 -2.2096 0.027135
+## HOVAL       -0.29462    0.10275 -2.8674 0.004139
+## lag.INC     -0.72000    1.61312 -0.4463 0.655352
+## lag.HOVAL    0.24470    0.26967  0.9074 0.364187
+## 
+## Rho: 0.31731
+## Asymptotic standard error: 0.87681
+##     z-value: 0.36189, p-value: 0.71743
+## Lambda: 0.090483
+## Asymptotic standard error: 1.0184
+##     z-value: 0.088845, p-value: 0.92921
+## 
+## LR test value: 10.756, p-value: 0.029453
+## 
+## Log likelihood: -181.9994 for sacmixed model
+## ML residual variance (sigma squared): 95.975, (sigma: 9.7967)
+## Number of observations: 49 
+## Number of parameters estimated: 8 
+## AIC: 380, (AIC for lm: 382.75)</code></pre>
+<p>Similar results again.</p>
+</div>
+</div>
+<div id="knecht-assignment" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Knecht Assignment<a href="networks-as-causes-spatial-regression-analysis.html#knecht-assignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Open the dataset “PupilsWaveV.dta”.</li>
+<li>Only consider class 12b.</li>
+<li>Construct an adjacency matrix of best friends. We will also use some of the information on the respondents, namely the variables acthomew and sex. For this purpose, you should reverse the scale of acthomew and reverse the coding of sex.</li>
+<li>Construct a row-standardized spatial weight matrix as a weights list object.</li>
+<li>Conduct and interpret the Moran’s I test and the Lagrange multiplier tests. Set the option ‘zero.policy’ to TRUE because you have isolates.</li>
+<li>Estimate a SLM and the impacts. Interpret the results.</li>
+<li>Estimate a SEM and a SAC. Interpret the results.</li>
+<li>Estimate a SDM, SDEM, and GNM. Interpret the results.</li>
+<li>What is your conclusion after interpreting all these models?</li>
+</ol>
 
+</div>
 </div>
             </section>
 
