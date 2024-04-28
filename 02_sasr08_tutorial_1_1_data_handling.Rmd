@@ -6,14 +6,16 @@ This tutorial demonstrates some data handling procedures for relational (social 
 
 -   How to move back and forth between different types of data formats for relational data;
 
--   How to perform basic data manipulation procedures in `igraph`;
+-   How to perform basic data manipulation procedures in `igraph`;[^02_sasr08_tutorial_1_1_data_handling-1]
 
--    How to produce a basic visualization of a network.
+-   How to produce a basic visualization of a network.
+
+[^02_sasr08_tutorial_1_1_data_handling-1]: `network` is also designed for handling network data, but we focus on `igraph` here for simplicity. The idea is that once you are familiar with `igraph`, using the procedures in `network` is relatively straightforward. 
 
 We start by loading some useful packages:
 
 -   `igraph` and `network` are packages specifically for handling network data;
--   `reshape2` and `tidyverse` are more general-purpose packages that included useful procedures.
+-   `reshape2` and `tidyverse` are more general-purpose packages that contain useful procedures.
 
 **NOTE:** if you get any "there is no package called..." error messages, make sure you install these packages first using the `install.packages()` function (not included here).
 
@@ -64,7 +66,7 @@ g_nodes_age <- read.csv(file = "https://github.com/rensec/sasr08/raw/main/g_node
 g_nodes_age
 ```
 
-We now have information about nodes and edges loaded in R . However, to R, these are just like *any* data; it doesn't "know" that these are network data. In order to be able to use specific SNA procedures, we first need to create *network objects*, which is what we'll do next.
+We now have information about nodes and edges loaded into R. However, to R, these are just like *any* data; it doesn't "know" that these are network data. In order to be able to use specific SNA procedures, we first need to create *network objects*, which is what we'll do next.
 
 **NOTE:** the data that we've loaded now just happened to be stored as an adjacency matrix; it is also possible to store network data to a file in other formats. We'll get to that later.
 
@@ -96,7 +98,7 @@ g <- set_vertex_attr(g,
 
 ### Creating network objects from adjacency list data
 
-A common format for network data, especially if collected via survey methods, is the *adjacency list*. In this format, we have a row for each node, and columns that indicate the first, second, third...etc connection of each node. The file `g_adj_list.csv` is an example of this format (it is again our toy network as used in the previous excercises).
+A common format for network data, especially if collected via survey methods, is the *adjacency list*. In this format, we have a row for each node, and columns that indicate the first, second, third... etc. connection of each node. The file `g_adj_list.csv` is an example of this format (it is again our toy network as used in the previous excercises).
 
 ```{r}
 g_adj_list <- read.csv(file = "https://github.com/rensec/sasr08/raw/main/g_adj_list.csv")
@@ -116,8 +118,8 @@ To create an edge list, we first make the data *long*.
 ```{r}
 
 g_elist_from_alist <- g_adj_list %>% 
-  select(id, friend1:friend2) %>% #keep only the network variables (and id)
-  melt( id.vars = "id") #from the reshape2 package
+  select(id, friend1:friend2) %>% # keep only the network variables (and id)
+  melt( id.vars = "id") # from the reshape2 package
 g_elist_from_alist
 
 ```
@@ -163,7 +165,7 @@ That's better! Note that besides the node IDs, we also include the age variable 
 
 ## The reverse direction: exporting from igraph objects
 
-Handling your network data as igraph objects is useful for social network analysis, but sometimes we also want to transform our data back from network objects to "regular" matrix objects or data frames. We briefly cover some of these cases here.
+Handling your network data as igraph objects is useful for social network analysis, but sometimes we also want to transform our data back from network objects to "regular" matrix objects or data frames. We briefly cover some of these cases here. Typically, we can use dedicated `igraph` functions for this purpose. 
 
 ### From igraph to adjacency matrix
 

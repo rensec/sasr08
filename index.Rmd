@@ -24,11 +24,11 @@ To use these tutorials, we suggest that you:
 -   Open a new R script;
 -   Copy-paste the code from the tutorials into your R script as you read along;
 -   Run the code from your script while reading along, to verify that your results are the same;
--   Afterwards, save your R-script under an informative name so that you can refer to it and reuse it later. A big part of effective data analysis is realizing that you've solved particular problems before and being able to find and recycle your earlier code!
+-   Afterwards, save your R script under an informative name so that you can refer to it and reuse it later. A big part of effective data analysis is realizing that you've solved particular problems before and being able to find and recycle your earlier code!
 
 ## Credits and further resources {-}
 
-There are many excellent tutorials for social network analysis in R, and the tutorials on this page is inspired by and builds on some of them. Particularly useful were:
+There are many excellent tutorials for social network analysis in R, and the tutorials on this page are inspired by and builds on some of them. Particularly useful were:
 
 -   The [tutorials](https://inarwhal.github.io/NetworkAnalysisR-book/) that accompany the book *Network Analysis: Integrating Social Network Theory, Method, and Application with R* by Craig Rawlings, Jeffrey A. Smith, James Moody, and Daniel McFarland (2023);
 
