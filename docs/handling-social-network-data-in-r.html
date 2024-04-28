@@ -305,9 +305,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-2"><a href="handling-social-network-data-in-r.html#cb12-2" tabindex="-1"></a><span class="fu">class</span>(g)</span></code></pre></div>
 <pre><code>## [1] &quot;igraph&quot;</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="handling-social-network-data-in-r.html#cb14-1" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 0633987 DN-- 5 4 -- 
+<pre><code>## IGRAPH 807a85c DN-- 5 4 -- 
 ## + attr: name (v/c)
-## + edges from 0633987 (vertex names):
+## + edges from 807a85c (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>The output from running “g” already shows that this is now a network object (specifically: an object of the class “igraph”, as shown by <code>class()</code>): R interprets the object as a network and shows us the edges in the network. This also means that other R functions - to the extent that they have network methods implemented - now automatically recognize <code>g</code> as a network object and will behave accordingly (note that this is a key feature of R as an “object-oriented language”). For example, we can now run the standard <code>plot()</code> function and it will create a network map:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="handling-social-network-data-in-r.html#cb16-1" tabindex="-1"></a><span class="fu">plot</span>(g)</span></code></pre></div>
@@ -498,11 +498,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We have already seen the use of <code>set_vertex_attr()</code> to add node attributes, of <code>V()</code> to get all nodes. As an alternative to <code>set_vertex_attr()</code>, we can also use <code>V()</code> for the same purpose:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="handling-social-network-data-in-r.html#cb45-1" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;male&quot;</span>) </span>
 <span id="cb45-2"><a href="handling-social-network-data-in-r.html#cb45-2" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 0633987 DN-- 5 4 -- 
+<pre><code>## IGRAPH 807a85c DN-- 5 4 -- 
 ## + attr: name (v/c), age (v/n), gender (v/c)
-## + edges from 0633987 (vertex names):
+## + edges from 807a85c (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>Similarly, we can use <code>E()</code> to access, add and modify edge attributes.</p>
+<p>We can also use functions that modify the entire graph. For example, we may use <code>reverse()</code> to reverse the direction of all edges:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="handling-social-network-data-in-r.html#cb47-1" tabindex="-1"></a>g_rev <span class="ot">&lt;-</span> <span class="fu">reverse_edges</span>(g)</span>
+<span id="cb47-2"><a href="handling-social-network-data-in-r.html#cb47-2" tabindex="-1"></a><span class="fu">plot</span>(g_rev)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+We can use <code>union()</code> to combine the edges of two graphs:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="handling-social-network-data-in-r.html#cb48-1" tabindex="-1"></a>g_union <span class="ot">&lt;-</span> <span class="fu">union</span>(g, g_rev)</span></code></pre></div>
+<p><strong><em>QUESTION</em></strong>: Before you run <code>plot(g_union)</code>, think about what the resulting should look like. Thus, what could you use the combination of <code>reverse()</code> and <code>union()</code> for?</p>
+<p>A similar result could be produced with:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="handling-social-network-data-in-r.html#cb49-1" tabindex="-1"></a>g_undir <span class="ot">&lt;-</span> <span class="fu">as.undirected</span>(g)</span>
+<span id="cb49-2"><a href="handling-social-network-data-in-r.html#cb49-2" tabindex="-1"></a><span class="fu">plot</span>(g_undir)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>Realize however that conceptually, g_union and g_undir are different!</p>
+<p><strong><em>QUESTION:</em></strong> What’s the difference?</p>
 <p>For more information on all the graph manipulation functions included in <code>igraph</code>, see the <a href="https://r.igraph.org/articles/igraph.html">package’s website</a> and, of course, the help pages in R.</p>
 
 </div>
