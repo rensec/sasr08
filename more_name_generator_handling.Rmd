@@ -18,7 +18,8 @@ library(reshape2)
 For practice, we use a toy dataset that was designed for looking just like the Knecht data (but smaller).
 
 ```{r}
-df <- read.csv("toy_name_generator_data.csv")
+url1 <- "https://github.com/rensec/sasr08/raw/main/toy_name_generator_data.csv"
+df <- read.csv(file = url1)
 table(df$schoolnr)
 df
 
