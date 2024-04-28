@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2024-04-26" />
+<meta name="date" content="2024-04-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -241,8 +241,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>Let’s get started.</p>
 <p>For practice, we use a toy dataset that was designed for looking just like the Knecht data (but smaller).</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb146-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;toy_name_generator_data.csv&quot;</span>)</span>
-<span id="cb146-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb146-2" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>schoolnr)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb146-1" tabindex="-1"></a>url1 <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/rensec/sasr08/raw/main/toy_name_generator_data.csv&quot;</span></span>
+<span id="cb146-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb146-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> url1)</span>
+<span id="cb146-3"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb146-3" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>schoolnr)</span></code></pre></div>
 <pre><code>## 
 ## 1a 2b 
 ##  5  5</code></pre>
@@ -445,6 +446,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
+
+
+
+
+
+
             </section>
 
           </div>
