@@ -265,4 +265,30 @@ g
 
 Similarly, we can use `E()` to access, add and modify edge attributes.
 
+We can also use functions that modify the entire graph. For example, we may use `reverse()` to reverse the direction of all edges:
+
+```{r}
+g_rev <- reverse_edges(g)
+plot(g_rev)
+```
+We can use `union()` to combine the edges of two graphs: 
+
+```{r}
+g_union <- union(g, g_rev)
+```
+
+***QUESTION***: Before you run `plot(g_union)`, think about what the resulting should look like. Thus, what could you use the combination of `reverse()` and `union()` for? 
+
+A similar result could be produced with:
+
+```{r}
+g_undir <- as.undirected(g)
+plot(g_undir)
+```
+
+Realize however that conceptually, g_union and g_undir are different!
+
+***QUESTION:*** What's the difference?
+
+
 For more information on all the graph manipulation functions included in `igraph`, see the [package's website](https://r.igraph.org/articles/igraph.html) and, of course, the help pages in R.
