@@ -144,7 +144,7 @@ g_elist_from_alist
 
 We can now interpret each {from,to} combination as a directed edge (tie) from respondent to alter; `sourcevar` is an *edge attribute* indicating where in the adjacency list columns the alter was mentioned. Strictly speaking you don't need the latter for a simple edge list, but it's useful to keep in case you want to reverse the procedure.
 
-**QUESTION:** Besides useful more data manipulation procedures, keeping the information in `sourcevar` could also be important for more substantive reasons. Can you think of such a reason?
+**QUESTION:** Besides being useful for data manipulation procedures, keeping the information in `sourcevar` could also be important for more substantive reasons. Can you think of such a reason?
 
 Now we can import this into a network object with an `igraph` function:
 
