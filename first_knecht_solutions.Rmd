@@ -111,7 +111,7 @@ transitivity(classnet, type="average")
 V(classnet)$degree <- igraph::degree(classnet)
 ```
 
-***Note:***: the namespace `igraph::` is not necessary if you only have `igraph` loaded, but in the creation of the online version of this file, it was necessary to avod confusion with the `network` package. 
+***Note:***: the namespace `igraph::` is not necessary if you only have `igraph` loaded, but in the creation of the online version of this file, it was necessary to avoid confusion with the `network` package.
 
 ```{r}
 d <- igraph::as_data_frame(classnet, what = "vertices")
