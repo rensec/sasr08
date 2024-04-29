@@ -197,12 +197,15 @@ Similar results again.
 
 ## Knecht Assignment
 
+We are interested in whether there are sex differences in homework.
+
 1. Open the dataset "PupilsWaveV.dta".
-2. Only consider class 12b.
-3. Construct an adjacency matrix of best friends. We will also use some of the information on the respondents, namely the variables acthomew and sex. For this purpose, you should reverse the scale of acthomew and reverse the coding of sex.
-4. Construct a row-standardized spatial weight matrix as a weights list object.
-5. Conduct and interpret the Moran's I test and the Lagrange multiplier tests. Set the option 'zero.policy' to TRUE because you have isolates.
-6. Estimate a SLM and the impacts. Interpret the results.
-7. Estimate a SEM and a SAC. Interpret the results.
-8. Estimate a SDM, SDEM, and GNM. Interpret the results.
-9. What is your conclusion after interpreting all these models?
+2. Estimate a linear regression model of doing homework (acthomew) on sex (sex) while controlling for age (age). For this purpose, reverse the scale of acthomew so a higher value means more likely to do homework. Also, reverse the coding of sex and create a dummy variable so 1 is female and 0 is male. This is more in line with the literature.
+3. Estimate a multilevel linear model where you take class characteristics into account.
+4. In addition to gender differences, we are now also interested in whether peers influence one’s homework behavior. From now on consider only Class 12b. Construct an adjacency matrix of best friends. 
+5. Construct a row-standardized spatial weight matrix as a weights list object.
+6. Conduct and interpret the Moran's I test and the Lagrange multiplier tests. Set the option 'zero.policy' to TRUE because you have isolates.
+7. Estimate a SLM and the impacts. Interpret the results.
+8. Estimate a SEM and a SAC. Interpret the results.
+9. Estimate a SDM, SDEM, and GNM. Interpret the results.
+10. What is your conclusion after interpreting all these models?
