@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Solutions to: Tutorial @ref(#tut_first_knecht) | SaSR 8: Social Network Analysis</title>
+  <meta name="description" content="This page contains tutorials for SaSR 8" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Solutions to: Tutorial @ref(#tut_first_knecht) | SaSR 8: Social Network Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This page contains tutorials for SaSR 8" />
+  <meta name="github-repo" content="rensec/sasr08" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Solutions to: Tutorial @ref(#tut_first_knecht) | SaSR 8: Social Network Analysis" />
+  
+  <meta name="twitter:description" content="This page contains tutorials for SaSR 8" />
+  
+
+<meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
+
+
+<meta name="date" content="2024-04-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SaSR8 </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i>Usage</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#credits-and-further-resources"><i class="fa fa-check"></i>Credits and further resources</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="tut_data_handling.html"><a href="tut_data_handling.html"><i class="fa fa-check"></i><b>1</b> Handling social network data in R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#getting-network-data-into-r-the-igraph-package"><i class="fa fa-check"></i><b>1.1</b> Getting network data into R: the igraph package</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#creating-network-objects-in-igraph"><i class="fa fa-check"></i><b>1.1.1</b> Creating network objects in igraph</a></li>
+<li class="chapter" data-level="1.1.2" data-path="tut_data_handling.html"><a href="tut_data_handling.html#creating-network-objects-from-adjacency-list-data"><i class="fa fa-check"></i><b>1.1.2</b> Creating network objects from adjacency list data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="tut_data_handling.html"><a href="tut_data_handling.html#the-reverse-direction-exporting-from-igraph-objects"><i class="fa fa-check"></i><b>1.2</b> The reverse direction: exporting from igraph objects</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-igraph-to-adjacency-matrix"><i class="fa fa-check"></i><b>1.2.1</b> From igraph to adjacency matrix</a></li>
+<li class="chapter" data-level="1.2.2" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-igraph-to-edge-list"><i class="fa fa-check"></i><b>1.2.2</b> From igraph to edge list</a></li>
+<li class="chapter" data-level="1.2.3" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-igraph-to-adjacency-list"><i class="fa fa-check"></i><b>1.2.3</b> From igraph to adjacency list</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="tut_data_handling.html"><a href="tut_data_handling.html#getting-network-data-into-r-the-network-package"><i class="fa fa-check"></i><b>1.3</b> Getting network data into R: the network package</a></li>
+<li class="chapter" data-level="1.4" data-path="tut_data_handling.html"><a href="tut_data_handling.html#modifying-networks-in-igraph"><i class="fa fa-check"></i><b>1.4</b> Modifying networks in igraph</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html"><i class="fa fa-check"></i><b>2</b> Basic network analysis in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#network-level-a-five-number-summary"><i class="fa fa-check"></i><b>2.1</b> Network level: a “five number summary”</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#size"><i class="fa fa-check"></i><b>2.1.1</b> Size</a></li>
+<li class="chapter" data-level="2.1.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#density"><i class="fa fa-check"></i><b>2.1.2</b> Density</a></li>
+<li class="chapter" data-level="2.1.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#components"><i class="fa fa-check"></i><b>2.1.3</b> Components</a></li>
+<li class="chapter" data-level="2.1.4" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#diameter-and-distances"><i class="fa fa-check"></i><b>2.1.4</b> Diameter (and distances)</a></li>
+<li class="chapter" data-level="2.1.5" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#clustering-coefficient"><i class="fa fa-check"></i><b>2.1.5</b> Clustering Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#individual-level-centrality"><i class="fa fa-check"></i><b>2.2</b> Individual level: centrality</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#degree-centrality"><i class="fa fa-check"></i><b>2.2.1</b> Degree centrality</a></li>
+<li class="chapter" data-level="2.2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#betweenness-centrality"><i class="fa fa-check"></i><b>2.2.2</b> Betweenness centrality</a></li>
+<li class="chapter" data-level="2.2.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#closeness-centrality"><i class="fa fa-check"></i><b>2.2.3</b> Closeness centrality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tut_first_knecht.html"><a href="tut_first_knecht.html"><i class="fa fa-check"></i><b>3</b> Introducing the Knecht data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tut_first_knecht.html"><a href="tut_first_knecht.html#a-first-look-at-the-data"><i class="fa fa-check"></i><b>3.1</b> A first look at the data</a></li>
+<li class="chapter" data-level="3.2" data-path="tut_first_knecht.html"><a href="tut_first_knecht.html#assignment"><i class="fa fa-check"></i><b>3.2</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html"><i class="fa fa-check"></i><b>4</b> Networks as causes: Spatial regression analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#constructing-a-spatial-weight-matrix"><i class="fa fa-check"></i><b>4.1</b> Constructing a Spatial Weight Matrix</a></li>
+<li class="chapter" data-level="4.2" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#linear-regression-analysis"><i class="fa fa-check"></i><b>4.2</b> Linear Regression Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-analysis"><i class="fa fa-check"></i><b>4.3</b> Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#morans-i-test"><i class="fa fa-check"></i><b>4.3.1</b> Moran’s I test</a></li>
+<li class="chapter" data-level="4.3.2" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#lagrange-multiplier-tests-for-spatial-lag-and-spatial-error-dependencies"><i class="fa fa-check"></i><b>4.3.2</b> Lagrange multiplier tests for spatial lag and spatial error dependencies</a></li>
+<li class="chapter" data-level="4.3.3" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-lag-model"><i class="fa fa-check"></i><b>4.3.3</b> Spatial lag model</a></li>
+<li class="chapter" data-level="4.3.4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-error-model"><i class="fa fa-check"></i><b>4.3.4</b> Spatial error model</a></li>
+<li class="chapter" data-level="4.3.5" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-autoregressive-combined-model"><i class="fa fa-check"></i><b>4.3.5</b> Spatial autoregressive combined model</a></li>
+<li class="chapter" data-level="4.3.6" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-durbin-model"><i class="fa fa-check"></i><b>4.3.6</b> Spatial Durbin model</a></li>
+<li class="chapter" data-level="4.3.7" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-durbin-error-model"><i class="fa fa-check"></i><b>4.3.7</b> Spatial Durbin error model</a></li>
+<li class="chapter" data-level="4.3.8" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#general-nested-model"><i class="fa fa-check"></i><b>4.3.8</b> General nested model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#knecht-assignment"><i class="fa fa-check"></i><b>4.4</b> Knecht Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html"><i class="fa fa-check"></i><b>5</b> Exponential Random Graphs Modeling</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#data-preparation"><i class="fa fa-check"></i><b>5.1</b> Data preparation</a></li>
+<li class="chapter" data-level="5.2" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#model-estimation"><i class="fa fa-check"></i><b>5.2</b> Model estimation</a></li>
+<li class="chapter" data-level="5.3" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#goodness-of-fit"><i class="fa fa-check"></i><b>5.3</b> Goodness of fit</a></li>
+<li class="chapter" data-level="5.4" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#further-resources-on-ergms"><i class="fa fa-check"></i><b>5.4</b> Further resources on ERGMs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><i class="fa fa-check"></i><b>6</b> A deeper dive into data handling: complications in name generator data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>6.1</b> The case of the missing ego</a></li>
+<li class="chapter" data-level="6.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>6.2</b> Multiple networks</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html"><i class="fa fa-check"></i><b>7</b> Solutions to: Tutorial @ref(#tut_first_knecht)</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#preliminaries"><i class="fa fa-check"></i><b>7.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="7.2" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#importing-the-data"><i class="fa fa-check"></i><b>7.2</b> Importing the data</a></li>
+<li class="chapter" data-level="7.3" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#is-the-network-directed"><i class="fa fa-check"></i><b>7.3</b> Is the network directed?</a></li>
+<li class="chapter" data-level="7.4" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#a-first-visualization"><i class="fa fa-check"></i><b>7.4</b> A first visualization</a></li>
+<li class="chapter" data-level="7.5" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#a-fiveish-number-summary"><i class="fa fa-check"></i><b>7.5</b> A ‘five(ish) number summary’</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#size-1"><i class="fa fa-check"></i><b>7.5.1</b> Size</a></li>
+<li class="chapter" data-level="7.5.2" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#density-1"><i class="fa fa-check"></i><b>7.5.2</b> Density</a></li>
+<li class="chapter" data-level="7.5.3" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#components-1"><i class="fa fa-check"></i><b>7.5.3</b> Components</a></li>
+<li class="chapter" data-level="7.5.4" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#diameter-and-average-distance"><i class="fa fa-check"></i><b>7.5.4</b> Diameter and average distance</a></li>
+<li class="chapter" data-level="7.5.5" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#clustering-coefficient-1"><i class="fa fa-check"></i><b>7.5.5</b> Clustering coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#comparing-degree-centrality"><i class="fa fa-check"></i><b>7.6</b> Comparing degree centrality</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="solutions-to-tutorial-reftut_first_knecht.html"><a href="solutions-to-tutorial-reftut_first_knecht.html#visualization-with-degree-and-gender"><i class="fa fa-check"></i><b>7.6.1</b> Visualization with degree and gender</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SaSR 8: Social Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="solutions-to-tutorial-reftut_first_knecht" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Solutions to: Tutorial @ref(#tut_first_knecht)<a href="solutions-to-tutorial-reftut_first_knecht.html#solutions-to-tutorial-reftut_first_knecht" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="preliminaries" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Preliminaries<a href="solutions-to-tutorial-reftut_first_knecht.html#preliminaries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb178-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb178-2"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb178-2" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co"># to read Stata files</span></span>
+<span id="cb178-3"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb178-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb178-4"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb178-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb179-1" tabindex="-1"></a>PupilsWaveV <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="at">file =</span> <span class="st">&quot;PupilsWaveV.dta&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb180-1" tabindex="-1"></a>class12b <span class="ot">&lt;-</span> PupilsWaveV <span class="sc">%&gt;%</span> </span>
+<span id="cb180-2"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb180-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> <span class="st">&quot;12b&quot;</span>)  <span class="co"># keep only one class</span></span></code></pre></div>
+</div>
+<div id="importing-the-data" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Importing the data<a href="solutions-to-tutorial-reftut_first_knecht.html#importing-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb181-1" tabindex="-1"></a>elist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span> </span>
+<span id="cb181-2"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb181-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend12) <span class="sc">%&gt;%</span>   <span class="co"># select only the &quot; best friends&quot;  network</span></span>
+<span id="cb181-3"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb181-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(friend1<span class="sc">:</span>friend12)) <span class="sc">%&gt;%</span> </span>
+<span id="cb181-4"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb181-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
+<span id="cb181-5"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb181-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;name&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
+<span id="cb181-6"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb181-6" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb182-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span> </span>
+<span id="cb182-2"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb182-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr,sex, age) <span class="sc">%&gt;%</span> </span>
+<span id="cb182-3"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb182-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">name =</span> <span class="st">&quot;namenr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb183-1" tabindex="-1"></a>classnet <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(elist, <span class="at">vertices =</span> nodelist)</span></code></pre></div>
+</div>
+<div id="is-the-network-directed" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Is the network directed?<a href="solutions-to-tutorial-reftut_first_knecht.html#is-the-network-directed" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb184-1" tabindex="-1"></a><span class="fu">is_directed</span>(classnet)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Yes it is (as expected)!</p>
+</div>
+<div id="a-first-visualization" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> A first visualization<a href="solutions-to-tutorial-reftut_first_knecht.html#a-first-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb186-1" tabindex="-1"></a><span class="fu">plot</span>(classnet)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><strong>EXTRA:</strong> This doesn’t look very nice. Somehow the layout that <code>plot()</code> uses here doesn’t seem to work out very well in this case (even thought the default algorithm tries to optimize the layout for the graph), so perhaps we can try another one, such as the Kamada-Kawai algorithm which often works well for smaller graphs (see <a href="https://r.igraph.org/articles/igraph.html#drawing-a-graph-using-a-layout">here</a> for more details on layout options for <code>plot()</code>).</p>
+<p>Also, the arrowheads seem a bit large, so let’s give them a smaller size.</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb187-1" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="fu">layout_with_kk</span>(classnet)</span>
+<span id="cb187-2"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb187-2" tabindex="-1"></a><span class="fu">plot</span>(classnet, <span class="at">layout =</span> layout, <span class="at">edge.arrow.size =</span> .<span class="dv">5</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p>That’s already better!</p>
+</div>
+<div id="a-fiveish-number-summary" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> A ‘five(ish) number summary’<a href="solutions-to-tutorial-reftut_first_knecht.html#a-fiveish-number-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="size-1" class="section level3 hasAnchor" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> Size<a href="solutions-to-tutorial-reftut_first_knecht.html#size-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb188-1" tabindex="-1"></a><span class="fu">ecount</span>(classnet)</span></code></pre></div>
+<pre><code>## [1] 91</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb190-1" tabindex="-1"></a><span class="fu">vcount</span>(classnet)</span></code></pre></div>
+<pre><code>## [1] 26</code></pre>
+</div>
+<div id="density-1" class="section level3 hasAnchor" number="7.5.2">
+<h3><span class="header-section-number">7.5.2</span> Density<a href="solutions-to-tutorial-reftut_first_knecht.html#density-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb192-1" tabindex="-1"></a><span class="fu">edge_density</span>(classnet)</span></code></pre></div>
+<pre><code>## [1] 0.14</code></pre>
+</div>
+<div id="components-1" class="section level3 hasAnchor" number="7.5.3">
+<h3><span class="header-section-number">7.5.3</span> Components<a href="solutions-to-tutorial-reftut_first_knecht.html#components-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb194-1" tabindex="-1"></a><span class="fu">count_components</span>(classnet)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+</div>
+<div id="diameter-and-average-distance" class="section level3 hasAnchor" number="7.5.4">
+<h3><span class="header-section-number">7.5.4</span> Diameter and average distance<a href="solutions-to-tutorial-reftut_first_knecht.html#diameter-and-average-distance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb196-1" tabindex="-1"></a><span class="fu">diameter</span>(classnet)</span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb198-1" tabindex="-1"></a><span class="fu">mean_distance</span>(classnet)</span></code></pre></div>
+<pre><code>## [1] 2.853598</code></pre>
+</div>
+<div id="clustering-coefficient-1" class="section level3 hasAnchor" number="7.5.5">
+<h3><span class="header-section-number">7.5.5</span> Clustering coefficient<a href="solutions-to-tutorial-reftut_first_knecht.html#clustering-coefficient-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb200-1" tabindex="-1"></a><span class="fu">transitivity</span>(classnet, <span class="at">type=</span><span class="st">&quot;average&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 0.5886984</code></pre>
+</div>
+</div>
+<div id="comparing-degree-centrality" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Comparing degree centrality<a href="solutions-to-tutorial-reftut_first_knecht.html#comparing-degree-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb202-1" tabindex="-1"></a><span class="fu">V</span>(classnet)<span class="sc">$</span>degree <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">degree</span>(classnet)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb203-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(classnet, <span class="at">what =</span> <span class="st">&quot;vertices&quot;</span>)</span>
+<span id="cb203-2"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb203-2" tabindex="-1"></a></span>
+<span id="cb203-3"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb203-3" tabindex="-1"></a><span class="fu">t.test</span>(degree <span class="sc">~</span> sex, <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>, </span>
+<span id="cb203-4"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb203-4" tabindex="-1"></a>       <span class="at">conf.level =</span> .<span class="dv">95</span>, </span>
+<span id="cb203-5"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb203-5" tabindex="-1"></a>       <span class="at">var.equal =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb203-6"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb203-6" tabindex="-1"></a>       <span class="at">data =</span> d)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  degree by sex
+## t = 0.59944, df = 24, p-value = 0.7228
+## alternative hypothesis: true difference in means between group 1 and group 2 is less than 0
+## 95 percent confidence interval:
+##      -Inf 3.274745
+## sample estimates:
+## mean in group 1 mean in group 2 
+##        7.294118        6.444444</code></pre>
+<p>Indeed, girls have higher degree, but the difference is not significant. How do we know that ‘2’ means ‘male’? Check out the code book (on Blackboard)!</p>
+<p>Alternatively, you can also use <code>print_labels()</code> from the <code>haven</code> package to show the labels of the original Stata dataset.</p>
+<div id="visualization-with-degree-and-gender" class="section level3 hasAnchor" number="7.6.1">
+<h3><span class="header-section-number">7.6.1</span> Visualization with degree and gender<a href="solutions-to-tutorial-reftut_first_knecht.html#visualization-with-degree-and-gender" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb205-1" tabindex="-1"></a><span class="fu">plot</span>(classnet, </span>
+<span id="cb205-2"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb205-2" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(classnet)<span class="sc">$</span>degree <span class="sc">+</span><span class="dv">5</span>, <span class="co"># Adding 5 to make all nodes somewhat larger </span></span>
+<span id="cb205-3"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb205-3" tabindex="-1"></a>     <span class="at">vertex.color=</span> <span class="fu">V</span>(classnet)<span class="sc">$</span>sex, </span>
+<span id="cb205-4"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb205-4" tabindex="-1"></a>     <span class="at">edge.arrow.size =</span> .<span class="dv">5</span>,</span>
+<span id="cb205-5"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb205-5" tabindex="-1"></a>     <span class="at">layout=</span><span class="fu">layout_with_kk</span>(classnet),</span>
+<span id="cb205-6"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb205-6" tabindex="-1"></a>     <span class="at">margin =</span> <span class="sc">-</span>.<span class="dv">1</span></span>
+<span id="cb205-7"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb205-7" tabindex="-1"></a>     </span>
+<span id="cb205-8"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb205-8" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
+<p><strong>Note:</strong> For vertex colors, we here simply let the colors be determined by the values that go with ‘female’ (1) and ‘male’ (2). A more elegant way is the following (in which we also drop the vertex labels):</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb206-1" tabindex="-1"></a><span class="fu">plot</span>(classnet, </span>
+<span id="cb206-2"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb206-2" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(classnet)<span class="sc">$</span>degree <span class="sc">+</span> <span class="dv">5</span>, </span>
+<span id="cb206-3"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb206-3" tabindex="-1"></a>     <span class="at">vertex.color=</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(classnet)<span class="sc">$</span>sex <span class="sc">==</span> <span class="dv">2</span>, <span class="st">&quot;royalblue&quot;</span>, <span class="st">&quot;red3&quot;</span>), </span>
+<span id="cb206-4"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb206-4" tabindex="-1"></a>     <span class="at">edge.arrow.size =</span> .<span class="dv">5</span>,</span>
+<span id="cb206-5"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb206-5" tabindex="-1"></a>     <span class="at">layout=</span><span class="fu">layout_with_kk</span>(classnet),</span>
+<span id="cb206-6"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb206-6" tabindex="-1"></a>     <span class="at">vertex.label =</span> <span class="cn">NA</span>,</span>
+<span id="cb206-7"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb206-7" tabindex="-1"></a>     <span class="at">margin =</span> <span class="sc">-</span>.<span class="dv">1</span></span>
+<span id="cb206-8"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb206-8" tabindex="-1"></a>     </span>
+<span id="cb206-9"><a href="solutions-to-tutorial-reftut_first_knecht.html#cb206-9" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/first_knecht_solutions.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

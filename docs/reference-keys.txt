@@ -1,4 +1,4 @@
-handling-social-network-data-in-r
+tut_data_handling
 getting-network-data-into-r-the-igraph-package
 creating-network-objects-in-igraph
 creating-network-objects-from-adjacency-list-data
@@ -19,7 +19,7 @@ individual-level-centrality
 degree-centrality
 betweenness-centrality
 closeness-centrality
-introducing-the-knecht-data
+tut_first_knecht
 a-first-look-at-the-data
 assignment
 networks-as-causes-spatial-regression-analysis
@@ -43,3 +43,16 @@ further-resources-on-ergms
 a-deeper-dive-into-data-handling-complications-in-name-generator-data
 the-case-of-the-missing-ego
 multiple-networks
+solutions-to-tutorial-3
+preliminaries
+importing-the-data
+is-the-network-directed
+a-first-visualization
+a-fiveish-number-summary
+size-1
+density-1
+components-1
+diameter-and-average-distance
+clustering-coefficient-1
+comparing-degree-centrality
+visualization-with-degree-and-gender
