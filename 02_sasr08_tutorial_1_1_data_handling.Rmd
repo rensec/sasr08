@@ -274,7 +274,7 @@ plot(g_rev)
 We can use `union()` to combine the edges of two graphs: 
 
 ```{r}
-g_union <- union(g, g_rev)
+g_union <- igraph::union(g, g_rev)
 ```
 
 ***QUESTION***: Before you run `plot(g_union)`, think about what the resulting should look like. Thus, what could you use the combination of `reverse()` and `union()` for? 
