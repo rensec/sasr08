@@ -1,4 +1,4 @@
-# Solutions to: a first look at the Knecht data
+# Solutions to Tutorial 3
 
 ## Preliminaries
 
@@ -108,8 +108,10 @@ transitivity(classnet, type="average")
 ## Comparing degree centrality
 
 ```{r}
-V(classnet)$degree <- degree(classnet)
+V(classnet)$degree <- igraph::degree(classnet)
 ```
+
+***Note:***: the namespace `igraph::` is not necessary if you only have `igraph` loaded, but in the creation of the online version of this file, it was necessary to avod confusion with the `network` package. 
 
 ```{r}
 d <- igraph::as_data_frame(classnet, what = "vertices")
@@ -121,13 +123,15 @@ t.test(degree ~ sex, alternative = "less",
 
 ```
 
-Indeed, girls have lower degree, but the difference is not significant. How do we know that '2' means 'male'? Check out the code book (on Blackboard)!
+Indeed, girls have higher degree, but the difference is not significant. How do we know that '2' means 'male'? Check out the code book (on Blackboard)!
+
+Alternatively, you can also use `print_labels()` from the `haven` package to show the labels of the original Stata dataset.
 
 ### Visualization with degree and gender
 
 ```{r}
 plot(classnet, 
-     vertex.size = V(classnet)$degree +8, 
+     vertex.size = V(classnet)$degree +5, # Adding 5 to make all nodes somewhat larger 
      vertex.color= V(classnet)$sex, 
      edge.arrow.size = .5,
      layout=layout_with_kk(classnet),
@@ -140,7 +144,7 @@ plot(classnet,
 
 ```{r}
 plot(classnet, 
-     vertex.size = V(classnet)$degree +8, 
+     vertex.size = V(classnet)$degree + 5, 
      vertex.color= ifelse(V(classnet)$sex == 2, "royalblue", "red3"), 
      edge.arrow.size = .5,
      layout=layout_with_kk(classnet),
