@@ -10,7 +10,7 @@ This tutorial demonstrates some data handling procedures for relational (social 
 
 -   How to produce a basic visualization of a network.
 
-[^02_sasr08_tutorial_1_1_data_handling-1]: `network` is also designed for handling network data, but we focus on `igraph` here for simplicity. The idea is that once you are familiar with `igraph`, using the procedures in `network` is relatively straightforward. 
+[^02_sasr08_tutorial_1_1_data_handling-1]: `network` is also designed for handling network data, but we focus on `igraph` here for simplicity. The idea is that once you are familiar with `igraph`, using the procedures in `network` is relatively straightforward.
 
 We start by loading some useful packages:
 
@@ -27,6 +27,12 @@ library(tidyverse)
 ```
 
 ## Getting network data into R: the igraph package
+
+Network analysis packages such as `igraph` handle data efficiently by storing data in their own type of *objects*, which basically ensure that all procedures make sense for network data. Moreover, a network object as used by `igraph` allows to include the information on *both* edges and nodes of a network in a single "box" (and potentially other information about the network too).
+
+The raw data that we use to create these network objects may come in different 'shapes', such as *adjacency matrices*, *edge lists*, or *adjacency lists*. In the following, we discuss how to turn data objects of these different shapes into `igraph` network objects.
+
+### From adjaceny matrix to igraph object
 
 We start by reading some network data from a file (from the internet, in this case). A simple and very common way to store data is as "comma-separated values" (CSV). Let's load some "toy data":
 
@@ -49,7 +55,7 @@ g_matrix <- as.matrix(g_matrix)
 g_matrix
 ```
 
-Now, conceptually, the data still have the *shape* of an adjacency matrix, but in R, it is now stored as an object of class 'matrix'. 
+Now, conceptually, the data still have the *shape* of an adjacency matrix, but in R, it is now stored as an object of class 'matrix'.
 
 For clarity, we also add row- and column names, simply numbering them:
 
@@ -71,10 +77,6 @@ g_nodes_age
 We now have information about nodes and edges loaded into R. However, to R, these are just like *any* data; it doesn't "know" that these are network data. In order to be able to use specific SNA procedures, we first need to create *network objects*, which is what we'll do next.
 
 **NOTE:** the data that we've loaded now just happened to have the shape of an adjacency matrix; it is also possible to store network data to a file in other shapes. We'll get to that later.
-
-### Creating network objects in igraph
-
-Network analysis packages such as `igraph` handle data efficiently by storing data in their own type of *objects*, which basically ensure that all procedures make sense for network data. A network object as used by `igraph` includes the information on both edges and nodes of a network in a single "box" (and potentially other information about the network too).
 
 To create an `igraph` network object from our matrix object we run:
 
@@ -98,9 +100,40 @@ g <- set_vertex_attr(g,
                      value = g_nodes_age$age)
 ```
 
-### Creating network objects from adjacency list data
+### From edge list to igraph object
 
-A common format for network data, especially if collected via survey methods, is the *adjacency list*. In this format, we have a row for each node, and columns that indicate the first, second, third... etc. connection of each node. The file `g_adj_list.csv` is an example of this format (it is again our toy network as used in the previous excercises).
+A very common shape that network data come in is the *edge list*. This is a data matrix with usually just two columns, in which every row represents an edge between two nodes, listed in the columns.
+
+The file 'g_elist.csv' contains an edge list for the same network 'g' that we saw above. Let's load the file into a data frame:
+
+```{r}
+g_elist <- read.csv(file = "g_elist.csv")
+g_elist
+```
+
+Here, each row represents an edge between the nodes listed in the columns 'from' and 'to'.
+
+We can create an `igraph` network object from the edge list as follows:
+
+```{r}
+g_from_elist <- graph_from_data_frame(g_elist) 
+plot(g_from_elist)
+```
+
+If you compare this network with the one pictured earlier, you'll notice an important difference: we lost the isolate! This is an important limitation of edge lists: due to their nature, they do not include isolates.
+
+To include the isolate in the network object, we need to feed the function also the list of *all* the nodes. Fortunately we already have the complete list of nodes, include in our data object with node attributes (g_nodes_age). We can include the list of nodes (and the node attribute 'age') when we import the edge list into the `igraph` object:
+
+```{r}
+g_from_elist <- graph_from_data_frame(g_elist, vertices = g_nodes_age) 
+plot(g_from_elist)
+```
+
+Now the isolate is included as it should. Thus, when importing edge lists, it is important to always include a complete node list as well (unless you are certain that the edge list includes all nodes)!
+
+### From adjacency list list to igraph object
+
+Another common shape for network data, especially if collected via survey methods, is the *adjacency list*. In this shape, we have a row for each node, and columns that indicate the first, second, third... etc. connection of each node. The file `g_adj_list.csv` is an example of this format (it is again our toy network as used in the previous excercises).
 
 ```{r}
 g_adj_list <- read.csv(file = "https://github.com/rensec/sasr08/raw/main/g_adj_list.csv")
@@ -113,7 +146,9 @@ Note that:
 
 -   This format allows for easy inclusion of node attributes as well, such as, in this case, the column "age".
 
-The most convenient way to create a network object from these data, is to first transform them into an *edge list*, as this is a format for which `igraph` has an import function, such that we can turn it into a network object.
+Unfortunately, `igraph` does not have a function to directly import adjacency lists.[^02_sasr08_tutorial_1_1_data_handling-2] The most convenient way to create a network object from these data, is to first transform them into an *edge list*, as this is a format for which `igraph` has an import function, such that we can turn it into a network object.
+
+[^02_sasr08_tutorial_1_1_data_handling-2]: Actually there is an igraph function 'graph_from_adj_list()', but this expects a different data structure than what we have here.
 
 To create an edge list, we first make the data *long*.
 
@@ -144,7 +179,7 @@ g_elist_from_alist <- g_elist_from_alist%>%
 g_elist_from_alist
 ```
 
-We can now interpret each {from,to} combination as a directed edge (tie) from respondent to alter; `sourcevar` is an *edge attribute* indicating where in the adjacency list columns the alter was mentioned. Strictly speaking you don't need the latter for a simple edge list, but it's useful to keep in case you want to reverse the procedure.
+We can now, once again, interpret each {from,to} combination as a directed edge (tie) from respondent to alter; in addition, `sourcevar` is an *edge attribute* indicating where in the adjacency list columns the alter was mentioned. Strictly speaking you don't need the latter for a simple edge list, but it's useful to keep in case you want to reverse the procedure.
 
 **QUESTION:** Besides being useful for data manipulation procedures, keeping the information in `sourcevar` could also be important for more substantive reasons. Can you think of such a reason?
 
@@ -155,7 +190,7 @@ g_from_elist <- graph_from_data_frame(g_elist_from_alist) #This is a proper igra
 plot(g_from_elist)
 ```
 
-Note however that we lost the isolate! To include the isolate, we need to feed the function also the list of *all* the nodes:
+Note however, once more, that we lost the isolate! To include the isolate, we need to feed the function also the list of *all* the nodes, as we did before. However, in this case, we can also create the node list from the adjacency list data frame itself:
 
 ```{r}
 nodelist <- select(g_adj_list,id,age)
@@ -167,7 +202,7 @@ That's better! Note that besides the node IDs, we also include the age variable 
 
 ## The reverse direction: exporting from igraph objects
 
-Handling your network data as igraph objects is useful for social network analysis, but sometimes we also want to transform our data back from network objects to "regular" matrix objects or data frames. We briefly cover some of these cases here. Typically, we can use dedicated `igraph` functions for this purpose. 
+Handling your network data as igraph objects is useful for social network analysis, but sometimes we also want to transform our data back from network objects to "regular" matrix objects or data frames. We briefly cover some of these cases here. Typically, we can use dedicated `igraph` functions for this purpose.
 
 ### From igraph to adjacency matrix
 
@@ -273,13 +308,14 @@ We can also use functions that modify the entire graph. For example, we may use 
 g_rev <- reverse_edges(g)
 plot(g_rev)
 ```
-We can use `union()` to combine the edges of two graphs: 
+
+We can use `union()` to combine the edges of two graphs:
 
 ```{r}
 g_union <- igraph::union(g, g_rev)
 ```
 
-***QUESTION***: Before you run `plot(g_union)`, think about what the resulting should look like. Thus, what could you use the combination of `reverse()` and `union()` for? 
+***QUESTION***: Before you run `plot(g_union)`, think about what the resulting should look like. Thus, what could you use the combination of `reverse()` and `union()` for?
 
 A similar result could be produced with:
 
@@ -291,6 +327,5 @@ plot(g_undir)
 Realize however that conceptually, g_union and g_undir are different!
 
 ***QUESTION:*** What's the difference?
-
 
 For more information on all the graph manipulation functions included in `igraph`, see the [package's website](https://r.igraph.org/articles/igraph.html) and, of course, the help pages in R.
