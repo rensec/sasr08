@@ -131,7 +131,7 @@ plot(g_from_elist)
 
 Now the isolate is included as it should. Thus, when importing edge lists, it is important to always include a complete node list as well (unless you are certain that the edge list includes all nodes)!
 
-### From adjacency list list to igraph object
+### From adjacency list to igraph object
 
 Another common shape for network data, especially if collected via survey methods, is the *adjacency list*. In this shape, we have a row for each node, and columns that indicate the first, second, third... etc. connection of each node. The file `g_adj_list.csv` is an example of this format (it is again our toy network as used in the previous excercises).
 
@@ -186,16 +186,16 @@ We can now, once again, interpret each {from,to} combination as a directed edge 
 Now we can import this into a network object with an `igraph` function:
 
 ```{r}
-g_from_elist <- graph_from_data_frame(g_elist_from_alist) #This is a proper igraph graph object
-plot(g_from_elist)
+g_from_alist <- graph_from_data_frame(g_elist_from_alist) #This is a proper igraph graph object
+plot(g_from_alist)
 ```
 
 Note however, once more, that we lost the isolate! To include the isolate, we need to feed the function also the list of *all* the nodes, as we did before. However, in this case, we can also create the node list from the adjacency list data frame itself:
 
 ```{r}
 nodelist <- select(g_adj_list,id,age)
-g_from_elist <- graph_from_data_frame(g_elist_from_alist, vertices = nodelist) #This is a proper igraph graph object
-plot(g_from_elist)
+g_from_alist <- graph_from_data_frame(g_elist_from_alist, vertices = nodelist) #This is a proper igraph graph object
+plot(g_from_alist)
 ```
 
 That's better! Note that besides the node IDs, we also include the age variable in the network object as a node attribute, such that we could use it in analyses based on the network object.
@@ -238,8 +238,8 @@ igraph::as_data_frame(g_from_elist, what = "vertices")
 ### From igraph to adjacency list
 
 ```{r}
-edgelist_2 <- igraph::as_data_frame(g_from_elist, what = "edges")
-nodelist_2 <- igraph::as_data_frame(g_from_elist, what = "vertices")
+edgelist_2 <- igraph::as_data_frame(g_from_alist, what = "edges")
+nodelist_2 <- igraph::as_data_frame(g_from_alist, what = "vertices")
 # Note the use of the "namespace" "igraph::" here, to indicate that we need the igraph function here, not the function with the same name from the dplyr/tidyverse package
 
 d <- edgelist_2 %>%
