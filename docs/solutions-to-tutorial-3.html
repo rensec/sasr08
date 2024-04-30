@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2024-04-29" />
+<meta name="date" content="2024-04-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -149,8 +149,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#getting-network-data-into-r-the-igraph-package"><i class="fa fa-check"></i><b>1.1</b> Getting network data into R: the igraph package</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#creating-network-objects-in-igraph"><i class="fa fa-check"></i><b>1.1.1</b> Creating network objects in igraph</a></li>
-<li class="chapter" data-level="1.1.2" data-path="tut_data_handling.html"><a href="tut_data_handling.html#creating-network-objects-from-adjacency-list-data"><i class="fa fa-check"></i><b>1.1.2</b> Creating network objects from adjacency list data</a></li>
+<li class="chapter" data-level="1.1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-adjaceny-matrix-to-igraph-object"><i class="fa fa-check"></i><b>1.1.1</b> From adjaceny matrix to igraph object</a></li>
+<li class="chapter" data-level="1.1.2" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-edge-list-to-igraph-object"><i class="fa fa-check"></i><b>1.1.2</b> From edge list to igraph object</a></li>
+<li class="chapter" data-level="1.1.3" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-adjacency-list-to-igraph-object"><i class="fa fa-check"></i><b>1.1.3</b> From adjacency list to igraph object</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="tut_data_handling.html"><a href="tut_data_handling.html#the-reverse-direction-exporting-from-igraph-objects"><i class="fa fa-check"></i><b>1.2</b> The reverse direction: exporting from igraph objects</a>
 <ul>
@@ -255,86 +256,86 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">7</span> Solutions to Tutorial 3<a href="solutions-to-tutorial-3.html#solutions-to-tutorial-3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="preliminaries" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Preliminaries<a href="solutions-to-tutorial-3.html#preliminaries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="solutions-to-tutorial-3.html#cb178-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb178-2"><a href="solutions-to-tutorial-3.html#cb178-2" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co"># to read Stata files</span></span>
-<span id="cb178-3"><a href="solutions-to-tutorial-3.html#cb178-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
-<span id="cb178-4"><a href="solutions-to-tutorial-3.html#cb178-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="solutions-to-tutorial-3.html#cb179-1" tabindex="-1"></a>PupilsWaveV <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="at">file =</span> <span class="st">&quot;PupilsWaveV.dta&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="solutions-to-tutorial-3.html#cb180-1" tabindex="-1"></a>class12b <span class="ot">&lt;-</span> PupilsWaveV <span class="sc">%&gt;%</span> </span>
-<span id="cb180-2"><a href="solutions-to-tutorial-3.html#cb180-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> <span class="st">&quot;12b&quot;</span>)  <span class="co"># keep only one class</span></span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="solutions-to-tutorial-3.html#cb182-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb182-2"><a href="solutions-to-tutorial-3.html#cb182-2" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co"># to read Stata files</span></span>
+<span id="cb182-3"><a href="solutions-to-tutorial-3.html#cb182-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb182-4"><a href="solutions-to-tutorial-3.html#cb182-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="solutions-to-tutorial-3.html#cb183-1" tabindex="-1"></a>PupilsWaveV <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="at">file =</span> <span class="st">&quot;PupilsWaveV.dta&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="solutions-to-tutorial-3.html#cb184-1" tabindex="-1"></a>class12b <span class="ot">&lt;-</span> PupilsWaveV <span class="sc">%&gt;%</span> </span>
+<span id="cb184-2"><a href="solutions-to-tutorial-3.html#cb184-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> <span class="st">&quot;12b&quot;</span>)  <span class="co"># keep only one class</span></span></code></pre></div>
 </div>
 <div id="importing-the-data" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Importing the data<a href="solutions-to-tutorial-3.html#importing-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="solutions-to-tutorial-3.html#cb181-1" tabindex="-1"></a>elist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span> </span>
-<span id="cb181-2"><a href="solutions-to-tutorial-3.html#cb181-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend12) <span class="sc">%&gt;%</span>   <span class="co"># select only the &quot; best friends&quot;  network</span></span>
-<span id="cb181-3"><a href="solutions-to-tutorial-3.html#cb181-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(friend1<span class="sc">:</span>friend12)) <span class="sc">%&gt;%</span> </span>
-<span id="cb181-4"><a href="solutions-to-tutorial-3.html#cb181-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
-<span id="cb181-5"><a href="solutions-to-tutorial-3.html#cb181-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;name&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
-<span id="cb181-6"><a href="solutions-to-tutorial-3.html#cb181-6" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span></code></pre></div>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="solutions-to-tutorial-3.html#cb182-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span> </span>
-<span id="cb182-2"><a href="solutions-to-tutorial-3.html#cb182-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr,sex, age) <span class="sc">%&gt;%</span> </span>
-<span id="cb182-3"><a href="solutions-to-tutorial-3.html#cb182-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">name =</span> <span class="st">&quot;namenr&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="solutions-to-tutorial-3.html#cb183-1" tabindex="-1"></a>classnet <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(elist, <span class="at">vertices =</span> nodelist)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="solutions-to-tutorial-3.html#cb185-1" tabindex="-1"></a>elist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span> </span>
+<span id="cb185-2"><a href="solutions-to-tutorial-3.html#cb185-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend12) <span class="sc">%&gt;%</span>   <span class="co"># select only the &quot; best friends&quot;  network</span></span>
+<span id="cb185-3"><a href="solutions-to-tutorial-3.html#cb185-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(friend1<span class="sc">:</span>friend12)) <span class="sc">%&gt;%</span> </span>
+<span id="cb185-4"><a href="solutions-to-tutorial-3.html#cb185-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
+<span id="cb185-5"><a href="solutions-to-tutorial-3.html#cb185-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;name&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
+<span id="cb185-6"><a href="solutions-to-tutorial-3.html#cb185-6" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="solutions-to-tutorial-3.html#cb186-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span> </span>
+<span id="cb186-2"><a href="solutions-to-tutorial-3.html#cb186-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr,sex, age) <span class="sc">%&gt;%</span> </span>
+<span id="cb186-3"><a href="solutions-to-tutorial-3.html#cb186-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">name =</span> <span class="st">&quot;namenr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="solutions-to-tutorial-3.html#cb187-1" tabindex="-1"></a>classnet <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(elist, <span class="at">vertices =</span> nodelist)</span></code></pre></div>
 </div>
 <div id="is-the-network-directed" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Is the network directed?<a href="solutions-to-tutorial-3.html#is-the-network-directed" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="solutions-to-tutorial-3.html#cb184-1" tabindex="-1"></a><span class="fu">is_directed</span>(classnet)</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="solutions-to-tutorial-3.html#cb188-1" tabindex="-1"></a><span class="fu">is_directed</span>(classnet)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Yes it is (as expected)!</p>
 </div>
 <div id="a-first-visualization" class="section level2 hasAnchor" number="7.4">
 <h2><span class="header-section-number">7.4</span> A first visualization<a href="solutions-to-tutorial-3.html#a-first-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="solutions-to-tutorial-3.html#cb186-1" tabindex="-1"></a><span class="fu">plot</span>(classnet)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="solutions-to-tutorial-3.html#cb190-1" tabindex="-1"></a><span class="fu">plot</span>(classnet)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
 <p><strong>EXTRA:</strong> This doesn’t look very nice. Somehow the layout that <code>plot()</code> uses here doesn’t seem to work out very well in this case (even thought the default algorithm tries to optimize the layout for the graph), so perhaps we can try another one, such as the Kamada-Kawai algorithm which often works well for smaller graphs (see <a href="https://r.igraph.org/articles/igraph.html#drawing-a-graph-using-a-layout">here</a> for more details on layout options for <code>plot()</code>).</p>
 <p>Also, the arrowheads seem a bit large, so let’s give them a smaller size.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="solutions-to-tutorial-3.html#cb187-1" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="fu">layout_with_kk</span>(classnet)</span>
-<span id="cb187-2"><a href="solutions-to-tutorial-3.html#cb187-2" tabindex="-1"></a><span class="fu">plot</span>(classnet, <span class="at">layout =</span> layout, <span class="at">edge.arrow.size =</span> .<span class="dv">5</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="solutions-to-tutorial-3.html#cb191-1" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="fu">layout_with_kk</span>(classnet)</span>
+<span id="cb191-2"><a href="solutions-to-tutorial-3.html#cb191-2" tabindex="-1"></a><span class="fu">plot</span>(classnet, <span class="at">layout =</span> layout, <span class="at">edge.arrow.size =</span> .<span class="dv">5</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 <p>That’s already better!</p>
 </div>
 <div id="a-fiveish-number-summary" class="section level2 hasAnchor" number="7.5">
 <h2><span class="header-section-number">7.5</span> A ‘five(ish) number summary’<a href="solutions-to-tutorial-3.html#a-fiveish-number-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="size-1" class="section level3 hasAnchor" number="7.5.1">
 <h3><span class="header-section-number">7.5.1</span> Size<a href="solutions-to-tutorial-3.html#size-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="solutions-to-tutorial-3.html#cb188-1" tabindex="-1"></a><span class="fu">ecount</span>(classnet)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="solutions-to-tutorial-3.html#cb192-1" tabindex="-1"></a><span class="fu">ecount</span>(classnet)</span></code></pre></div>
 <pre><code>## [1] 91</code></pre>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="solutions-to-tutorial-3.html#cb190-1" tabindex="-1"></a><span class="fu">vcount</span>(classnet)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="solutions-to-tutorial-3.html#cb194-1" tabindex="-1"></a><span class="fu">vcount</span>(classnet)</span></code></pre></div>
 <pre><code>## [1] 26</code></pre>
 </div>
 <div id="density-1" class="section level3 hasAnchor" number="7.5.2">
 <h3><span class="header-section-number">7.5.2</span> Density<a href="solutions-to-tutorial-3.html#density-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="solutions-to-tutorial-3.html#cb192-1" tabindex="-1"></a><span class="fu">edge_density</span>(classnet)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="solutions-to-tutorial-3.html#cb196-1" tabindex="-1"></a><span class="fu">edge_density</span>(classnet)</span></code></pre></div>
 <pre><code>## [1] 0.14</code></pre>
 </div>
 <div id="components-1" class="section level3 hasAnchor" number="7.5.3">
 <h3><span class="header-section-number">7.5.3</span> Components<a href="solutions-to-tutorial-3.html#components-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="solutions-to-tutorial-3.html#cb194-1" tabindex="-1"></a><span class="fu">count_components</span>(classnet)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="solutions-to-tutorial-3.html#cb198-1" tabindex="-1"></a><span class="fu">count_components</span>(classnet)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 </div>
 <div id="diameter-and-average-distance" class="section level3 hasAnchor" number="7.5.4">
 <h3><span class="header-section-number">7.5.4</span> Diameter and average distance<a href="solutions-to-tutorial-3.html#diameter-and-average-distance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="solutions-to-tutorial-3.html#cb196-1" tabindex="-1"></a><span class="fu">diameter</span>(classnet)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="solutions-to-tutorial-3.html#cb200-1" tabindex="-1"></a><span class="fu">diameter</span>(classnet)</span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="solutions-to-tutorial-3.html#cb198-1" tabindex="-1"></a><span class="fu">mean_distance</span>(classnet)</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="solutions-to-tutorial-3.html#cb202-1" tabindex="-1"></a><span class="fu">mean_distance</span>(classnet)</span></code></pre></div>
 <pre><code>## [1] 2.853598</code></pre>
 </div>
 <div id="clustering-coefficient-1" class="section level3 hasAnchor" number="7.5.5">
 <h3><span class="header-section-number">7.5.5</span> Clustering coefficient<a href="solutions-to-tutorial-3.html#clustering-coefficient-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="solutions-to-tutorial-3.html#cb200-1" tabindex="-1"></a><span class="fu">transitivity</span>(classnet, <span class="at">type=</span><span class="st">&quot;average&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="solutions-to-tutorial-3.html#cb204-1" tabindex="-1"></a><span class="fu">transitivity</span>(classnet, <span class="at">type=</span><span class="st">&quot;average&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0.5886984</code></pre>
 </div>
 </div>
 <div id="comparing-degree-centrality" class="section level2 hasAnchor" number="7.6">
 <h2><span class="header-section-number">7.6</span> Comparing degree centrality<a href="solutions-to-tutorial-3.html#comparing-degree-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="solutions-to-tutorial-3.html#cb202-1" tabindex="-1"></a><span class="fu">V</span>(classnet)<span class="sc">$</span>degree <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">degree</span>(classnet)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="solutions-to-tutorial-3.html#cb206-1" tabindex="-1"></a><span class="fu">V</span>(classnet)<span class="sc">$</span>degree <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">degree</span>(classnet)</span></code></pre></div>
 <p><strong><em>Note:</em></strong>: the namespace <code>igraph::</code> is not necessary if you only have <code>igraph</code> loaded, but in the creation of the online version of this file, it was necessary to avoid confusion with the <code>network</code> package.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="solutions-to-tutorial-3.html#cb203-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(classnet, <span class="at">what =</span> <span class="st">&quot;vertices&quot;</span>)</span>
-<span id="cb203-2"><a href="solutions-to-tutorial-3.html#cb203-2" tabindex="-1"></a></span>
-<span id="cb203-3"><a href="solutions-to-tutorial-3.html#cb203-3" tabindex="-1"></a><span class="fu">t.test</span>(degree <span class="sc">~</span> sex, <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>, </span>
-<span id="cb203-4"><a href="solutions-to-tutorial-3.html#cb203-4" tabindex="-1"></a>       <span class="at">conf.level =</span> .<span class="dv">95</span>, </span>
-<span id="cb203-5"><a href="solutions-to-tutorial-3.html#cb203-5" tabindex="-1"></a>       <span class="at">var.equal =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb203-6"><a href="solutions-to-tutorial-3.html#cb203-6" tabindex="-1"></a>       <span class="at">data =</span> d)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="solutions-to-tutorial-3.html#cb207-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(classnet, <span class="at">what =</span> <span class="st">&quot;vertices&quot;</span>)</span>
+<span id="cb207-2"><a href="solutions-to-tutorial-3.html#cb207-2" tabindex="-1"></a></span>
+<span id="cb207-3"><a href="solutions-to-tutorial-3.html#cb207-3" tabindex="-1"></a><span class="fu">t.test</span>(degree <span class="sc">~</span> sex, <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>, </span>
+<span id="cb207-4"><a href="solutions-to-tutorial-3.html#cb207-4" tabindex="-1"></a>       <span class="at">conf.level =</span> .<span class="dv">95</span>, </span>
+<span id="cb207-5"><a href="solutions-to-tutorial-3.html#cb207-5" tabindex="-1"></a>       <span class="at">var.equal =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb207-6"><a href="solutions-to-tutorial-3.html#cb207-6" tabindex="-1"></a>       <span class="at">data =</span> d)</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -350,30 +351,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Alternatively, you can also use <code>print_labels()</code> from the <code>haven</code> package to show the labels of the original Stata dataset.</p>
 <div id="visualization-with-degree-and-gender" class="section level3 hasAnchor" number="7.6.1">
 <h3><span class="header-section-number">7.6.1</span> Visualization with degree and gender<a href="solutions-to-tutorial-3.html#visualization-with-degree-and-gender" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="solutions-to-tutorial-3.html#cb205-1" tabindex="-1"></a><span class="fu">plot</span>(classnet, </span>
-<span id="cb205-2"><a href="solutions-to-tutorial-3.html#cb205-2" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(classnet)<span class="sc">$</span>degree <span class="sc">+</span><span class="dv">5</span>, <span class="co"># Adding 5 to make all nodes somewhat larger </span></span>
-<span id="cb205-3"><a href="solutions-to-tutorial-3.html#cb205-3" tabindex="-1"></a>     <span class="at">vertex.color=</span> <span class="fu">V</span>(classnet)<span class="sc">$</span>sex, </span>
-<span id="cb205-4"><a href="solutions-to-tutorial-3.html#cb205-4" tabindex="-1"></a>     <span class="at">edge.arrow.size =</span> .<span class="dv">5</span>,</span>
-<span id="cb205-5"><a href="solutions-to-tutorial-3.html#cb205-5" tabindex="-1"></a>     <span class="at">layout=</span><span class="fu">layout_with_kk</span>(classnet),</span>
-<span id="cb205-6"><a href="solutions-to-tutorial-3.html#cb205-6" tabindex="-1"></a>     <span class="at">margin =</span> <span class="sc">-</span>.<span class="dv">1</span></span>
-<span id="cb205-7"><a href="solutions-to-tutorial-3.html#cb205-7" tabindex="-1"></a>     </span>
-<span id="cb205-8"><a href="solutions-to-tutorial-3.html#cb205-8" tabindex="-1"></a>     )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="solutions-to-tutorial-3.html#cb209-1" tabindex="-1"></a><span class="fu">plot</span>(classnet, </span>
+<span id="cb209-2"><a href="solutions-to-tutorial-3.html#cb209-2" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(classnet)<span class="sc">$</span>degree <span class="sc">+</span><span class="dv">5</span>, <span class="co"># Adding 5 to make all nodes somewhat larger </span></span>
+<span id="cb209-3"><a href="solutions-to-tutorial-3.html#cb209-3" tabindex="-1"></a>     <span class="at">vertex.color=</span> <span class="fu">V</span>(classnet)<span class="sc">$</span>sex, </span>
+<span id="cb209-4"><a href="solutions-to-tutorial-3.html#cb209-4" tabindex="-1"></a>     <span class="at">edge.arrow.size =</span> .<span class="dv">5</span>,</span>
+<span id="cb209-5"><a href="solutions-to-tutorial-3.html#cb209-5" tabindex="-1"></a>     <span class="at">layout=</span><span class="fu">layout_with_kk</span>(classnet),</span>
+<span id="cb209-6"><a href="solutions-to-tutorial-3.html#cb209-6" tabindex="-1"></a>     <span class="at">margin =</span> <span class="sc">-</span>.<span class="dv">1</span></span>
+<span id="cb209-7"><a href="solutions-to-tutorial-3.html#cb209-7" tabindex="-1"></a>     </span>
+<span id="cb209-8"><a href="solutions-to-tutorial-3.html#cb209-8" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
 <p><strong>Note:</strong> For vertex colors, we here simply let the colors be determined by the values that go with ‘female’ (1) and ‘male’ (2). A more elegant way is the following (in which we also drop the vertex labels):</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="solutions-to-tutorial-3.html#cb206-1" tabindex="-1"></a><span class="fu">plot</span>(classnet, </span>
-<span id="cb206-2"><a href="solutions-to-tutorial-3.html#cb206-2" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(classnet)<span class="sc">$</span>degree <span class="sc">+</span> <span class="dv">5</span>, </span>
-<span id="cb206-3"><a href="solutions-to-tutorial-3.html#cb206-3" tabindex="-1"></a>     <span class="at">vertex.color=</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(classnet)<span class="sc">$</span>sex <span class="sc">==</span> <span class="dv">2</span>, <span class="st">&quot;royalblue&quot;</span>, <span class="st">&quot;red3&quot;</span>), </span>
-<span id="cb206-4"><a href="solutions-to-tutorial-3.html#cb206-4" tabindex="-1"></a>     <span class="at">edge.arrow.size =</span> .<span class="dv">5</span>,</span>
-<span id="cb206-5"><a href="solutions-to-tutorial-3.html#cb206-5" tabindex="-1"></a>     <span class="at">layout=</span><span class="fu">layout_with_kk</span>(classnet),</span>
-<span id="cb206-6"><a href="solutions-to-tutorial-3.html#cb206-6" tabindex="-1"></a>     <span class="at">vertex.label =</span> <span class="cn">NA</span>,</span>
-<span id="cb206-7"><a href="solutions-to-tutorial-3.html#cb206-7" tabindex="-1"></a>     <span class="at">margin =</span> <span class="sc">-</span>.<span class="dv">1</span></span>
-<span id="cb206-8"><a href="solutions-to-tutorial-3.html#cb206-8" tabindex="-1"></a>     </span>
-<span id="cb206-9"><a href="solutions-to-tutorial-3.html#cb206-9" tabindex="-1"></a>     )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="solutions-to-tutorial-3.html#cb210-1" tabindex="-1"></a><span class="fu">plot</span>(classnet, </span>
+<span id="cb210-2"><a href="solutions-to-tutorial-3.html#cb210-2" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(classnet)<span class="sc">$</span>degree <span class="sc">+</span> <span class="dv">5</span>, </span>
+<span id="cb210-3"><a href="solutions-to-tutorial-3.html#cb210-3" tabindex="-1"></a>     <span class="at">vertex.color=</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(classnet)<span class="sc">$</span>sex <span class="sc">==</span> <span class="dv">2</span>, <span class="st">&quot;royalblue&quot;</span>, <span class="st">&quot;red3&quot;</span>), </span>
+<span id="cb210-4"><a href="solutions-to-tutorial-3.html#cb210-4" tabindex="-1"></a>     <span class="at">edge.arrow.size =</span> .<span class="dv">5</span>,</span>
+<span id="cb210-5"><a href="solutions-to-tutorial-3.html#cb210-5" tabindex="-1"></a>     <span class="at">layout=</span><span class="fu">layout_with_kk</span>(classnet),</span>
+<span id="cb210-6"><a href="solutions-to-tutorial-3.html#cb210-6" tabindex="-1"></a>     <span class="at">vertex.label =</span> <span class="cn">NA</span>,</span>
+<span id="cb210-7"><a href="solutions-to-tutorial-3.html#cb210-7" tabindex="-1"></a>     <span class="at">margin =</span> <span class="sc">-</span>.<span class="dv">1</span></span>
+<span id="cb210-8"><a href="solutions-to-tutorial-3.html#cb210-8" tabindex="-1"></a>     </span>
+<span id="cb210-9"><a href="solutions-to-tutorial-3.html#cb210-9" tabindex="-1"></a>     )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
 
 </div>
 </div>
 </div>
+
 
 
 
