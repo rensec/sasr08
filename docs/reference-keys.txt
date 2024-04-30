@@ -1,6 +1,6 @@
 tut_data_handling
 getting-network-data-into-r-the-igraph-package
-from-adjaceny-matrix-to-igraph-object
+from-adjacency-matrix-to-igraph-object
 from-edge-list-to-igraph-object
 from-adjacency-list-to-igraph-object
 the-reverse-direction-exporting-from-igraph-objects

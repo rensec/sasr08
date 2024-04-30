@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#getting-network-data-into-r-the-igraph-package"><i class="fa fa-check"></i><b>1.1</b> Getting network data into R: the igraph package</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-adjaceny-matrix-to-igraph-object"><i class="fa fa-check"></i><b>1.1.1</b> From adjaceny matrix to igraph object</a></li>
+<li class="chapter" data-level="1.1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-adjacency-matrix-to-igraph-object"><i class="fa fa-check"></i><b>1.1.1</b> From adjacency matrix to igraph object</a></li>
 <li class="chapter" data-level="1.1.2" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-edge-list-to-igraph-object"><i class="fa fa-check"></i><b>1.1.2</b> From edge list to igraph object</a></li>
 <li class="chapter" data-level="1.1.3" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-adjacency-list-to-igraph-object"><i class="fa fa-check"></i><b>1.1.3</b> From adjacency list to igraph object</a></li>
 </ul></li>
@@ -275,8 +275,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">1.1</span> Getting network data into R: the igraph package<a href="tut_data_handling.html#getting-network-data-into-r-the-igraph-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Network analysis packages such as <code>igraph</code> handle data efficiently by storing data in their own type of <em>objects</em>, which basically ensure that all procedures make sense for network data. Moreover, a network object as used by <code>igraph</code> allows to include the information on <em>both</em> edges and nodes of a network in a single “box” (and potentially other information about the network too).</p>
 <p>The raw data that we use to create these network objects may come in different ‘shapes’, such as <em>adjacency matrices</em>, <em>edge lists</em>, or <em>adjacency lists</em>. In the following, we discuss how to turn data objects of these different shapes into <code>igraph</code> network objects.</p>
-<div id="from-adjaceny-matrix-to-igraph-object" class="section level3 hasAnchor" number="1.1.1">
-<h3><span class="header-section-number">1.1.1</span> From adjaceny matrix to igraph object<a href="tut_data_handling.html#from-adjaceny-matrix-to-igraph-object" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="from-adjacency-matrix-to-igraph-object" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> From adjacency matrix to igraph object<a href="tut_data_handling.html#from-adjacency-matrix-to-igraph-object" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We start by reading some network data from a file (from the internet, in this case). A simple and very common way to store data is as “comma-separated values” (CSV). Let’s load some “toy data”:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tut_data_handling.html#cb2-1" tabindex="-1"></a>url1 <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/rensec/sasr08/raw/main/g_adj_matrix_simple.csv&quot;</span></span>
 <span id="cb2-2"><a href="tut_data_handling.html#cb2-2" tabindex="-1"></a>g_matrix <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> url1, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
@@ -327,9 +327,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-2"><a href="tut_data_handling.html#cb12-2" tabindex="-1"></a><span class="fu">class</span>(g)</span></code></pre></div>
 <pre><code>## [1] &quot;igraph&quot;</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="tut_data_handling.html#cb14-1" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 1a36507 DN-- 5 4 -- 
+<pre><code>## IGRAPH 9d29a4d DN-- 5 4 -- 
 ## + attr: name (v/c)
-## + edges from 1a36507 (vertex names):
+## + edges from 9d29a4d (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>The output from running “g” already shows that this is now a network object (specifically: an object of the class “igraph”, as shown by <code>class()</code>): R interprets the object as a network and shows us the edges in the network. This also means that other R functions - to the extent that they have network methods implemented - now automatically recognize <code>g</code> as a network object and will behave accordingly (note that this is a key feature of R as an “object-oriented language”). For example, we can now run the standard <code>plot()</code> function and it will create a network map:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="tut_data_handling.html#cb16-1" tabindex="-1"></a><span class="fu">plot</span>(g)</span></code></pre></div>
@@ -356,11 +356,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-2"><a href="tut_data_handling.html#cb20-2" tabindex="-1"></a><span class="fu">plot</span>(g_from_elist)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>If you compare this network with the one pictured earlier, you’ll notice an important difference: we lost the isolate! This is an important limitation of edge lists: due to their nature, they do not include isolates.</p>
-<p>To include the isolate in the network object, we need to feed the function also the list of <em>all</em> the nodes. Fortunately we already have the complete list of nodes, include in our data object with node attributes (g_nodes_age). We can include the list of nodes (and the node attribute ‘age’) when we import the edge list into the <code>igraph</code> object:</p>
+<p>To include the isolate in the network object, we need to feed the function also the list of <em>all</em> the nodes. Fortunately we already have the complete list of nodes, include in our data object with node attributes (g_nodes_age). We can include the list of nodes when we import the edge list into the <code>igraph</code> object:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="tut_data_handling.html#cb21-1" tabindex="-1"></a>g_from_elist <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(g_elist, <span class="at">vertices =</span> g_nodes_age) </span>
 <span id="cb21-2"><a href="tut_data_handling.html#cb21-2" tabindex="-1"></a><span class="fu">plot</span>(g_from_elist)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Now the isolate is included as it should. Thus, when importing edge lists, it is important to always include a complete node list as well (unless you are certain that the edge list includes all nodes)!</p>
+<p>Note also that now we have included the node attribute ‘age’ already with the node list when we created the network object. Thus, we so far have seen two ways to add node attributes to a network object:</p>
+<ol style="list-style-type: decimal">
+<li><p>Include them directly with a node list when you first create the network object, as specified in the ‘vertices’ argument of a function like <code>graph_from_data_frame()</code>;</p></li>
+<li><p>Add them afterwards using <code>set_vertex_attr()</code>.</p></li>
+</ol>
 </div>
 <div id="from-adjacency-list-to-igraph-object" class="section level3 hasAnchor" number="1.1.3">
 <h3><span class="header-section-number">1.1.3</span> From adjacency list to igraph object<a href="tut_data_handling.html#from-adjacency-list-to-igraph-object" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -486,7 +491,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb40-9"><a href="tut_data_handling.html#cb40-9" tabindex="-1"></a>  <span class="fu">relocate</span>(age, <span class="at">.after =</span> id) <span class="sc">%&gt;%</span> </span>
 <span id="cb40-10"><a href="tut_data_handling.html#cb40-10" tabindex="-1"></a>  <span class="fu">type_convert</span>() <span class="co">#as_data_frame returns characters; this transforms it back to numeric</span></span></code></pre></div>
 <pre><code>## 
-## ── Column specification ──────────────────────────────────
+## ── Column specification ──────────────────────────────────────────
 ## cols(
 ##   id = col_double(),
 ##   friend1 = col_double(),
@@ -543,9 +548,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We have already seen the use of <code>set_vertex_attr()</code> to add node attributes, of <code>V()</code> to get all nodes. As an alternative to <code>set_vertex_attr()</code>, we can also use <code>V()</code> for the same purpose:</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="tut_data_handling.html#cb49-1" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;male&quot;</span>) </span>
 <span id="cb49-2"><a href="tut_data_handling.html#cb49-2" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 1a36507 DN-- 5 4 -- 
+<pre><code>## IGRAPH 9d29a4d DN-- 5 4 -- 
 ## + attr: name (v/c), age (v/n), gender (v/c)
-## + edges from 1a36507 (vertex names):
+## + edges from 9d29a4d (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>Similarly, we can use <code>E()</code> to access, add and modify edge attributes.</p>
 <p>We can also use functions that modify the entire graph. For example, we may use <code>reverse()</code> to reverse the direction of all edges:</p>

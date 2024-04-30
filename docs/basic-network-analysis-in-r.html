@@ -149,7 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#getting-network-data-into-r-the-igraph-package"><i class="fa fa-check"></i><b>1.1</b> Getting network data into R: the igraph package</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-adjaceny-matrix-to-igraph-object"><i class="fa fa-check"></i><b>1.1.1</b> From adjaceny matrix to igraph object</a></li>
+<li class="chapter" data-level="1.1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-adjacency-matrix-to-igraph-object"><i class="fa fa-check"></i><b>1.1.1</b> From adjacency matrix to igraph object</a></li>
 <li class="chapter" data-level="1.1.2" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-edge-list-to-igraph-object"><i class="fa fa-check"></i><b>1.1.2</b> From edge list to igraph object</a></li>
 <li class="chapter" data-level="1.1.3" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-adjacency-list-to-igraph-object"><i class="fa fa-check"></i><b>1.1.3</b> From adjacency list to igraph object</a></li>
 </ul></li>
@@ -259,9 +259,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="basic-network-analysis-in-r.html#cb54-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
 <span id="cb54-2"><a href="basic-network-analysis-in-r.html#cb54-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">make_graph</span>(<span class="st">&quot;Zachary&quot;</span>)</span>
 <span id="cb54-3"><a href="basic-network-analysis-in-r.html#cb54-3" tabindex="-1"></a>z</span></code></pre></div>
-<pre><code>## IGRAPH 1b67821 U--- 34 78 -- Zachary
+<pre><code>## IGRAPH 9eda3b4 U--- 34 78 -- Zachary
 ## + attr: name (g/c)
-## + edges from 1b67821:
+## + edges from 9eda3b4:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  1-- 7  1-- 8  1-- 9  1--11  1--12
 ## [11]  1--13  1--14  1--18  1--20  1--22  1--32  2-- 3  2-- 4  2-- 8  2--14
 ## [21]  2--18  2--20  2--22  2--31  3-- 4  3-- 8  3--28  3--29  3--33  3--10
@@ -296,9 +296,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If desired, we can also add such network-level results to the network object, for later use:</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="basic-network-analysis-in-r.html#cb65-1" tabindex="-1"></a>z<span class="sc">$</span>density <span class="ot">&lt;-</span> <span class="fu">edge_density</span>(z)</span>
 <span id="cb65-2"><a href="basic-network-analysis-in-r.html#cb65-2" tabindex="-1"></a>z</span></code></pre></div>
-<pre><code>## IGRAPH 1b67821 U--- 34 78 -- Zachary
+<pre><code>## IGRAPH 9eda3b4 U--- 34 78 -- Zachary
 ## + attr: name (g/c), density (g/n)
-## + edges from 1b67821:
+## + edges from 9eda3b4:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  1-- 7  1-- 8  1-- 9  1--11  1--12
 ## [11]  1--13  1--14  1--18  1--20  1--22  1--32  2-- 3  2-- 4  2-- 8  2--14
 ## [21]  2--18  2--20  2--22  2--31  3-- 4  3-- 8  3--28  3--29  3--33  3--10
