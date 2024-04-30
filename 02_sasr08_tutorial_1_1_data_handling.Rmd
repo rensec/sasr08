@@ -36,7 +36,7 @@ g_matrix <- read.csv(file = url1, header = FALSE)
 g_matrix
 ```
 
-These data are stored as an *adjacency matrix*. While reading the data, R automatically created column names and loaded the data as a data frame:
+These data are stored in the shape of an *adjacency matrix*, meaning that it is a square matrix in which both the rows and the columns represent nodes, and the values in the cells indicate the status of the edges between these nodes. While reading the data, R automatically created column names and loaded the data as a data frame:
 
 ```{r}
 class(g_matrix)
@@ -48,6 +48,8 @@ For network analysis, this is often not practical; for example we may want to do
 g_matrix <- as.matrix(g_matrix)
 g_matrix
 ```
+
+Now, conceptually, the data still have the *shape* of an adjacency matrix, but in R, it is now stored as an object of class 'matrix'. 
 
 For clarity, we also add row- and column names, simply numbering them:
 
@@ -68,7 +70,7 @@ g_nodes_age
 
 We now have information about nodes and edges loaded into R. However, to R, these are just like *any* data; it doesn't "know" that these are network data. In order to be able to use specific SNA procedures, we first need to create *network objects*, which is what we'll do next.
 
-**NOTE:** the data that we've loaded now just happened to be stored as an adjacency matrix; it is also possible to store network data to a file in other formats. We'll get to that later.
+**NOTE:** the data that we've loaded now just happened to have the shape of an adjacency matrix; it is also possible to store network data to a file in other shapes. We'll get to that later.
 
 ### Creating network objects in igraph
 
