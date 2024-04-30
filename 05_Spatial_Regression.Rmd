@@ -2,7 +2,7 @@
 
 ## Constructing a Spatial Weight Matrix
 
-```{r include=F, echo=F, warning=F, message=FALSE}
+```{r, warning=F, message=FALSE}
 
 library(spdep) #We need the spdep package for the spatial weight matrix and for the Moran's I test
 library(spatialreg) #We need the spatialreg package for the spatial lag and spatial error models
