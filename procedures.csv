@@ -1,0 +1,11 @@
+From;To;Function
+edge_list;igraph;graph_from_data_frame()
+adj_mat;igraph;graph_from_adjacency_matrix()
+adj_list;edge_list;reshape_long
+node_list;igraph;graph_from_data_frame()
+igraph;network;intergraph
+adj_list;node_list;select
+igraph;adj_mat;as_adjacency_matrix()
+igraph;edge_list;as_data_frame()
+igraph;node_list;as_data_frame()
+edge_list;adj_list;reshape_wide
