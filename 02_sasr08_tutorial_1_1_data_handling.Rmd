@@ -107,7 +107,7 @@ A very common shape that network data come in is the *edge list*. This is a data
 The file 'g_elist.csv' contains an edge list for the same network 'g' that we saw above. Let's load the file into a data frame:
 
 ```{r}
-g_elist <- read.csv(file = "g_elist.csv")
+g_elist <- read.csv(file = "https://github.com/rensec/sasr08/raw/main/g_elist.csv")
 g_elist
 ```
 
