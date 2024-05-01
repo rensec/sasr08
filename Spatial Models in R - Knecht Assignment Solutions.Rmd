@@ -1,0 +1,225 @@
+# Solutions to Tutorial 4 - Spatial Models in R 
+
+## Preliminaries
+
+Call different packages:
+
+```{r }
+library(haven)
+library(tidyverse)
+library(igraph)
+library(lme4)
+library(spdep)
+library(spatialreg)
+```
+
+## Open the dataset
+
+Get Knecht data:
+
+```{r }
+PupilsWaveV <- read_dta(file = "PupilsWaveV.dta")
+```
+
+## Linear regression
+
+Clean variables:
+
+```{r }
+PupilsWaveV$acthomew <- 5-PupilsWaveV$acthomew
+PupilsWaveV$sex <- PupilsWaveV$sex-1
+PupilsWaveV$sex <- 1-PupilsWaveV$sex
+```
+
+Linear regression:
+
+```{r }
+olsreg <- lm(acthomew ~ sex + age, data=PupilsWaveV)
+summary(olsreg)
+```
+
+## Multilevel model
+
+```{r }
+ml <- lmer(acthomew ~ sex + age + (1 | schoolnr), PupilsWaveV)
+summary(ml)
+```
+
+## Adjacency matrix
+
+Keep only the class 12b:
+
+```{r }
+class12b <- PupilsWaveV %>% 
+  filter(schoolnr == "12b")  # keep only one class
+```
+
+Fetch the spatial weight matrix:
+
+```{r }
+friendsadjlist <- class12b %>%
+  select(namenr, friend1:friend12)
+class(friendsadjlist)
+```
+
+It is currently in the adjacency list format.
+We first transform these data into edge list format:
+
+```{r }
+friendsedgelist <- class12b %>% 
+  select(namenr, friend1:friend12) %>%   # select only the " best friends"  network
+  pivot_longer(c(friend1:friend12)) %>% 
+  filter(!is.na(value)) %>% # drop the missings
+  rename(from ="namenr", to = "value", sourcevar= "name") %>% #just nice for interpretation
+  relocate(to, .after=from) #move around the columns
+```
+
+We lost the potential isolates (observation 15).
+We also would like information on the nodes:
+
+```{r }
+friendsnodelist <- class12b %>% 
+  select(namenr,sex,age,acthomew) %>% 
+  rename(name = "namenr")
+```
+
+Transform to igraph object:
+
+```{r }
+friendsgraph <- graph_from_data_frame(friendsedgelist, vertices = friendsnodelist)
+class(friendsgraph)
+```
+
+Plot the friends network:
+
+```{r }
+plot(friendsgraph)
+layout <- layout_with_kk(friendsgraph)
+plot(friendsgraph, layout = layout, edge.arrow.size = .5)
+```
+
+Transform to adjacency matrix:
+
+```{r }
+friendsadjmatrix <- as_adjacency_matrix(friendsgraph, sparse = FALSE)
+class(friendsadjmatrix)
+```
+
+## Transform to a weights list object
+
+```{r }
+friends <- mat2listw(friendsadjmatrix, row.names = NULL, zero,policy =TRUE, style="W")
+class(friends)
+```
+
+Style W means row-standardized, B is binary so (1/0).
+
+## Moran's I test and LM tests
+
+Moran's I test:
+
+```{r }
+moran.test(class12b$acthomew, friends, zero.policy = TRUE)
+```
+
+We set zero.policy to TRUE because we have isolates.
+Moran's I test does not reject the null hypothesis, suggesting a lack of dependence in the data.
+However, we only have 26 observations, making it very difficult to reject any null hypothesis.
+Thus, we will ignore this.
+
+Lagrange multiplier tests for spatial lag and spatial error dependencies:
+
+```{r }
+olsregnew <- lm(acthomew ~ sex + age, data=friendsnodelist)
+summary(olsregnew)
+lm.LMtests(olsregnew, friends, test=c("LMlag", "LMerr"), zero.policy = TRUE)
+```
+
+We reject the null hypothesis for the LMlag, but not for the LMerr.
+Hence, we should use the spatial lag model. But we will use both in this exercise.
+
+## Spatial lag model
+
+```{r }
+slm <- lagsarlm(acthomew ~ sex + age, data = friendsnodelist, friends, zero.policy = TRUE, Durbin=FALSE)
+summary(slm)
+```
+
+We only interpret the coefficients because of the low sample size, we will ignore the significance.
+Females tend to do more homework than males.
+The older you are the more homework you do.
+Negative rho: if your friends do homework, you are less likely to do it!
+
+Impacts:
+
+```{r }
+im<-impacts(slm, listw=friends, zstats=TRUE, R=200)
+sums<-summary(im,  zstats=T)
+data.frame(sums$res)
+data.frame(sums$pzmat)
+```
+
+Direct effects tend to be larger than indirect ones and of the reversed sign.
+Direct effect: if you are a female, you tend to do more homework than if you are a male. 
+This impact includes the effect of feedback loops where you affect your friend and your friend influences you.
+So if you are a female, this will affect your homework, then will pass through the homework of neighbors,
+and then back to your homework.
+Indirect effect: if your friend is female, you will also tend to do less homework, taking into account the feedback loop where your friend influences their friends etc.
+Rho is negative: if your friends do more homework, you will do less homework.
+The difference between the impacts and the point estimates that we had before calculating impacts is that point estimates do not take feedback loops into account.
+Thus, interpret the impacts when having an autoregressive term.
+
+## SEM and SAC
+
+Spatial error model:
+
+```{r }
+sem <- errorsarlm(acthomew ~ sex + age, data = friendsnodelist, friends, zero.policy = TRUE, Durbin=FALSE)
+summary(sem)
+```
+
+#Here impacts are the same as point estimates as there are no autoregressive terms.
+#The lambda is negative: it means that unobserved factors of the friends are reducing your homework.
+
+Spatial autoregressive combined model:
+
+```{r }
+sac <- sacsarlm(acthomew ~ sex + age, data = friendsnodelist, friends, zero.policy = TRUE, Durbin=FALSE)
+summary(sac)
+```
+
+Also calculate impacts given that there is an autoregressive term. Same interpretation as above.
+
+## SDM, SDEM, and GNM
+
+Spatial Durbin model:
+
+```{r }
+sdm <- lagsarlm(acthomew ~ sex + age, data = friendsnodelist, friends, zero.policy = TRUE, Durbin=TRUE)
+summary(sdm)
+```
+
+Also calculate impacts given that there is an autoregressive term. Same interpretation as above.
+Note that the lag terms are the point estimates of the friends, but without taking into account the feedback loops.
+
+Spatial Durbin error model:
+
+```{r }
+sdem <- errorsarlm(acthomew ~ sex + age, data = friendsnodelist, friends, zero.policy = TRUE, Durbin=TRUE)
+summary(sdem)
+```
+
+No need to calculate impacts here as there are no autoregressive terms.
+
+General nested model:
+
+```{r }
+gnm <- sacsarlm(acthomew ~ sex + age, data = friendsnodelist, friends, zero.policy = TRUE, Durbin=TRUE)
+summary(gnm)
+```
+
+Also calculate impacts here. Same interpretation as in the other models.
+
+## Conclusion
+
+Think about it!
