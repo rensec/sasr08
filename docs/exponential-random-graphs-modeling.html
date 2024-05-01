@@ -269,11 +269,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="exponential-random-graphs-modeling" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">5</span> Exponential Random Graphs Modeling<a href="exponential-random-graphs-modeling.html#exponential-random-graphs-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="exponential-random-graphs-modeling.html#cb129-1" tabindex="-1"></a><span class="fu">library</span>(network)</span>
-<span id="cb129-2"><a href="exponential-random-graphs-modeling.html#cb129-2" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb129-3"><a href="exponential-random-graphs-modeling.html#cb129-3" tabindex="-1"></a><span class="fu">library</span>(intergraph)</span>
-<span id="cb129-4"><a href="exponential-random-graphs-modeling.html#cb129-4" tabindex="-1"></a><span class="fu">library</span>(sna)</span>
+<span id="cb129-2"><a href="exponential-random-graphs-modeling.html#cb129-2" tabindex="-1"></a><span class="fu">library</span>(intergraph)</span>
+<span id="cb129-3"><a href="exponential-random-graphs-modeling.html#cb129-3" tabindex="-1"></a><span class="fu">library</span>(sna)</span>
+<span id="cb129-4"><a href="exponential-random-graphs-modeling.html#cb129-4" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
 <span id="cb129-5"><a href="exponential-random-graphs-modeling.html#cb129-5" tabindex="-1"></a><span class="fu">library</span>(ergm)</span>
-<span id="cb129-6"><a href="exponential-random-graphs-modeling.html#cb129-6" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span></code></pre></div>
+<span id="cb129-6"><a href="exponential-random-graphs-modeling.html#cb129-6" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb129-7"><a href="exponential-random-graphs-modeling.html#cb129-7" tabindex="-1"></a><span class="fu">library</span>(haven)</span></code></pre></div>
 <div id="data-preparation" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Data preparation<a href="exponential-random-graphs-modeling.html#data-preparation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We’ll work with the same single class (“12b”) from the Knecht data as before. To keep things very concise here, we simply load an <code>igraph</code> network object that we’ve saved to disk before.</p>
