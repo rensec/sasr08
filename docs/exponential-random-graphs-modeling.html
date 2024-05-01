@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2024-04-30" />
+<meta name="date" content="2024-05-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -263,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-preparation" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Data preparation<a href="exponential-random-graphs-modeling.html#data-preparation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We’ll work with the same single class (“12b”) from the Knecht data as before. To keep things very concise here, we simply load an <code>igraph</code> network object that we’ve saved to disk before.</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="exponential-random-graphs-modeling.html#cb130-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;classnet.rdata&quot;</span>)</span>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="exponential-random-graphs-modeling.html#cb130-1" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">&quot;https://github.com/rensec/sasr08/raw/main/classnet.rdata&quot;</span>))</span>
 <span id="cb130-2"><a href="exponential-random-graphs-modeling.html#cb130-2" tabindex="-1"></a><span class="fu">summary</span>(classnet)</span></code></pre></div>
 <pre><code>## IGRAPH 963ef71 DN-- 26 91 -- 
 ## + attr: name (v/c), sex (v/n), age (v/n), sourcevar (e/c)</code></pre>
