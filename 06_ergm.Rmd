@@ -6,11 +6,12 @@
 ```{r  message=F, warning =FALSE}
 
 library(network)
-library(igraph)
 library(intergraph)
 library(sna)
+library(igraph)
 library(ergm)
 library(tidyverse) 
+library(haven)
 
 
 ```
