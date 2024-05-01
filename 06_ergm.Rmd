@@ -21,7 +21,7 @@ We'll work with the same single class ("12b") from the Knecht data as before. To
 
 
 ```{r}
-load("classnet.rdata")
+load(url("https://github.com/rensec/sasr08/raw/main/classnet.rdata"))
 summary(classnet)
 ```
 
