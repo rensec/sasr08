@@ -108,7 +108,7 @@ class(friendsadjmatrix)
 ## Transform to a weights list object
 
 ```{r }
-friends <- mat2listw(friendsadjmatrix, row.names = NULL, zero,policy =TRUE, style="W")
+friends <- mat2listw(friendsadjmatrix, row.names = NULL, zero.policy =TRUE, style="W")
 class(friends)
 ```
 
