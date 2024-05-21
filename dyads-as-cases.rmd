@@ -1,0 +1,75 @@
+
+```{r, echo=FALSE, message=FALSE}
+library(igraph)
+library(tidyverse)
+library(reshape2)
+```
+
+
+For practice, we use a toy dataset that was designed for looking just like the Knecht data (but smaller).
+
+```{r}
+url1 <- "https://github.com/rensec/sasr08/raw/main/toy_name_generator_data.csv"
+df <- read.csv(file = url1)
+table(df$schoolnr)
+df
+
+```
+Let's start with importing one class, as before:
+
+
+```{r}
+cls <- "1a"
+edge_list <- df %>% 
+  filter(schoolnr == cls) %>% 
+  select(namenr, friend1:friend2) %>% 
+  melt(id.vars = "namenr") %>% #make long
+  filter(!is.na(value)) %>% # drop the missings
+  rename(from ="namenr", to = "value", sourcevar= "variable") %>% #just nice for interpretation
+  relocate(to, .after=from) #move around the columns
+edge_list
+```
+
+```{r}
+nodelist <- df %>% 
+  filter(schoolnr == cls) %>% 
+  select(namenr,age)
+
+```
+
+
+Create a list of all dyads
+```{r}
+all_dyads_part_1 <- combn(nodelist$namenr,2) %>% # this creates a matrix of all combinations of the elements in nodelist
+  t() %>% # turns rows into columns and vv
+  as.data.frame() %>% 
+  rename(from = V1, to = V2) #rename for convenience
+#TODO: this is only one direction, add the dyads in the other direction!
+# use select() to reverse columns
+all_dyads_part_1
+```
+This lists all combinations of dyads, but only in "one direction": it always starts with the lower number in the "from" column. That is, we have {1,2} but we're missing {2,1}. We need to add the dyads in the other direction as well. 
+
+```{r}
+all_dyads <- all_dyads_part_1 %>% 
+  select(to, from) %>% 
+  rename(from = to, to = from)%>%
+  rbind(all_dyads_part_1) #add the two dataframes together
+rm(all_dyads_part_1)
+```
+
+Now that we have the complete list of dyads, we can merge the edge list with the dyads list. This will create a data set that has a 1 if the dyad is in the edge list (that is, if the ties exists), and a 0 if it is not. 
+
+
+```{r}
+edges_to_merge <- edge_list %>% 
+  select(-sourcevar) %>% 
+  mutate(tie = 1)
+```
+```{r}
+all_dyads <- all_dyads %>% 
+  merge(edges_to_merge, by = c("from", "to"), all.x = T) %>%
+  mutate(tie = ifelse(is.na(tie), 0, tie))   #recoding the missings to zero
+```
+
+Done!
