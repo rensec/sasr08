@@ -3,6 +3,8 @@
 library(igraph)
 library(tidyverse)
 library(reshape2)
+library(network)
+library(sna)
 ```
 
 
@@ -73,3 +75,10 @@ all_dyads <- all_dyads %>%
 ```
 
 Done!
+
+#Todo: do this for all classes denoted by schoolnr
+
+
+
+
+
