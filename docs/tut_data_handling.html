@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1 Handling social network data in R | SaSR 8: Social Network Analysis</title>
   <meta name="description" content="This page contains tutorials for SaSR 8" />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1 Handling social network data in R | SaSR 8: Social Network Analysis" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2024-05-01" />
+<meta name="date" content="2025-02-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -213,39 +213,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>6.1</b> The case of the missing ego</a></li>
 <li class="chapter" data-level="6.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>6.2</b> Multiple networks</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html"><i class="fa fa-check"></i><b>7</b> Solutions to Tutorial 3</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#preliminaries"><i class="fa fa-check"></i><b>7.1</b> Preliminaries</a></li>
-<li class="chapter" data-level="7.2" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#importing-the-data"><i class="fa fa-check"></i><b>7.2</b> Importing the data</a></li>
-<li class="chapter" data-level="7.3" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#is-the-network-directed"><i class="fa fa-check"></i><b>7.3</b> Is the network directed?</a></li>
-<li class="chapter" data-level="7.4" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#a-first-visualization"><i class="fa fa-check"></i><b>7.4</b> A first visualization</a></li>
-<li class="chapter" data-level="7.5" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#a-fiveish-number-summary"><i class="fa fa-check"></i><b>7.5</b> A ‘five(ish) number summary’</a>
-<ul>
-<li class="chapter" data-level="7.5.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#size-1"><i class="fa fa-check"></i><b>7.5.1</b> Size</a></li>
-<li class="chapter" data-level="7.5.2" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#density-1"><i class="fa fa-check"></i><b>7.5.2</b> Density</a></li>
-<li class="chapter" data-level="7.5.3" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#components-1"><i class="fa fa-check"></i><b>7.5.3</b> Components</a></li>
-<li class="chapter" data-level="7.5.4" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#diameter-and-average-distance"><i class="fa fa-check"></i><b>7.5.4</b> Diameter and average distance</a></li>
-<li class="chapter" data-level="7.5.5" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#clustering-coefficient-1"><i class="fa fa-check"></i><b>7.5.5</b> Clustering coefficient</a></li>
-</ul></li>
-<li class="chapter" data-level="7.6" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#comparing-degree-centrality"><i class="fa fa-check"></i><b>7.6</b> Comparing degree centrality</a>
-<ul>
-<li class="chapter" data-level="7.6.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#visualization-with-degree-and-gender"><i class="fa fa-check"></i><b>7.6.1</b> Visualization with degree and gender</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html"><i class="fa fa-check"></i><b>8</b> Solutions to Tutorial 4 - Spatial Models in R</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#preliminaries-1"><i class="fa fa-check"></i><b>8.1</b> Preliminaries</a></li>
-<li class="chapter" data-level="8.2" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#open-the-dataset"><i class="fa fa-check"></i><b>8.2</b> Open the dataset</a></li>
-<li class="chapter" data-level="8.3" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#linear-regression"><i class="fa fa-check"></i><b>8.3</b> Linear regression</a></li>
-<li class="chapter" data-level="8.4" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#multilevel-model"><i class="fa fa-check"></i><b>8.4</b> Multilevel model</a></li>
-<li class="chapter" data-level="8.5" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#adjacency-matrix"><i class="fa fa-check"></i><b>8.5</b> Adjacency matrix</a></li>
-<li class="chapter" data-level="8.6" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#transform-to-a-weights-list-object"><i class="fa fa-check"></i><b>8.6</b> Transform to a weights list object</a></li>
-<li class="chapter" data-level="8.7" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#morans-i-test-and-lm-tests"><i class="fa fa-check"></i><b>8.7</b> Moran’s I test and LM tests</a></li>
-<li class="chapter" data-level="8.8" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#spatial-lag-model-1"><i class="fa fa-check"></i><b>8.8</b> Spatial lag model</a></li>
-<li class="chapter" data-level="8.9" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#sem-and-sac"><i class="fa fa-check"></i><b>8.9</b> SEM and SAC</a></li>
-<li class="chapter" data-level="8.10" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#sdm-sdem-and-gnm"><i class="fa fa-check"></i><b>8.10</b> SDM, SDEM, and GNM</a></li>
-<li class="chapter" data-level="8.11" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#conclusion"><i class="fa fa-check"></i><b>8.11</b> Conclusion</a></li>
-</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -341,9 +308,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-2"><a href="tut_data_handling.html#cb12-2" tabindex="-1"></a><span class="fu">class</span>(g)</span></code></pre></div>
 <pre><code>## [1] &quot;igraph&quot;</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="tut_data_handling.html#cb14-1" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 88346ef DN-- 5 4 -- 
+<pre><code>## IGRAPH a27fedc DN-- 5 4 -- 
 ## + attr: name (v/c)
-## + edges from 88346ef (vertex names):
+## + edges from a27fedc (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>The output from running “g” already shows that this is now a network object (specifically: an object of the class “igraph”, as shown by <code>class()</code>): R interprets the object as a network and shows us the edges in the network. This also means that other R functions - to the extent that they have network methods implemented - now automatically recognize <code>g</code> as a network object and will behave accordingly (note that this is a key feature of R as an “object-oriented language”). For example, we can now run the standard <code>plot()</code> function and it will create a network map:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="tut_data_handling.html#cb16-1" tabindex="-1"></a><span class="fu">plot</span>(g)</span></code></pre></div>
@@ -505,7 +472,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb40-9"><a href="tut_data_handling.html#cb40-9" tabindex="-1"></a>  <span class="fu">relocate</span>(age, <span class="at">.after =</span> id) <span class="sc">%&gt;%</span> </span>
 <span id="cb40-10"><a href="tut_data_handling.html#cb40-10" tabindex="-1"></a>  <span class="fu">type_convert</span>() <span class="co">#as_data_frame returns characters; this transforms it back to numeric</span></span></code></pre></div>
 <pre><code>## 
-## ── Column specification ─────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────────
 ## cols(
 ##   id = col_double(),
 ##   friend1 = col_double(),
@@ -562,9 +529,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We have already seen the use of <code>set_vertex_attr()</code> to add node attributes, of <code>V()</code> to get all nodes. As an alternative to <code>set_vertex_attr()</code>, we can also use <code>V()</code> for the same purpose:</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="tut_data_handling.html#cb49-1" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;male&quot;</span>) </span>
 <span id="cb49-2"><a href="tut_data_handling.html#cb49-2" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 88346ef DN-- 5 4 -- 
+<pre><code>## IGRAPH a27fedc DN-- 5 4 -- 
 ## + attr: name (v/c), age (v/n), gender (v/c)
-## + edges from 88346ef (vertex names):
+## + edges from a27fedc (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>Similarly, we can use <code>E()</code> to access, add and modify edge attributes.</p>
 <p>We can also use functions that modify the entire graph. For example, we may use <code>reverse()</code> to reverse the direction of all edges:</p>
@@ -575,8 +542,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="tut_data_handling.html#cb52-1" tabindex="-1"></a>g_union <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">union</span>(g, g_rev)</span></code></pre></div>
 <p><strong><em>QUESTION</em></strong>: Before you run <code>plot(g_union)</code>, think about what the resulting should look like. Thus, what could you use the combination of <code>reverse()</code> and <code>union()</code> for?</p>
 <p>A similar result could be produced with:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="tut_data_handling.html#cb53-1" tabindex="-1"></a>g_undir <span class="ot">&lt;-</span> <span class="fu">as.undirected</span>(g)</span>
-<span id="cb53-2"><a href="tut_data_handling.html#cb53-2" tabindex="-1"></a><span class="fu">plot</span>(g_undir)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="tut_data_handling.html#cb53-1" tabindex="-1"></a>g_undir <span class="ot">&lt;-</span> <span class="fu">as.undirected</span>(g)</span></code></pre></div>
+<pre><code>## Warning: `as.undirected()` was deprecated in igraph 2.1.0.
+## ℹ Please use `as_undirected()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="tut_data_handling.html#cb55-1" tabindex="-1"></a><span class="fu">plot</span>(g_undir)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <p>Realize however that conceptually, g_union and g_undir are different!</p>
 <p><strong><em>QUESTION:</em></strong> What’s the difference?</p>

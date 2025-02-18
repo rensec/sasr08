@@ -11,5 +11,5 @@ rmd_files:
   - 05_Spatial_Regression.RMD
   - 06_ergm.rmd
   - more_name_generator_handling.Rmd
-  - first_knecht_solutions.Rmd
-  - Spatial_Models_Solutions.rmd
+#  - first_knecht_solutions.Rmd
+#  - Spatial_Models_Solutions.rmd
