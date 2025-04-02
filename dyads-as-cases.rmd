@@ -73,7 +73,52 @@ dyads <- dyads %>%
 
 With this information added, we can can also calculate further characteristics of the *dyads*, such as the age difference between the nodes.
 
-```{r}
+**ASSIGNMENT**: Add a variable that contains the absolute age difference between the two nodes in the dyad.
+
+```{r echo = FALSE}
 dyads <- dyads %>% 
   mutate(age_diff = abs(age_from - age_to))
 ```
+
+# Extend to multiple networks
+
+The code above can be extended to multiple networks. We can use a function to create the dyads-as-cases dataset for each subset in df, and then apply this function to each network.
+```{r}
+create_dyads <- function(subnet){
+  # Create the edgelist
+  dyads <- subnet %>% 
+  select(namenr, friend1:friend2) %>% 
+  melt(id.vars = "namenr") %>% #make long
+  filter(!is.na(value)) %>% # drop the missings
+  rename(from ="namenr", to = "value", sourcevar= "variable") %>% #just nice for interpretation
+  relocate(to, .after=from) #move around the columns
+  
+  dyads$connected <- 1 # add a variable indicating that they are connected
+  
+  # Create a list of all possible dyads
+  dyads <- dyads %>% 
+    full_join(expand.grid(from = subnet$namenr, to = subnet$namenr), by = c("from", "to")) %>% # create a list of all combinations of nodes, and match this to whether they are connected
+    mutate(connected = ifelse(is.na(connected), 0, connected)) %>%  # if there is no connection, set connected to 0
+    select(from, to, connected) # keep only from, to and connected
+  
+  # Add the group identifier
+  dyads$schoolnr <- unique(subnet$schoolnr)
+  dyads <- select(dyads, schoolnr, from, to, connected) # and move it to the front for convenience
+  
+  
+return(dyads)
+}
+```
+
+We can now apply this function to each subset of the data frame, and then bind the results together.
+```{r}
+dyads <- df %>% 
+  group_split(schoolnr) %>% # Split the dataframe into a list of dataframes, one for each value of schoolnr
+  map(create_dyads) %>%  # apply the function to each subset
+  list_rbind() # bind the results together
+```
+
+From here, we can add the node information as before, matching on "from"  or "to" *and* "schoolnr".
+
+**ASSIGNMENT**: Add a variable the variables "age_from",  "age_to", and "age_diff" once more.
+
