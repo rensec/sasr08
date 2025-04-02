@@ -122,3 +122,5 @@ From here, we can add the node information as before, matching on "from"  or "to
 
 **ASSIGNMENT**: Add a variable the variables "age_from",  "age_to", and "age_diff" once more.
 
+**QUESTION**: We now create an edge list for each subgroup (class) in the data set, process that, and add the results together. We could also try to take the entire data set at once, follow the same procedure, and create one large dyads-as-cases data set. What would go wrong if we did that (hint: there are multiple things)?
+
