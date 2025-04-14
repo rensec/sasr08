@@ -66,6 +66,7 @@ Next, we can merge this data set with the original data, to add information abou
 dyads <- dyads %>%
   mutate(from = as.numeric(from), to = as.numeric(to)) %>% # convert the node names to numeric) 
   left_join(nodelist %>% select(namenr, age), by = c("from" = "namenr")) %>% 
+  filter(from != to) %>% # remove the diagonal
   rename(age_from = age) %>% 
   left_join(nodelist %>% select(namenr, age), by = c("to" = "namenr")) %>% 
   rename(age_to = age)
@@ -78,6 +79,11 @@ With this information added, we can can also calculate further characteristics o
 ```{r echo = FALSE}
 dyads <- dyads %>% 
   mutate(age_diff = abs(age_from - age_to))
+```
+
+Next, we save the data as a CSV file
+```{r}
+write.csv(dyads, file = "dyads.csv", row.names = FALSE)
 ```
 
 # Extend to multiple networks
