@@ -1,7 +1,7 @@
 
 # Exponential Random Graphs Modeling
 
-
+In this tutorial, we look at some basic ERGM using R. 
 
 ```{r  message=F, warning =FALSE}
 
@@ -40,11 +40,12 @@ The alternative approach would be to load the original data set, filter out the 
 ```{r}
 gplot(g,  vertex.col=g %v% "sex"*2)
 ```
+
 Looks like we have some gender homophily going on here, as well as a lot of reciprocity! With ERGM, we can test this statistically.  
 
 ## Model estimation
 
-Now let's estimate a simple model. First we test the hypothesis that ties are likely to be reciprocated. In this case we add, besides the "edges"  term, 
+Now let's estimate a simple model. First we test the hypothesis that ties are likely to be reciprocated. In this case we add, besides the "edges"  term, the "mutual" term, which indicates the number of reciprocated ties.
 
 ```{r}
 M1.g<-ergm(g ~ edges +  mutual )
@@ -53,7 +54,7 @@ summary(M1.g)
 ```
 Indeed, we find a positive and significant effect for the number of reciprocated ties. 
 
-Now let's add the homophily effect (as well as a gender differential effect):
+Now let's add the homophily effect (nodematch), as well as a gender differential effect (nodefactor):
 
 ```{r, message = FALSE, warning = FALSE}
 M2.g<-ergm(g ~ edges + mutual +  nodefactor("sex", levels = 2) + nodematch("sex" ))
@@ -62,7 +63,7 @@ summary(M2.g)
 
 
 ```
-Indeed, we find a positive effect of gender homophily. 
+Indeed, we find a positive effect of gender homophily. We do not find that either boys or girls tend to have more ties than the other.
 
 ## Goodness of fit
 
@@ -78,7 +79,7 @@ This looks OK for the model statistics, but less so for the for network statisti
 plot(M2.g.gof)
 ```
 
-Indeed, some of these are quite off, indicating that we might want to include some other effects in the model. Indeed, for directed networks, it is common to include at least somethign related to degree, reciprocity, and something related to triadic closure. The exact choice of effects is not trivial though and may lead to compuational complications, so we leave it at this for now. 
+Indeed, some of these are quite off, indicating that we might want to include some other effects in the model. Indeed, for directed networks, it is common to include at least some parameters related to degree, reciprocity, and something related to triadic closure. The exact choice of effects is not trivial though and may lead to computational complications, so we leave it at this for now. 
 
 
 ## Further resources on ERGMs

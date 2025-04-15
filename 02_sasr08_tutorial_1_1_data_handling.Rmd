@@ -133,9 +133,11 @@ Now the isolate is included as it should. Thus, when importing edge lists, it is
 
 Note also that now we have included the node attribute 'age' already with the node list when we created the network object. Thus, we so far have seen two ways to add node attributes to a network object:
 
-1.   Include them directly with a node list when you first create the network object, as specified in the 'vertices' argument of a function like `graph_from_data_frame()`;
+1.  Include them directly with a node list when you first create the network object, as specified in the 'vertices' argument of a function like `graph_from_data_frame()`;
 
-2.   Add them afterwards using `set_vertex_attr()`.
+2.  Add them afterwards using `set_vertex_attr()`.
+
+**Assignment:** from the code snippets above, construct a complete "pipeline" to go from the edge list to the igraph object. Start from `g_elist`. Plot the resulting network. Store the code somewhere for later use. 
 
 ### From adjacency list to igraph object
 
@@ -205,6 +207,8 @@ plot(g_from_alist)
 ```
 
 That's better! Note that besides the node IDs, we also include the age variable in the network object as a node attribute, such that we could use it in analyses based on the network object.
+
+**Assignment:** from the code snippets above, construct a complete "pipeline" to go from the adjacency list to the igraph object. Start from `g_adj_list`. Plot the resulting network. Store the code for later use.
 
 ## The reverse direction: exporting from igraph objects
 
@@ -326,7 +330,7 @@ g_union <- igraph::union(g, g_rev)
 A similar result could be produced with:
 
 ```{r}
-g_undir <- as.undirected(g)
+g_undir <- as_undirected(g)
 plot(g_undir)
 ```
 
