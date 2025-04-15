@@ -230,3 +230,6 @@ plot(g2, vertex.color = ifelse(V(g2)$schoolnr=="1a", "lightblue", "red"))
 ```
 
 Done!
+
+```{r, child=c('dyads-as-cases.rmd'), echo=FALSE}  
+```
