@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Creating a dyads-as-cases dataset from a graph | SaSR 8: Social Network Analysis</title>
+  <meta name="description" content="This page contains tutorials for SaSR 8" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Creating a dyads-as-cases dataset from a graph | SaSR 8: Social Network Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This page contains tutorials for SaSR 8" />
+  <meta name="github-repo" content="rensec/sasr08" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Creating a dyads-as-cases dataset from a graph | SaSR 8: Social Network Analysis" />
+  
+  <meta name="twitter:description" content="This page contains tutorials for SaSR 8" />
+  
+
+<meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
+
+
+<meta name="date" content="2025-04-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"/>
+<link rel="next" href="solutions-to-tutorial-3.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SaSR8 </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i>Usage</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#credits-and-further-resources"><i class="fa fa-check"></i>Credits and further resources</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="tut_data_handling.html"><a href="tut_data_handling.html"><i class="fa fa-check"></i><b>1</b> Handling social network data in R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#getting-network-data-into-r-the-igraph-package"><i class="fa fa-check"></i><b>1.1</b> Getting network data into R: the igraph package</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-adjacency-matrix-to-igraph-object"><i class="fa fa-check"></i><b>1.1.1</b> From adjacency matrix to igraph object</a></li>
+<li class="chapter" data-level="1.1.2" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-edge-list-to-igraph-object"><i class="fa fa-check"></i><b>1.1.2</b> From edge list to igraph object</a></li>
+<li class="chapter" data-level="1.1.3" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-adjacency-list-to-igraph-object"><i class="fa fa-check"></i><b>1.1.3</b> From adjacency list to igraph object</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="tut_data_handling.html"><a href="tut_data_handling.html#the-reverse-direction-exporting-from-igraph-objects"><i class="fa fa-check"></i><b>1.2</b> The reverse direction: exporting from igraph objects</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-igraph-to-adjacency-matrix"><i class="fa fa-check"></i><b>1.2.1</b> From igraph to adjacency matrix</a></li>
+<li class="chapter" data-level="1.2.2" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-igraph-to-edge-list"><i class="fa fa-check"></i><b>1.2.2</b> From igraph to edge list</a></li>
+<li class="chapter" data-level="1.2.3" data-path="tut_data_handling.html"><a href="tut_data_handling.html#from-igraph-to-adjacency-list"><i class="fa fa-check"></i><b>1.2.3</b> From igraph to adjacency list</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="tut_data_handling.html"><a href="tut_data_handling.html#getting-network-data-into-r-the-network-package"><i class="fa fa-check"></i><b>1.3</b> Getting network data into R: the network package</a></li>
+<li class="chapter" data-level="1.4" data-path="tut_data_handling.html"><a href="tut_data_handling.html#modifying-networks-in-igraph"><i class="fa fa-check"></i><b>1.4</b> Modifying networks in igraph</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html"><i class="fa fa-check"></i><b>2</b> Basic network analysis in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#network-level-a-five-number-summary"><i class="fa fa-check"></i><b>2.1</b> Network level: a “five number summary”</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#size"><i class="fa fa-check"></i><b>2.1.1</b> Size</a></li>
+<li class="chapter" data-level="2.1.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#density"><i class="fa fa-check"></i><b>2.1.2</b> Density</a></li>
+<li class="chapter" data-level="2.1.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#components"><i class="fa fa-check"></i><b>2.1.3</b> Components</a></li>
+<li class="chapter" data-level="2.1.4" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#diameter-and-distances"><i class="fa fa-check"></i><b>2.1.4</b> Diameter (and distances)</a></li>
+<li class="chapter" data-level="2.1.5" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#clustering-coefficient"><i class="fa fa-check"></i><b>2.1.5</b> Clustering Coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#individual-level-centrality"><i class="fa fa-check"></i><b>2.2</b> Individual level: centrality</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#degree-centrality"><i class="fa fa-check"></i><b>2.2.1</b> Degree centrality</a></li>
+<li class="chapter" data-level="2.2.2" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#betweenness-centrality"><i class="fa fa-check"></i><b>2.2.2</b> Betweenness centrality</a></li>
+<li class="chapter" data-level="2.2.3" data-path="basic-network-analysis-in-r.html"><a href="basic-network-analysis-in-r.html#closeness-centrality"><i class="fa fa-check"></i><b>2.2.3</b> Closeness centrality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tut_first_knecht.html"><a href="tut_first_knecht.html"><i class="fa fa-check"></i><b>3</b> Introducing the Knecht data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tut_first_knecht.html"><a href="tut_first_knecht.html#a-first-look-at-the-data"><i class="fa fa-check"></i><b>3.1</b> A first look at the data</a></li>
+<li class="chapter" data-level="3.2" data-path="tut_first_knecht.html"><a href="tut_first_knecht.html#assignment"><i class="fa fa-check"></i><b>3.2</b> Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html"><i class="fa fa-check"></i><b>4</b> Networks as causes: Spatial regression analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#constructing-a-spatial-weight-matrix"><i class="fa fa-check"></i><b>4.1</b> Constructing a Spatial Weight Matrix</a></li>
+<li class="chapter" data-level="4.2" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#linear-regression-analysis"><i class="fa fa-check"></i><b>4.2</b> Linear Regression Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-analysis"><i class="fa fa-check"></i><b>4.3</b> Spatial Analysis</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#morans-i-test"><i class="fa fa-check"></i><b>4.3.1</b> Moran’s I test</a></li>
+<li class="chapter" data-level="4.3.2" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#lagrange-multiplier-tests-for-spatial-lag-and-spatial-error-dependencies"><i class="fa fa-check"></i><b>4.3.2</b> Lagrange multiplier tests for spatial lag and spatial error dependencies</a></li>
+<li class="chapter" data-level="4.3.3" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-lag-model"><i class="fa fa-check"></i><b>4.3.3</b> Spatial lag model</a></li>
+<li class="chapter" data-level="4.3.4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-error-model"><i class="fa fa-check"></i><b>4.3.4</b> Spatial error model</a></li>
+<li class="chapter" data-level="4.3.5" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-autoregressive-combined-model"><i class="fa fa-check"></i><b>4.3.5</b> Spatial autoregressive combined model</a></li>
+<li class="chapter" data-level="4.3.6" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-durbin-model"><i class="fa fa-check"></i><b>4.3.6</b> Spatial Durbin model</a></li>
+<li class="chapter" data-level="4.3.7" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#spatial-durbin-error-model"><i class="fa fa-check"></i><b>4.3.7</b> Spatial Durbin error model</a></li>
+<li class="chapter" data-level="4.3.8" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#general-nested-model"><i class="fa fa-check"></i><b>4.3.8</b> General nested model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="networks-as-causes-spatial-regression-analysis.html"><a href="networks-as-causes-spatial-regression-analysis.html#knecht-assignment"><i class="fa fa-check"></i><b>4.4</b> Knecht Assignment</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html"><i class="fa fa-check"></i><b>5</b> Exponential Random Graphs Modeling</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#data-preparation"><i class="fa fa-check"></i><b>5.1</b> Data preparation</a></li>
+<li class="chapter" data-level="5.2" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#model-estimation"><i class="fa fa-check"></i><b>5.2</b> Model estimation</a></li>
+<li class="chapter" data-level="5.3" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#goodness-of-fit"><i class="fa fa-check"></i><b>5.3</b> Goodness of fit</a></li>
+<li class="chapter" data-level="5.4" data-path="exponential-random-graphs-modeling.html"><a href="exponential-random-graphs-modeling.html#further-resources-on-ergms"><i class="fa fa-check"></i><b>5.4</b> Further resources on ERGMs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><i class="fa fa-check"></i><b>6</b> A deeper dive into data handling: complications in name generator data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>6.1</b> The case of the missing ego</a></li>
+<li class="chapter" data-level="6.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>6.2</b> Multiple networks</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="creating-a-dyads-as-cases-dataset-from-a-graph.html"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html"><i class="fa fa-check"></i><b>7</b> Creating a dyads-as-cases dataset from a graph</a>
+<ul>
+<li class="chapter" data-level="7.0.1" data-path="creating-a-dyads-as-cases-dataset-from-a-graph.html"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#create-a-dyads-as-cases-dataset"><i class="fa fa-check"></i><b>7.0.1</b> Create a dyads-as-cases dataset</a></li>
+<li class="chapter" data-level="7.0.2" data-path="creating-a-dyads-as-cases-dataset-from-a-graph.html"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#extend-to-multiple-networks"><i class="fa fa-check"></i><b>7.0.2</b> Extend to multiple networks</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html"><i class="fa fa-check"></i><b>8</b> Solutions to Tutorial 3</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#preliminaries"><i class="fa fa-check"></i><b>8.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="8.2" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#importing-the-data"><i class="fa fa-check"></i><b>8.2</b> Importing the data</a></li>
+<li class="chapter" data-level="8.3" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#is-the-network-directed"><i class="fa fa-check"></i><b>8.3</b> Is the network directed?</a></li>
+<li class="chapter" data-level="8.4" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#a-first-visualization"><i class="fa fa-check"></i><b>8.4</b> A first visualization</a></li>
+<li class="chapter" data-level="8.5" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#a-fiveish-number-summary"><i class="fa fa-check"></i><b>8.5</b> A ‘five(ish) number summary’</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#size-1"><i class="fa fa-check"></i><b>8.5.1</b> Size</a></li>
+<li class="chapter" data-level="8.5.2" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#density-1"><i class="fa fa-check"></i><b>8.5.2</b> Density</a></li>
+<li class="chapter" data-level="8.5.3" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#components-1"><i class="fa fa-check"></i><b>8.5.3</b> Components</a></li>
+<li class="chapter" data-level="8.5.4" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#diameter-and-average-distance"><i class="fa fa-check"></i><b>8.5.4</b> Diameter and average distance</a></li>
+<li class="chapter" data-level="8.5.5" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#clustering-coefficient-1"><i class="fa fa-check"></i><b>8.5.5</b> Clustering coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#comparing-degree-centrality"><i class="fa fa-check"></i><b>8.6</b> Comparing degree centrality</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#visualization-with-degree-and-gender"><i class="fa fa-check"></i><b>8.6.1</b> Visualization with degree and gender</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html"><i class="fa fa-check"></i><b>9</b> Solutions to Tutorial 4 - Spatial Models in R</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#preliminaries-1"><i class="fa fa-check"></i><b>9.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="9.2" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#open-the-dataset"><i class="fa fa-check"></i><b>9.2</b> Open the dataset</a></li>
+<li class="chapter" data-level="9.3" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#linear-regression"><i class="fa fa-check"></i><b>9.3</b> Linear regression</a></li>
+<li class="chapter" data-level="9.4" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#multilevel-model"><i class="fa fa-check"></i><b>9.4</b> Multilevel model</a></li>
+<li class="chapter" data-level="9.5" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#adjacency-matrix"><i class="fa fa-check"></i><b>9.5</b> Adjacency matrix</a></li>
+<li class="chapter" data-level="9.6" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#transform-to-a-weights-list-object"><i class="fa fa-check"></i><b>9.6</b> Transform to a weights list object</a></li>
+<li class="chapter" data-level="9.7" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#morans-i-test-and-lm-tests"><i class="fa fa-check"></i><b>9.7</b> Moran’s I test and LM tests</a></li>
+<li class="chapter" data-level="9.8" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#spatial-lag-model-1"><i class="fa fa-check"></i><b>9.8</b> Spatial lag model</a></li>
+<li class="chapter" data-level="9.9" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#sem-and-sac"><i class="fa fa-check"></i><b>9.9</b> SEM and SAC</a></li>
+<li class="chapter" data-level="9.10" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#sdm-sdem-and-gnm"><i class="fa fa-check"></i><b>9.10</b> SDM, SDEM, and GNM</a></li>
+<li class="chapter" data-level="9.11" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#conclusion"><i class="fa fa-check"></i><b>9.11</b> Conclusion</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">SaSR 8: Social Network Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="creating-a-dyads-as-cases-dataset-from-a-graph" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Creating a dyads-as-cases dataset from a graph<a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#creating-a-dyads-as-cases-dataset-from-a-graph" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>For some analyses, it can be useful to have a dataset in which the rows represent all all <em>dyads</em> (i.e., all pairs of nodes) in the network, with a variable (0/1) indicating whether they are connected. Conceptually, this is similar to an adjacency matrix in which each cell represents a connection between two nodes, but here, we have a row for each cell. As always, we start with loading the relevant packages.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb186-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb186-2"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb186-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb186-3"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb186-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span></code></pre></div>
+<p>As an example, we use a small toy data set, which contains (fictional) “name generator” data for two groups of individuals.</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb187-1" tabindex="-1"></a>url1 <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/rensec/sasr08/raw/main/toy_name_generator_data.csv&quot;</span></span>
+<span id="cb187-2"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb187-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> url1)</span>
+<span id="cb187-3"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb187-3" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>schoolnr)</span></code></pre></div>
+<pre><code>## 
+## 1a 2b 
+##  5  5</code></pre>
+<p>We extract the data for one of the groups, and create a graph from it:</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-1" tabindex="-1"></a>cls <span class="ot">&lt;-</span> <span class="st">&quot;1a&quot;</span></span>
+<span id="cb189-2"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-2" tabindex="-1"></a>edge_list <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb189-3"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-3" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
+<span id="cb189-4"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-4" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> </span>
+<span id="cb189-5"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-5" tabindex="-1"></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="st">&quot;namenr&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#make long</span></span>
+<span id="cb189-6"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-6" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
+<span id="cb189-7"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-7" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
+<span id="cb189-8"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-8" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
+<span id="cb189-9"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-9" tabindex="-1"></a></span>
+<span id="cb189-10"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-10" tabindex="-1"></a></span>
+<span id="cb189-11"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-11" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb189-12"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-12" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> cls) <span class="sc">%&gt;%</span> </span>
+<span id="cb189-13"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-13" tabindex="-1"></a>  <span class="fu">select</span>(namenr,age)</span>
+<span id="cb189-14"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-14" tabindex="-1"></a></span>
+<span id="cb189-15"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-15" tabindex="-1"></a>g1a <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist)</span>
+<span id="cb189-16"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb189-16" tabindex="-1"></a><span class="fu">plot</span>(g1a)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<div id="create-a-dyads-as-cases-dataset" class="section level3 hasAnchor" number="7.0.1">
+<h3><span class="header-section-number">7.0.1</span> Create a dyads-as-cases dataset<a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#create-a-dyads-as-cases-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>From the <code>igraph</code> object, we can create a dyads-as-cases dataset. We start by extracting the edges from the graph, and adding a variable indicating that they are connected. Then, we create a list of all possible combinations of nodes, and match this to the list of edges. If there is no connection, we set the variable to 0.</p>
+<p>Note the use of the <code>igraph::</code> namespace to avoid a conflict with the <code>dplyr</code> function by the same name. Note furthermore that we first created an <code>igraph</code> object from the edge list, and now extract the edge list from the <code>igraph</code> object. We could have skipped both steps altogether and work directly from the edge list, but the igraph object is still nice to have to plot the network. Without these steps, we would not need <code>igraph</code> at all.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb190-1" tabindex="-1"></a>dyads <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g1a, <span class="at">what =</span> <span class="st">&quot;edges&quot;</span>) <span class="co"># start with extracting all edges from the graph object </span></span>
+<span id="cb190-2"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb190-2" tabindex="-1"></a>dyads<span class="sc">$</span>connected <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># add a variable indicating that they are connected</span></span>
+<span id="cb190-3"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb190-3" tabindex="-1"></a></span>
+<span id="cb190-4"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb190-4" tabindex="-1"></a>dyads <span class="ot">&lt;-</span> dyads <span class="sc">%&gt;%</span> </span>
+<span id="cb190-5"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb190-5" tabindex="-1"></a>  <span class="fu">full_join</span>(<span class="fu">expand.grid</span>(<span class="at">from =</span> <span class="fu">V</span>(g1a)<span class="sc">$</span>name, <span class="at">to =</span> <span class="fu">V</span>(g1a)<span class="sc">$</span>name), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;from&quot;</span>, <span class="st">&quot;to&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co"># create a list of all combinations of nodes, and match this to whether they are connected</span></span>
+<span id="cb190-6"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb190-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">connected =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(connected), <span class="dv">0</span>, connected)) <span class="sc">%&gt;%</span>  <span class="co"># if there is no connection, set connected to 0</span></span>
+<span id="cb190-7"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb190-7" tabindex="-1"></a>  <span class="fu">select</span>(from, to, connected) <span class="co"># keep only from, to and connected</span></span></code></pre></div>
+<p>We now have a data frame with 25 rows. Verify for yourself that this is indeed the number of rows we should expect.</p>
+<p>Note that while the “connected” variable is now a binary variable, conceptually, this could also take other values, for example values that represent the strength of the connection, or negative values.</p>
+<p>Next, we can merge this data set with the original data, to add information about the nodes. Because the node names are extracted from the <code>igraph</code> object as characters, we need to convert them to numeric values first.</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb191-1" tabindex="-1"></a>dyads <span class="ot">&lt;-</span> dyads <span class="sc">%&gt;%</span></span>
+<span id="cb191-2"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb191-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">from =</span> <span class="fu">as.numeric</span>(from), <span class="at">to =</span> <span class="fu">as.numeric</span>(to)) <span class="sc">%&gt;%</span> <span class="co"># convert the node names to numeric) </span></span>
+<span id="cb191-3"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb191-3" tabindex="-1"></a>  <span class="fu">left_join</span>(nodelist <span class="sc">%&gt;%</span> <span class="fu">select</span>(namenr, age), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;from&quot;</span> <span class="ot">=</span> <span class="st">&quot;namenr&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb191-4"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb191-4" tabindex="-1"></a>  <span class="fu">filter</span>(from <span class="sc">!=</span> to) <span class="sc">%&gt;%</span> <span class="co"># remove the diagonal</span></span>
+<span id="cb191-5"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb191-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">age_from =</span> age) <span class="sc">%&gt;%</span> </span>
+<span id="cb191-6"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb191-6" tabindex="-1"></a>  <span class="fu">left_join</span>(nodelist <span class="sc">%&gt;%</span> <span class="fu">select</span>(namenr, age), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;to&quot;</span> <span class="ot">=</span> <span class="st">&quot;namenr&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb191-7"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb191-7" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">age_to =</span> age)</span></code></pre></div>
+<p>With this information added, we can can also calculate further characteristics of the <em>dyads</em>, such as the age difference between the nodes.</p>
+<p><strong>ASSIGNMENT</strong>: Add a variable that contains the absolute age difference between the two nodes in the dyad.</p>
+<p>Next, we save the data as a CSV file</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb192-1" tabindex="-1"></a><span class="fu">write.csv</span>(dyads, <span class="at">file =</span> <span class="st">&quot;dyads.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+</div>
+<div id="extend-to-multiple-networks" class="section level3 hasAnchor" number="7.0.2">
+<h3><span class="header-section-number">7.0.2</span> Extend to multiple networks<a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#extend-to-multiple-networks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The code above can be extended to multiple networks. We can use a function to create the dyads-as-cases dataset for each subset in df, and then apply this function to each network.</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-1" tabindex="-1"></a>create_dyads <span class="ot">&lt;-</span> <span class="cf">function</span>(subnet){</span>
+<span id="cb193-2"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-2" tabindex="-1"></a>  <span class="co"># Create the edgelist</span></span>
+<span id="cb193-3"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-3" tabindex="-1"></a>  dyads <span class="ot">&lt;-</span> subnet <span class="sc">%&gt;%</span> </span>
+<span id="cb193-4"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-4" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> </span>
+<span id="cb193-5"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-5" tabindex="-1"></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="st">&quot;namenr&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#make long</span></span>
+<span id="cb193-6"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-6" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
+<span id="cb193-7"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-7" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
+<span id="cb193-8"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-8" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
+<span id="cb193-9"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-9" tabindex="-1"></a>  </span>
+<span id="cb193-10"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-10" tabindex="-1"></a>  dyads<span class="sc">$</span>connected <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># add a variable indicating that they are connected</span></span>
+<span id="cb193-11"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-11" tabindex="-1"></a>  </span>
+<span id="cb193-12"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-12" tabindex="-1"></a>  <span class="co"># Create a list of all possible dyads</span></span>
+<span id="cb193-13"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-13" tabindex="-1"></a>  dyads <span class="ot">&lt;-</span> dyads <span class="sc">%&gt;%</span> </span>
+<span id="cb193-14"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-14" tabindex="-1"></a>    <span class="fu">full_join</span>(<span class="fu">expand.grid</span>(<span class="at">from =</span> subnet<span class="sc">$</span>namenr, <span class="at">to =</span> subnet<span class="sc">$</span>namenr), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;from&quot;</span>, <span class="st">&quot;to&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co"># create a list of all combinations of nodes, and match this to whether they are connected</span></span>
+<span id="cb193-15"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-15" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">connected =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(connected), <span class="dv">0</span>, connected)) <span class="sc">%&gt;%</span>  <span class="co"># if there is no connection, set connected to 0</span></span>
+<span id="cb193-16"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-16" tabindex="-1"></a>    <span class="fu">select</span>(from, to, connected) <span class="co"># keep only from, to and connected</span></span>
+<span id="cb193-17"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-17" tabindex="-1"></a>  </span>
+<span id="cb193-18"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-18" tabindex="-1"></a>  <span class="co"># Add the group identifier</span></span>
+<span id="cb193-19"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-19" tabindex="-1"></a>  dyads<span class="sc">$</span>schoolnr <span class="ot">&lt;-</span> <span class="fu">unique</span>(subnet<span class="sc">$</span>schoolnr)</span>
+<span id="cb193-20"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-20" tabindex="-1"></a>  dyads <span class="ot">&lt;-</span> <span class="fu">select</span>(dyads, schoolnr, from, to, connected) <span class="co"># and move it to the front for convenience</span></span>
+<span id="cb193-21"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-21" tabindex="-1"></a>  </span>
+<span id="cb193-22"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-22" tabindex="-1"></a>  </span>
+<span id="cb193-23"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-23" tabindex="-1"></a><span class="fu">return</span>(dyads)</span>
+<span id="cb193-24"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb193-24" tabindex="-1"></a>}</span></code></pre></div>
+<p>We can now apply this function to each subset of the data frame, and then bind the results together.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb194-1" tabindex="-1"></a>dyads <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb194-2"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb194-2" tabindex="-1"></a>  <span class="fu">group_split</span>(schoolnr) <span class="sc">%&gt;%</span> <span class="co"># Split the dataframe into a list of dataframes, one for each value of schoolnr</span></span>
+<span id="cb194-3"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb194-3" tabindex="-1"></a>  <span class="fu">map</span>(create_dyads) <span class="sc">%&gt;%</span>  <span class="co"># apply the function to each subset</span></span>
+<span id="cb194-4"><a href="creating-a-dyads-as-cases-dataset-from-a-graph.html#cb194-4" tabindex="-1"></a>  <span class="fu">list_rbind</span>() <span class="co"># bind the results together</span></span></code></pre></div>
+<p>From here, we can add the node information as before, matching on “from” or “to” <em>and</em> “schoolnr”.</p>
+<p><strong>ASSIGNMENT</strong>: Add a variable the variables “age_from”, “age_to”, and “age_diff” once more.</p>
+<p><strong>QUESTION</strong>: We now create an edge list for each subgroup (class) in the data set, process that, and add the results together. We could also try to take the entire data set at once, follow the same procedure, and create one large dyads-as-cases data set. What would go wrong if we did that (hint: there are multiple things)?</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="solutions-to-tutorial-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/dyads-as-cases.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

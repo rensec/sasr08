@@ -212,6 +212,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>6.1</b> The case of the missing ego</a></li>
 <li class="chapter" data-level="6.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>6.2</b> Multiple networks</a></li>
+<li class="chapter" data-level="6.3" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#dyads-as-cases"><i class="fa fa-check"></i><b>6.3</b> Dyads-as-cases</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#create-a-dyads-as-cases-dataset"><i class="fa fa-check"></i><b>6.3.1</b> Create a dyads-as-cases dataset</a></li>
+<li class="chapter" data-level="6.3.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#extend-to-multiple-networks"><i class="fa fa-check"></i><b>6.3.2</b> Extend to multiple networks</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -235,6 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="exponential-random-graphs-modeling" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">5</span> Exponential Random Graphs Modeling<a href="exponential-random-graphs-modeling.html#exponential-random-graphs-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this tutorial, we look at some basic ERGM using R.</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="exponential-random-graphs-modeling.html#cb129-1" tabindex="-1"></a><span class="fu">library</span>(network)</span>
 <span id="cb129-2"><a href="exponential-random-graphs-modeling.html#cb129-2" tabindex="-1"></a><span class="fu">library</span>(intergraph)</span>
 <span id="cb129-3"><a href="exponential-random-graphs-modeling.html#cb129-3" tabindex="-1"></a><span class="fu">library</span>(sna)</span>
@@ -271,12 +277,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     sourcevar</code></pre>
 <p>The alternative approach would be to load the original data set, filter out the class, prepare the data as an edge list and node list as we’ve done before, and then import it directly into a <code>network</code> object using one of the <code>as.network...()</code> function from the <code>network</code> package.</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="exponential-random-graphs-modeling.html#cb134-1" tabindex="-1"></a><span class="fu">gplot</span>(g,  <span class="at">vertex.col=</span>g <span class="sc">%v%</span> <span class="st">&quot;sex&quot;</span><span class="sc">*</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-76-1.png" width="672" />
-Looks like we have some gender homophily going on here, as well as a lot of reciprocity! With ERGM, we can test this statistically.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p>Looks like we have some gender homophily going on here, as well as a lot of reciprocity! With ERGM, we can test this statistically.</p>
 </div>
 <div id="model-estimation" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Model estimation<a href="exponential-random-graphs-modeling.html#model-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Now let’s estimate a simple model. First we test the hypothesis that ties are likely to be reciprocated. In this case we add, besides the “edges” term,</p>
+<p>Now let’s estimate a simple model. First we test the hypothesis that ties are likely to be reciprocated. In this case we add, besides the “edges” term, the “mutual” term, which indicates the number of reciprocated ties.</p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="exponential-random-graphs-modeling.html#cb135-1" tabindex="-1"></a>M1.g<span class="ot">&lt;-</span><span class="fu">ergm</span>(g <span class="sc">~</span> edges <span class="sc">+</span>  mutual )</span></code></pre></div>
 <pre><code>## Starting maximum pseudolikelihood estimation (MPLE):</code></pre>
 <pre><code>## Obtaining the responsible dyads.</code></pre>
@@ -318,7 +324,7 @@ Looks like we have some gender homophily going on here, as well as a lot of reci
 ##  
 ## AIC: 459.3  BIC: 468.2  (Smaller is better. MC Std. Err. = 0.8799)</code></pre>
 <p>Indeed, we find a positive and significant effect for the number of reciprocated ties.</p>
-<p>Now let’s add the homophily effect (as well as a gender differential effect):</p>
+<p>Now let’s add the homophily effect (nodematch), as well as a gender differential effect (nodefactor):</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="exponential-random-graphs-modeling.html#cb150-1" tabindex="-1"></a>M2.g<span class="ot">&lt;-</span><span class="fu">ergm</span>(g <span class="sc">~</span> edges <span class="sc">+</span> mutual <span class="sc">+</span>  <span class="fu">nodefactor</span>(<span class="st">&quot;sex&quot;</span>, <span class="at">levels =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">&quot;sex&quot;</span> ))</span>
 <span id="cb150-2"><a href="exponential-random-graphs-modeling.html#cb150-2" tabindex="-1"></a></span>
 <span id="cb150-3"><a href="exponential-random-graphs-modeling.html#cb150-3" tabindex="-1"></a><span class="fu">summary</span>(M2.g)</span></code></pre></div>
@@ -340,7 +346,7 @@ Looks like we have some gender homophily going on here, as well as a lot of reci
 ##  Residual Deviance: 414.4  on 646  degrees of freedom
 ##  
 ## AIC: 422.4  BIC: 440.4  (Smaller is better. MC Std. Err. = 0.7965)</code></pre>
-<p>Indeed, we find a positive effect of gender homophily.</p>
+<p>Indeed, we find a positive effect of gender homophily. We do not find that either boys or girls tend to have more ties than the other.</p>
 </div>
 <div id="goodness-of-fit" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Goodness of fit<a href="exponential-random-graphs-modeling.html#goodness-of-fit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -413,7 +419,7 @@ Looks like we have some gender homophily going on here, as well as a lot of reci
 <p>This looks OK for the model statistics, but less so for the for network statistics <em>not</em> in the model. Let’s have a closer look at those:</p>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="exponential-random-graphs-modeling.html#cb154-1" tabindex="-1"></a><span class="fu">plot</span>(M2.g.gof)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-80-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-80-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-80-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-80-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-80-5.png" width="672" /></p>
-<p>Indeed, some of these are quite off, indicating that we might want to include some other effects in the model. Indeed, for directed networks, it is common to include at least somethign related to degree, reciprocity, and something related to triadic closure. The exact choice of effects is not trivial though and may lead to compuational complications, so we leave it at this for now.</p>
+<p>Indeed, some of these are quite off, indicating that we might want to include some other effects in the model. Indeed, for directed networks, it is common to include at least some parameters related to degree, reciprocity, and something related to triadic closure. The exact choice of effects is not trivial though and may lead to computational complications, so we leave it at this for now.</p>
 </div>
 <div id="further-resources-on-ergms" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Further resources on ERGMs<a href="exponential-random-graphs-modeling.html#further-resources-on-ergms" class="anchor-section" aria-label="Anchor link to header"></a></h2>
