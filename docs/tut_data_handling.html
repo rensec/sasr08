@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2025-04-15" />
+<meta name="date" content="2025-04-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -313,9 +313,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-2"><a href="tut_data_handling.html#cb12-2" tabindex="-1"></a><span class="fu">class</span>(g)</span></code></pre></div>
 <pre><code>## [1] &quot;igraph&quot;</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="tut_data_handling.html#cb14-1" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH b938b45 DN-- 5 4 -- 
+<pre><code>## IGRAPH eda2176 DN-- 5 4 -- 
 ## + attr: name (v/c)
-## + edges from b938b45 (vertex names):
+## + edges from eda2176 (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>The output from running “g” already shows that this is now a network object (specifically: an object of the class “igraph”, as shown by <code>class()</code>): R interprets the object as a network and shows us the edges in the network. This also means that other R functions - to the extent that they have network methods implemented - now automatically recognize <code>g</code> as a network object and will behave accordingly (note that this is a key feature of R as an “object-oriented language”). For example, we can now run the standard <code>plot()</code> function and it will create a network map:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="tut_data_handling.html#cb16-1" tabindex="-1"></a><span class="fu">plot</span>(g)</span></code></pre></div>
@@ -536,9 +536,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We have already seen the use of <code>set_vertex_attr()</code> to add node attributes, of <code>V()</code> to get all nodes. As an alternative to <code>set_vertex_attr()</code>, we can also use <code>V()</code> for the same purpose:</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="tut_data_handling.html#cb49-1" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;male&quot;</span>) </span>
 <span id="cb49-2"><a href="tut_data_handling.html#cb49-2" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH b938b45 DN-- 5 4 -- 
+<pre><code>## IGRAPH eda2176 DN-- 5 4 -- 
 ## + attr: name (v/c), age (v/n), gender (v/c)
-## + edges from b938b45 (vertex names):
+## + edges from eda2176 (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>Similarly, we can use <code>E()</code> to access, add and modify edge attributes.</p>
 <p>We can also use functions that modify the entire graph. For example, we may use <code>reverse()</code> to reverse the direction of all edges:</p>

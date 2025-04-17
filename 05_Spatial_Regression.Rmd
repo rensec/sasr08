@@ -2,7 +2,7 @@
 
 ## Constructing a Spatial Weight Matrix
 
-```{r, warning=F, message=FALSE}
+```{r warning=F, message=FALSE}
 
 library(spdep) #We need the spdep package for the spatial weight matrix and for the Moran's I test
 library(spatialreg) #We need the spatialreg package for the spatial lag and spatial error models
@@ -16,7 +16,7 @@ We control for house prices as house prices are correlated with both household i
 We use Anselinâs Columbus data for crime rates of neighborhoods in Columbus, Ohio, USA in 1980.
 The codebook can be found here: https://geodacenter.github.io/data-and-lab/columbus/
 
-The data are already part of the spdep package and we obtain the data as follows:
+The data are already part of the spdep package and we obtain the data as follows
 
 ```{r }
 data(columbus)
@@ -203,8 +203,8 @@ We are interested in whether there are sex differences in homework.
 2. Estimate a linear regression model of doing homework (acthomew) on sex (sex) while controlling for age (age). For this purpose, reverse the scale of acthomew so a higher value means more likely to do homework. Also, reverse the coding of sex and create a dummy variable so 1 is female and 0 is male. This is more in line with the literature.
 3. Estimate a multilevel linear model where you take class characteristics into account.
 4. In addition to gender differences, we are now also interested in whether peers influence one’s homework behavior. From now on consider only Class 12b. Construct an adjacency matrix of best friends. 
-5. Construct a row-standardized spatial weight matrix as a weights list object.
-6. Conduct and interpret the Moran's I test and the Lagrange multiplier tests. Set the option 'zero.policy' to TRUE because you have isolates.
+5. Construct a row-standardized spatial weight matrix as a weights list object. Set the option 'zero.policy' to TRUE because you have isolates.
+6. Conduct and interpret the Moran's I test and the Lagrange multiplier tests. For the Lagrange multiplier tests, make sure you estimate a linear regression on Class 12b, not on the entire dataset.
 7. Estimate a SLM and the impacts. Interpret the results.
 8. Estimate a SEM and a SAC. Interpret the results.
 9. Estimate a SDM, SDEM, and GNM. Interpret the results.

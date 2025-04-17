@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2025-04-15" />
+<meta name="date" content="2025-04-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -249,7 +249,7 @@ we are interested in whether household income has an effect on the crime rate us
 We control for house prices as house prices are correlated with both household income and crime rates.</p>
 <p>We use Anselinâs Columbus data for crime rates of neighborhoods in Columbus, Ohio, USA in 1980.
 The codebook can be found here: <a href="https://geodacenter.github.io/data-and-lab/columbus/" class="uri">https://geodacenter.github.io/data-and-lab/columbus/</a></p>
-<p>The data are already part of the spdep package and we obtain the data as follows:</p>
+<p>The data are already part of the spdep package and we obtain the data as follows</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb92-1" tabindex="-1"></a><span class="fu">data</span>(columbus)</span>
 <span id="cb92-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb92-2" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> columbus</span></code></pre></div>
 <p>Instead of using the tedious dollar sign every time we type a variable, we can attach the data and just type the variable:</p>
@@ -620,8 +620,8 @@ The spatial parameter lambda is positive and significant showing dependence.</p>
 <li>Estimate a linear regression model of doing homework (acthomew) on sex (sex) while controlling for age (age). For this purpose, reverse the scale of acthomew so a higher value means more likely to do homework. Also, reverse the coding of sex and create a dummy variable so 1 is female and 0 is male. This is more in line with the literature.</li>
 <li>Estimate a multilevel linear model where you take class characteristics into account.</li>
 <li>In addition to gender differences, we are now also interested in whether peers influence one’s homework behavior. From now on consider only Class 12b. Construct an adjacency matrix of best friends.</li>
-<li>Construct a row-standardized spatial weight matrix as a weights list object.</li>
-<li>Conduct and interpret the Moran’s I test and the Lagrange multiplier tests. Set the option ‘zero.policy’ to TRUE because you have isolates.</li>
+<li>Construct a row-standardized spatial weight matrix as a weights list object. Set the option ‘zero.policy’ to TRUE because you have isolates.</li>
+<li>Conduct and interpret the Moran’s I test and the Lagrange multiplier tests. For the Lagrange multiplier tests, make sure you estimate a linear regression on Class 12b, not on the entire dataset.</li>
 <li>Estimate a SLM and the impacts. Interpret the results.</li>
 <li>Estimate a SEM and a SAC. Interpret the results.</li>
 <li>Estimate a SDM, SDEM, and GNM. Interpret the results.</li>
