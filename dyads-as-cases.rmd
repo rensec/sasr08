@@ -103,6 +103,7 @@ create_dyads <- function(subnet){
   dyads <- dyads %>% 
     full_join(expand.grid(from = subnet$namenr, to = subnet$namenr), by = c("from", "to")) %>% # create a list of all combinations of nodes, and match this to whether they are connected
     mutate(connected = ifelse(is.na(connected), 0, connected)) %>%  # if there is no connection, set connected to 0
+    filter(from != to) %>% # remove the diagonal
     select(from, to, connected) # keep only from, to and connected
   
   # Add the group identifier
