@@ -1,0 +1,89 @@
+# Transform the Knecht data to dyads-as-cases
+
+## Prliminaries
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(haven)
+library(reshape2)
+library(igraph)
+```
+
+
+```{r}
+PupilsWaveV <- read_dta(file = "PupilsWaveV.dta")
+```
+
+
+## Data preparation
+
+
+
+We start with two classes.
+
+```{r}
+df <- PupilsWaveV %>% 
+  filter(schoolnr == "12b" | schoolnr == "10a")  # keep two classes
+table(df$schoolnr) # check the number of cases)
+```
+
+We now create a dyads-as-cases dataset.
+
+First we define the function to create such a dataset for one class, which we will then apply to each class separately.
+
+*NOTE:*: This function assumes that we have no "missing egos" (see the tutorial on "the case of the missing ego" for a solution).
+
+```{r}
+create_dyads <- function(subnet){
+  # Create the edgelist
+  dyads <- subnet %>% 
+  select(namenr, friend1:friend2) %>% 
+  melt(id.vars = "namenr") %>% #make long
+  filter(!is.na(value)) %>% # drop the missings
+  rename(from ="namenr", to = "value", sourcevar= "variable") %>% #just nice for interpretation
+  relocate(to, .after=from) #move around the columns
+  
+  dyads$connected <- 1 # add a variable indicating that they are connected
+  
+  # Create a list of all possible dyads
+  dyads <- dyads %>% 
+    full_join(expand.grid(from = subnet$namenr, to = subnet$namenr), by = c("from", "to")) %>% # create a list of all combinations of nodes, and match this to whether they are connected
+    mutate(connected = ifelse(is.na(connected), 0, connected)) %>%  # if there is no connection, set connected to 0
+    filter(from != to) %>% # remove the diagonal
+    select(from, to, connected) # keep only from, to and connected
+  
+  # Add the group identifier
+  dyads$schoolnr <- unique(subnet$schoolnr)
+  dyads <- select(dyads, schoolnr, from, to, connected) # and move it to the front for convenience
+  
+  
+return(dyads)
+}
+```
+
+We can now apply this function to each subset of the data frame, and then bind the results together.
+
+```{r}
+dyads <- df %>% 
+  group_split(schoolnr) %>% # Split the dataframe into a list of dataframes, one for each value of schoolnr
+  map(create_dyads) %>%  # apply the function to each subset
+  list_rbind() # bind the results together
+```
+
+Let's check if the number of cases is correct. 
+```{r}
+nclass <- table(df$schoolnr) # number of cases in each class
+nclass
+```
+
+The total number of cases in `dyads` should be: 
+```{r}
+nclass[[1]]*(nclass[[1]]-1) + nclass[[2]]*(nclass[[2]]-1)
+```
+
+Important: check for yourself that you understand: 1) what this code does, and 2) why this should be the total number of dyads. Now let's check: 
+
+```{r}
+nclass[[1]]*(nclass[[1]]-1) + nclass[[2]]*(nclass[[2]]-1) == nrow(dyads)
+```
+
