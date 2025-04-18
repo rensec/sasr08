@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2025-04-17" />
+<meta name="date" content="2025-04-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -524,15 +524,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb190-13"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-13" tabindex="-1"></a>  dyads <span class="ot">&lt;-</span> dyads <span class="sc">%&gt;%</span> </span>
 <span id="cb190-14"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-14" tabindex="-1"></a>    <span class="fu">full_join</span>(<span class="fu">expand.grid</span>(<span class="at">from =</span> subnet<span class="sc">$</span>namenr, <span class="at">to =</span> subnet<span class="sc">$</span>namenr), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;from&quot;</span>, <span class="st">&quot;to&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co"># create a list of all combinations of nodes, and match this to whether they are connected</span></span>
 <span id="cb190-15"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-15" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">connected =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(connected), <span class="dv">0</span>, connected)) <span class="sc">%&gt;%</span>  <span class="co"># if there is no connection, set connected to 0</span></span>
-<span id="cb190-16"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-16" tabindex="-1"></a>    <span class="fu">select</span>(from, to, connected) <span class="co"># keep only from, to and connected</span></span>
-<span id="cb190-17"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-17" tabindex="-1"></a>  </span>
-<span id="cb190-18"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-18" tabindex="-1"></a>  <span class="co"># Add the group identifier</span></span>
-<span id="cb190-19"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-19" tabindex="-1"></a>  dyads<span class="sc">$</span>schoolnr <span class="ot">&lt;-</span> <span class="fu">unique</span>(subnet<span class="sc">$</span>schoolnr)</span>
-<span id="cb190-20"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-20" tabindex="-1"></a>  dyads <span class="ot">&lt;-</span> <span class="fu">select</span>(dyads, schoolnr, from, to, connected) <span class="co"># and move it to the front for convenience</span></span>
-<span id="cb190-21"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-21" tabindex="-1"></a>  </span>
+<span id="cb190-16"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-16" tabindex="-1"></a>    <span class="fu">filter</span>(from <span class="sc">!=</span> to) <span class="sc">%&gt;%</span> <span class="co"># remove the diagonal</span></span>
+<span id="cb190-17"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-17" tabindex="-1"></a>    <span class="fu">select</span>(from, to, connected) <span class="co"># keep only from, to and connected</span></span>
+<span id="cb190-18"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-18" tabindex="-1"></a>  </span>
+<span id="cb190-19"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-19" tabindex="-1"></a>  <span class="co"># Add the group identifier</span></span>
+<span id="cb190-20"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-20" tabindex="-1"></a>  dyads<span class="sc">$</span>schoolnr <span class="ot">&lt;-</span> <span class="fu">unique</span>(subnet<span class="sc">$</span>schoolnr)</span>
+<span id="cb190-21"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-21" tabindex="-1"></a>  dyads <span class="ot">&lt;-</span> <span class="fu">select</span>(dyads, schoolnr, from, to, connected) <span class="co"># and move it to the front for convenience</span></span>
 <span id="cb190-22"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-22" tabindex="-1"></a>  </span>
-<span id="cb190-23"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-23" tabindex="-1"></a><span class="fu">return</span>(dyads)</span>
-<span id="cb190-24"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-24" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb190-23"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-23" tabindex="-1"></a>  </span>
+<span id="cb190-24"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-24" tabindex="-1"></a><span class="fu">return</span>(dyads)</span>
+<span id="cb190-25"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-25" tabindex="-1"></a>}</span></code></pre></div>
 <p>We can now apply this function to each subset of the data frame, and then bind the results together.</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb191-1" tabindex="-1"></a>dyads <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
 <span id="cb191-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb191-2" tabindex="-1"></a>  <span class="fu">group_split</span>(schoolnr) <span class="sc">%&gt;%</span> <span class="co"># Split the dataframe into a list of dataframes, one for each value of schoolnr</span></span>
