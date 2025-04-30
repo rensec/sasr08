@@ -137,7 +137,7 @@ Note also that now we have included the node attribute 'age' already with the no
 
 2.  Add them afterwards using `set_vertex_attr()`.
 
-**Assignment:** from the code snippets above, construct a complete "pipeline" to go from the edge list to the igraph object. Start from `g_elist`. Plot the resulting network. Store the code somewhere for later use. 
+**Assignment:** from the code snippets above, construct a complete "pipeline" to go from the edge list to the igraph object. Start from `g_elist`. Plot the resulting network. Store the code somewhere for later use.
 
 ### From adjacency list to igraph object
 
@@ -161,15 +161,24 @@ Unfortunately, `igraph` does not have a function to directly import adjacency li
 To create an edge list, we first make the data *long*.
 
 ```{r}
-
-g_elist_from_alist <- g_adj_list %>% 
-  select(id, friend1:friend2) %>% # keep only the network variables (and id)
-  melt( id.vars = "id") # from the reshape2 package
+g_elist_from_alist <- g_adj_list
+g_elist_from_alist <-  select(g_elist_from_alist, id, friend1:friend2) # keep only the network variables (and id)
+g_elist_from_alist <-  melt(g_elist_from_alist, id.vars = "id") # from the reshape2 package
 g_elist_from_alist
 
 ```
 
-We could do the same using the `tidyr` package (automatically loaded with `tidyverse`:
+To streamline this code a little bit, we could use the "pipe" operator (`%>%`) which comes with the `tidyverse` package. This does exactly the same, but allows us to write the code more compactly. In RStudio, you can insert it easily using the CTRL-SHIFT-M keyboard shortcut (in Windows).
+
+```{r}
+
+g_elist_from_alist <- g_adj_list %>% 
+  select(id, friend1:friend2) %>% # keep only the network variables (and id)
+  melt( id.vars = "id") # from the reshape2 package
+
+```
+
+We could achieve the same result using the `tidyr` package (automatically loaded with `tidyverse`:
 
 ```{r}
 g_adj_list %>% # (we don't save it into an object as above this time, since we just want to show that the result is the same)
@@ -239,7 +248,7 @@ g_edgelist
 
 Note the use of the "namespace" "igraph::" here, to indicate that we need the igraph function here, not the function with the same name from the dplyr/tidyverse package
 
-Note that now, once more, we have lost our isolated node 5! To get all nodes, we could simply run:
+Note that now, once more, we have lost our isolated node 5, as it is not included in the edge list! As before, we need a list of nodes in to our edge list to have a complete overview of the network, including any isolates. To get the nodes list, we could simply run:
 
 ```{r}
 igraph::as_data_frame(g_from_elist, what = "vertices") 
