@@ -2,6 +2,8 @@
 
 ## Constructing a Spatial Weight Matrix
 
+To estimate spatial models, we need two packages: spdep package, and spatialreg package. Install these packages first and then load them using the library command.
+
 ```{r warning=F, message=FALSE}
 
 library(spdep) #We need the spdep package for the spatial weight matrix and for the Moran's I test
@@ -13,7 +15,7 @@ We continue with the example from the lecture:
 we are interested in whether household income has an effect on the crime rate using neighborhood data.
 We control for house prices as house prices are correlated with both household income and crime rates.
 
-We use Anselinâs Columbus data for crime rates of neighborhoods in Columbus, Ohio, USA in 1980.
+We use Anselin's Columbus data for crime rates of neighborhoods in Columbus, Ohio, USA in 1980.
 The codebook can be found here: https://geodacenter.github.io/data-and-lab/columbus/
 
 The data are already part of the spdep package and we obtain the data as follows
@@ -101,39 +103,44 @@ summary(olsreg)
 
 Higher household income and higher housing values lead to a significantly lower crime rate.
 
-However, we did not take the spatial dependence into account and our hypothesis tests may lead to erroneous conclusions.
-
 ## Spatial Analysis
 
 ### Moran's I test
+
+While estimating the linear regression model, we did not take the spatial dependence into account and our hypothesis tests may lead to erroneous conclusions. To test whether we need spatial analysis, we now run a Moran's I test:
 
 ```{r }
 moran.test(CRIME, listw)
 ```
 
 p-value is very small so we reject the null hypothesis of no spatial dependence.
-We should not use a linear regression.
+We should not use a linear regression, but we should use a spatial model instead. 
 
 ### Lagrange multiplier tests for spatial lag and spatial error dependencies
 
+Now we know that we should use a spatial model, the question is which model. To distinguish between the spatial lag and spatial error model, we run a Lagrange multiplier test:
+
 ```{r }
-lm.LMtests(olsreg, listw, test=c("LMlag", "LMerr"))
+lm.RStests(olsreg, listw, test=c("LMlag", "LMerr"))
 ```
 
 We reject both hypotheses.
 It appears that we should use both a spatial lag and a spatial error model.
+This shows that specification tests are far from perfect and that you should primarily be guided by the theory!
 
 ### Spatial lag model
+
+We now estimate a spatial lag model. It is good practice to start with a spatial lag model first, then the spatial error model, and then add increasing complexity by estimating other models.
 
 ```{r }
 slm <- lagsarlm(CRIME ~ INC + HOVAL, data = mydata, listw, Durbin = "FALSE")
 summary(slm)
 ```
 
-Again a significantly negative effect of household income and housing values on the crime rate.
+Again a significantly negative effect of household income and housing values on the crime rate, even after accounting for the crime feedback loop in neighboring neighborhoods.
 Coefficients are very similar to the OLS coefficients.
 This is often the case given that OLS coefficients are most often still unbiased.
-The spatial parameter rho is positive and significant showing dependence.
+The spatial parameter rho is positive and significant showing dependence: crime in neighboring neighborhoods increases crime in the focal neighborhood, even after accounting for income and housing value of the focal neighborhood.
 
 We now turn to the direct and indirect effects.
 For this purpose, we follow the approximation method by Lesage and Pase (2009) .
@@ -147,7 +154,10 @@ data.frame(sums$res)
 data.frame(sums$pzmat)
 ```
 
-Although both total effects are significant, they are mainly driven by direct effects.
+The results indicate that, although both total effects are significant, they are mainly driven by direct effects.
+When we look at the direct effects, we observe that an increase in household income and an increase in housing value in a neighborhood significantly reduce crime in that same neighborhood.
+When we look at the indirect effects, we observe that an increase in household income and an increase in housing value in a neighboring neighborhood significantly reduce crime in the focal neighborhood. However, the indirect impact is not significant.
+When we look at the total effect, we observe that if we increase household income and the housing value in all neighborhoods simultaneously, the average country-wide crime would significantly decrease.
 
 ### Spatial error model
 
@@ -157,7 +167,7 @@ summary(sem)
 ```
 
 Again a significantly negative effect of household income and housing values on the crime rate.
-The spatial parameter lambda is positive and significant showing dependence.
+The spatial parameter lambda is positive and significant showing that the unobserved characteristics of the neighbors influence crime of the focal neighborhood.
 
 ### Spatial autoregressive combined model
 
