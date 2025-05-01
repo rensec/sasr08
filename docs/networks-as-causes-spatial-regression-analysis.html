@@ -429,20 +429,21 @@ The spatial parameter rho is positive and significant showing dependence: crime 
 <p>We now turn to the direct and indirect effects.
 For this purpose, we follow the approximation method by Lesage and Pase (2009) .
 We specify ‘zstats = TRUE’ to obtain p-values.
-We use a simulation with 200 iterations to obtain p-values.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb115-1" tabindex="-1"></a>im<span class="ot">&lt;-</span><span class="fu">impacts</span>(slm, <span class="at">listw =</span> listw, <span class="at">zstats=</span><span class="cn">TRUE</span>, <span class="at">R=</span><span class="dv">200</span>)</span>
-<span id="cb115-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb115-2" tabindex="-1"></a>sums<span class="ot">&lt;-</span><span class="fu">summary</span>(im,  <span class="at">zstats=</span>T)</span>
-<span id="cb115-3"><a href="networks-as-causes-spatial-regression-analysis.html#cb115-3" tabindex="-1"></a><span class="fu">data.frame</span>(sums<span class="sc">$</span>res)</span></code></pre></div>
+We use a simulation with 20000 iterations to obtain p-values, and we set the “seed” to make sure that stochastic process of the simulation starts from the same starting values every time, and therefore produces the same result every time.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb115-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">125274</span>)</span>
+<span id="cb115-2"><a href="networks-as-causes-spatial-regression-analysis.html#cb115-2" tabindex="-1"></a>im<span class="ot">&lt;-</span><span class="fu">impacts</span>(slm, <span class="at">listw =</span> listw, <span class="at">zstats=</span><span class="cn">TRUE</span>, <span class="at">R=</span><span class="dv">20000</span>)</span>
+<span id="cb115-3"><a href="networks-as-causes-spatial-regression-analysis.html#cb115-3" tabindex="-1"></a>sums<span class="ot">&lt;-</span><span class="fu">summary</span>(im,  <span class="at">zstats=</span>T)</span>
+<span id="cb115-4"><a href="networks-as-causes-spatial-regression-analysis.html#cb115-4" tabindex="-1"></a><span class="fu">data.frame</span>(sums<span class="sc">$</span>res)</span></code></pre></div>
 <pre><code>##       direct   indirect      total
 ## 1 -1.1225156 -0.6783818 -1.8008973
 ## 2 -0.2823163 -0.1706152 -0.4529315</code></pre>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb117-1" tabindex="-1"></a><span class="fu">data.frame</span>(sums<span class="sc">$</span>pzmat)</span></code></pre></div>
-<pre><code>##             Direct   Indirect        Total
-## INC   0.0002786425 0.04059269 0.0006888507
-## HOVAL 0.0016506297 0.12172927 0.0125363788</code></pre>
+<pre><code>##             Direct   Indirect       Total
+## INC   0.0003640712 0.05678103 0.001252427
+## HOVAL 0.0026442807 0.10773182 0.011736824</code></pre>
 <p>The results indicate that, although both total effects are significant, they are mainly driven by direct effects.
 When we look at the direct effects, we observe that an increase in household income and an increase in housing value in a neighborhood significantly reduce crime in that same neighborhood.
-When we look at the indirect effects, we observe that an increase in household income and an increase in housing value in a neighboring neighborhood significantly reduce crime in the focal neighborhood. However, the indirect impact is not significant.
+When we look at the indirect effects, we observe that an increase in household income and an increase in housing value in a neighboring neighborhood reduce crime in the focal neighborhood. However, the indirect impacts are not significant.
 When we look at the total effect, we observe that if we increase household income and the housing value in all neighborhoods simultaneously, the average country-wide crime would significantly decrease.</p>
 </div>
 <div id="spatial-error-model" class="section level3 hasAnchor" number="4.3.4">
@@ -510,7 +511,7 @@ The spatial parameter lambda is positive and significant showing that the unobse
 ## Number of observations: 49 
 ## Number of parameters estimated: 6 
 ## AIC: 378.15, (AIC for lm: 382.75)</code></pre>
-<p>Similar results, but rho is now not significant.</p>
+<p>Similar results, but rho and lambda are now not significant.</p>
 </div>
 <div id="spatial-durbin-model" class="section level3 hasAnchor" number="4.3.6">
 <h3><span class="header-section-number">4.3.6</span> Spatial Durbin model<a href="networks-as-causes-spatial-regression-analysis.html#spatial-durbin-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>

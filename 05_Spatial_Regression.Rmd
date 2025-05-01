@@ -145,10 +145,11 @@ The spatial parameter rho is positive and significant showing dependence: crime 
 We now turn to the direct and indirect effects.
 For this purpose, we follow the approximation method by Lesage and Pase (2009) .
 We specify 'zstats = TRUE' to obtain p-values.
-We use a simulation with 200 iterations to obtain p-values.
+We use a simulation with 20000 iterations to obtain p-values, and we set the "seed" to make sure that stochastic process of the simulation starts from the same starting values every time, and therefore produces the same result every time.
 
 ```{r }
-im<-impacts(slm, listw = listw, zstats=TRUE, R=200)
+set.seed(125274)
+im<-impacts(slm, listw = listw, zstats=TRUE, R=20000)
 sums<-summary(im,  zstats=T)
 data.frame(sums$res)
 data.frame(sums$pzmat)
@@ -156,7 +157,7 @@ data.frame(sums$pzmat)
 
 The results indicate that, although both total effects are significant, they are mainly driven by direct effects.
 When we look at the direct effects, we observe that an increase in household income and an increase in housing value in a neighborhood significantly reduce crime in that same neighborhood.
-When we look at the indirect effects, we observe that an increase in household income and an increase in housing value in a neighboring neighborhood significantly reduce crime in the focal neighborhood. However, the indirect impact is not significant.
+When we look at the indirect effects, we observe that an increase in household income and an increase in housing value in a neighboring neighborhood reduce crime in the focal neighborhood. However, the indirect impacts are not significant.
 When we look at the total effect, we observe that if we increase household income and the housing value in all neighborhoods simultaneously, the average country-wide crime would significantly decrease.
 
 ### Spatial error model
@@ -176,7 +177,7 @@ sac <- sacsarlm(CRIME ~ INC + HOVAL, data = mydata, listw, Durbin = FALSE)
 summary(sac)
 ```
 
-Similar results, but rho is now not significant.
+Similar results, but rho and lambda are now not significant.
 
 ### Spatial Durbin model
 

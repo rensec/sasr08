@@ -245,9 +245,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="basic-network-analysis-in-r.html#cb55-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
 <span id="cb55-2"><a href="basic-network-analysis-in-r.html#cb55-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">make_graph</span>(<span class="st">&quot;Zachary&quot;</span>)</span>
 <span id="cb55-3"><a href="basic-network-analysis-in-r.html#cb55-3" tabindex="-1"></a>z</span></code></pre></div>
-<pre><code>## IGRAPH 1b9177d U--- 34 78 -- Zachary
+<pre><code>## IGRAPH 48dda92 U--- 34 78 -- Zachary
 ## + attr: name (g/c)
-## + edges from 1b9177d:
+## + edges from 48dda92:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  1-- 7  1-- 8  1-- 9  1--11  1--12
 ## [11]  1--13  1--14  1--18  1--20  1--22  1--32  2-- 3  2-- 4  2-- 8  2--14
 ## [21]  2--18  2--20  2--22  2--31  3-- 4  3-- 8  3--28  3--29  3--33  3--10
@@ -282,9 +282,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If desired, we can also add such network-level results to the network object, for later use:</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="basic-network-analysis-in-r.html#cb66-1" tabindex="-1"></a>z<span class="sc">$</span>density <span class="ot">&lt;-</span> <span class="fu">edge_density</span>(z)</span>
 <span id="cb66-2"><a href="basic-network-analysis-in-r.html#cb66-2" tabindex="-1"></a>z</span></code></pre></div>
-<pre><code>## IGRAPH 1b9177d U--- 34 78 -- Zachary
+<pre><code>## IGRAPH 48dda92 U--- 34 78 -- Zachary
 ## + attr: name (g/c), density (g/n)
-## + edges from 1b9177d:
+## + edges from 48dda92:
 ##  [1]  1-- 2  1-- 3  1-- 4  1-- 5  1-- 6  1-- 7  1-- 8  1-- 9  1--11  1--12
 ## [11]  1--13  1--14  1--18  1--20  1--22  1--32  2-- 3  2-- 4  2-- 8  2--14
 ## [21]  2--18  2--20  2--22  2--31  3-- 4  3-- 8  3--28  3--29  3--33  3--10
