@@ -47,3 +47,16 @@ multiple-networks
 dyads-as-cases
 create-a-dyads-as-cases-dataset
 extend-to-multiple-networks
+solutions-to-tutorial-3
+preliminaries
+importing-the-data
+is-the-network-directed
+a-first-visualization
+a-fiveish-number-summary
+size-1
+density-1
+components-1
+diameter-and-average-distance
+clustering-coefficient-1
+comparing-degree-centrality
+visualization-with-degree-and-gender

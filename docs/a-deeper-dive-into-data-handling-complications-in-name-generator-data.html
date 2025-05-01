@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="exponential-random-graphs-modeling.html"/>
-
+<link rel="next" href="solutions-to-tutorial-3.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -216,6 +216,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.3.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#create-a-dyads-as-cases-dataset"><i class="fa fa-check"></i><b>6.3.1</b> Create a dyads-as-cases dataset</a></li>
 <li class="chapter" data-level="6.3.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#extend-to-multiple-networks"><i class="fa fa-check"></i><b>6.3.2</b> Extend to multiple networks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html"><i class="fa fa-check"></i><b>7</b> Solutions to Tutorial 3</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#preliminaries"><i class="fa fa-check"></i><b>7.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="7.2" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#importing-the-data"><i class="fa fa-check"></i><b>7.2</b> Importing the data</a></li>
+<li class="chapter" data-level="7.3" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#is-the-network-directed"><i class="fa fa-check"></i><b>7.3</b> Is the network directed?</a></li>
+<li class="chapter" data-level="7.4" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#a-first-visualization"><i class="fa fa-check"></i><b>7.4</b> A first visualization</a></li>
+<li class="chapter" data-level="7.5" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#a-fiveish-number-summary"><i class="fa fa-check"></i><b>7.5</b> A ‘five(ish) number summary’</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#size-1"><i class="fa fa-check"></i><b>7.5.1</b> Size</a></li>
+<li class="chapter" data-level="7.5.2" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#density-1"><i class="fa fa-check"></i><b>7.5.2</b> Density</a></li>
+<li class="chapter" data-level="7.5.3" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#components-1"><i class="fa fa-check"></i><b>7.5.3</b> Components</a></li>
+<li class="chapter" data-level="7.5.4" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#diameter-and-average-distance"><i class="fa fa-check"></i><b>7.5.4</b> Diameter and average distance</a></li>
+<li class="chapter" data-level="7.5.5" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#clustering-coefficient-1"><i class="fa fa-check"></i><b>7.5.5</b> Clustering coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#comparing-degree-centrality"><i class="fa fa-check"></i><b>7.6</b> Comparing degree centrality</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#visualization-with-degree-and-gender"><i class="fa fa-check"></i><b>7.6.1</b> Visualization with degree and gender</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -480,7 +499,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb187-14"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb187-14" tabindex="-1"></a></span>
 <span id="cb187-15"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb187-15" tabindex="-1"></a>g1a <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist)</span>
 <span id="cb187-16"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb187-16" tabindex="-1"></a><span class="fu">plot</span>(g1a)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-204-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-224-1.png" width="672" /></p>
 <div id="create-a-dyads-as-cases-dataset" class="section level3 hasAnchor" number="6.3.1">
 <h3><span class="header-section-number">6.3.1</span> Create a dyads-as-cases dataset<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#create-a-dyads-as-cases-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>From the <code>igraph</code> object, we can create a dyads-as-cases dataset. We start by extracting the edges from the graph, and adding a variable indicating that they are connected. Then, we create a list of all possible combinations of nodes, and match this to the list of edges. If there is no connection, we set the variable to 0.</p>
@@ -546,20 +565,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="exponential-random-graphs-modeling.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="exponential-random-graphs-modeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="solutions-to-tutorial-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
