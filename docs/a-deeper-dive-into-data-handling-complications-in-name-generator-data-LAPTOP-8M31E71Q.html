@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2025-05-01" />
+<meta name="date" content="2025-04-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -288,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb161-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb161-4" tabindex="-1"></a></span>
 <span id="cb161-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb161-5" tabindex="-1"></a>g1a <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist)</span>
 <span id="cb161-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb161-6" tabindex="-1"></a><span class="fu">plot</span>(g1a)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
 <p>So far, so good.</p>
 <p>Now let’s try with the other class:</p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb162-1" tabindex="-1"></a>cls <span class="ot">&lt;-</span> <span class="st">&quot;2b&quot;</span></span>
@@ -350,7 +350,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6      6  NA       2b</code></pre>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb172-1" tabindex="-1"></a>g2b <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span>
 <span id="cb172-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb172-2" tabindex="-1"></a><span class="fu">plot</span>(g2b)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
 </div>
 <div id="multiple-networks" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Multiple networks<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -428,7 +428,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb180-9"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb180-9" tabindex="-1"></a>  <span class="fu">merge</span>(all_vertices, <span class="at">by =</span> <span class="st">&quot;id_pupil&quot;</span>, <span class="at">all.y =</span> T, <span class="at">all.x =</span> T)</span></code></pre></div>
 <div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb181-1" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span>
 <span id="cb181-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb181-2" tabindex="-1"></a><span class="fu">plot</span>(g2, <span class="at">vertex.color =</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(g2)<span class="sc">$</span>schoolnr<span class="sc">==</span><span class="st">&quot;1a&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
 <p>Almost correct! The one thing to fix is that now we don’t have the schoolnr for node 2b6. The approach that we used earlier doesn’t work now (why not?), but recall that we already have schoolnr for each edge in ‘edge_list’. We use that to keep schoolnr with the list of all vertices (all_vertices) and keep it in the merge with the node list. The method for constructing <code>all_vertices</code> is a little different now.</p>
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb182-1" tabindex="-1"></a>all_vertices <span class="ot">&lt;-</span> edge_list <span class="sc">%&gt;%</span></span>
 <span id="cb182-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb182-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">id_pupil =</span> from, schoolnr) <span class="sc">%&gt;%</span></span>
@@ -447,7 +447,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb183-4"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb183-4" tabindex="-1"></a></span>
 <span id="cb183-5"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb183-5" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist) </span>
 <span id="cb183-6"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb183-6" tabindex="-1"></a><span class="fu">plot</span>(g2, <span class="at">vertex.color =</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(g2)<span class="sc">$</span>schoolnr<span class="sc">==</span><span class="st">&quot;1a&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
 <p>Done!</p>
 </div>
 <div id="dyads-as-cases" class="section level2 hasAnchor" number="6.3">
@@ -480,7 +480,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb187-14"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb187-14" tabindex="-1"></a></span>
 <span id="cb187-15"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb187-15" tabindex="-1"></a>g1a <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist)</span>
 <span id="cb187-16"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb187-16" tabindex="-1"></a><span class="fu">plot</span>(g1a)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-204-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-202-1.png" width="672" /></p>
 <div id="create-a-dyads-as-cases-dataset" class="section level3 hasAnchor" number="6.3.1">
 <h3><span class="header-section-number">6.3.1</span> Create a dyads-as-cases dataset<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#create-a-dyads-as-cases-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>From the <code>igraph</code> object, we can create a dyads-as-cases dataset. We start by extracting the edges from the graph, and adding a variable indicating that they are connected. Then, we create a list of all possible combinations of nodes, and match this to the list of edges. If there is no connection, we set the variable to 0.</p>
@@ -524,16 +524,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb190-13"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-13" tabindex="-1"></a>  dyads <span class="ot">&lt;-</span> dyads <span class="sc">%&gt;%</span> </span>
 <span id="cb190-14"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-14" tabindex="-1"></a>    <span class="fu">full_join</span>(<span class="fu">expand.grid</span>(<span class="at">from =</span> subnet<span class="sc">$</span>namenr, <span class="at">to =</span> subnet<span class="sc">$</span>namenr), <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;from&quot;</span>, <span class="st">&quot;to&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co"># create a list of all combinations of nodes, and match this to whether they are connected</span></span>
 <span id="cb190-15"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-15" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">connected =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(connected), <span class="dv">0</span>, connected)) <span class="sc">%&gt;%</span>  <span class="co"># if there is no connection, set connected to 0</span></span>
-<span id="cb190-16"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-16" tabindex="-1"></a>    <span class="fu">filter</span>(from <span class="sc">!=</span> to) <span class="sc">%&gt;%</span> <span class="co"># remove the diagonal</span></span>
-<span id="cb190-17"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-17" tabindex="-1"></a>    <span class="fu">select</span>(from, to, connected) <span class="co"># keep only from, to and connected</span></span>
-<span id="cb190-18"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-18" tabindex="-1"></a>  </span>
-<span id="cb190-19"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-19" tabindex="-1"></a>  <span class="co"># Add the group identifier</span></span>
-<span id="cb190-20"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-20" tabindex="-1"></a>  dyads<span class="sc">$</span>schoolnr <span class="ot">&lt;-</span> <span class="fu">unique</span>(subnet<span class="sc">$</span>schoolnr)</span>
-<span id="cb190-21"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-21" tabindex="-1"></a>  dyads <span class="ot">&lt;-</span> <span class="fu">select</span>(dyads, schoolnr, from, to, connected) <span class="co"># and move it to the front for convenience</span></span>
+<span id="cb190-16"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-16" tabindex="-1"></a>    <span class="fu">select</span>(from, to, connected) <span class="co"># keep only from, to and connected</span></span>
+<span id="cb190-17"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-17" tabindex="-1"></a>  </span>
+<span id="cb190-18"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-18" tabindex="-1"></a>  <span class="co"># Add the group identifier</span></span>
+<span id="cb190-19"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-19" tabindex="-1"></a>  dyads<span class="sc">$</span>schoolnr <span class="ot">&lt;-</span> <span class="fu">unique</span>(subnet<span class="sc">$</span>schoolnr)</span>
+<span id="cb190-20"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-20" tabindex="-1"></a>  dyads <span class="ot">&lt;-</span> <span class="fu">select</span>(dyads, schoolnr, from, to, connected) <span class="co"># and move it to the front for convenience</span></span>
+<span id="cb190-21"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-21" tabindex="-1"></a>  </span>
 <span id="cb190-22"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-22" tabindex="-1"></a>  </span>
-<span id="cb190-23"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-23" tabindex="-1"></a>  </span>
-<span id="cb190-24"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-24" tabindex="-1"></a><span class="fu">return</span>(dyads)</span>
-<span id="cb190-25"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-25" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb190-23"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-23" tabindex="-1"></a><span class="fu">return</span>(dyads)</span>
+<span id="cb190-24"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb190-24" tabindex="-1"></a>}</span></code></pre></div>
 <p>We can now apply this function to each subset of the data frame, and then bind the results together.</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb191-1" tabindex="-1"></a>dyads <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
 <span id="cb191-2"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb191-2" tabindex="-1"></a>  <span class="fu">group_split</span>(schoolnr) <span class="sc">%&gt;%</span> <span class="co"># Split the dataframe into a list of dataframes, one for each value of schoolnr</span></span>

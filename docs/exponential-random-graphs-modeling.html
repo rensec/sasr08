@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2025-04-18" />
+<meta name="date" content="2025-05-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -277,7 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     sourcevar</code></pre>
 <p>The alternative approach would be to load the original data set, filter out the class, prepare the data as an edge list and node list as we’ve done before, and then import it directly into a <code>network</code> object using one of the <code>as.network...()</code> function from the <code>network</code> package.</p>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="exponential-random-graphs-modeling.html#cb134-1" tabindex="-1"></a><span class="fu">gplot</span>(g,  <span class="at">vertex.col=</span>g <span class="sc">%v%</span> <span class="st">&quot;sex&quot;</span><span class="sc">*</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
 <p>Looks like we have some gender homophily going on here, as well as a lot of reciprocity! With ERGM, we can test this statistically.</p>
 </div>
 <div id="model-estimation" class="section level2 hasAnchor" number="5.2">
@@ -418,7 +418,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## nodematch.sex     79  54 79.01 116       0.96</code></pre>
 <p>This looks OK for the model statistics, but less so for the for network statistics <em>not</em> in the model. Let’s have a closer look at those:</p>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="exponential-random-graphs-modeling.html#cb154-1" tabindex="-1"></a><span class="fu">plot</span>(M2.g.gof)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-80-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-80-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-80-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-80-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-80-5.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-81-1.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-81-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-81-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-81-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-81-5.png" width="672" /></p>
 <p>Indeed, some of these are quite off, indicating that we might want to include some other effects in the model. Indeed, for directed networks, it is common to include at least some parameters related to degree, reciprocity, and something related to triadic closure. The exact choice of effects is not trivial though and may lead to computational complications, so we leave it at this for now.</p>
 </div>
 <div id="further-resources-on-ergms" class="section level2 hasAnchor" number="5.4">

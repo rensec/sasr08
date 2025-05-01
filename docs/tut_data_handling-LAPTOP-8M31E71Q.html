@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2025-05-01" />
+<meta name="date" content="2025-04-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -313,9 +313,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-2"><a href="tut_data_handling.html#cb12-2" tabindex="-1"></a><span class="fu">class</span>(g)</span></code></pre></div>
 <pre><code>## [1] &quot;igraph&quot;</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="tut_data_handling.html#cb14-1" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 198344c DN-- 5 4 -- 
+<pre><code>## IGRAPH eda2176 DN-- 5 4 -- 
 ## + attr: name (v/c)
-## + edges from 198344c (vertex names):
+## + edges from eda2176 (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>The output from running “g” already shows that this is now a network object (specifically: an object of the class “igraph”, as shown by <code>class()</code>): R interprets the object as a network and shows us the edges in the network. This also means that other R functions - to the extent that they have network methods implemented - now automatically recognize <code>g</code> as a network object and will behave accordingly (note that this is a key feature of R as an “object-oriented language”). For example, we can now run the standard <code>plot()</code> function and it will create a network map:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="tut_data_handling.html#cb16-1" tabindex="-1"></a><span class="fu">plot</span>(g)</span></code></pre></div>
@@ -372,9 +372,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Unfortunately, <code>igraph</code> does not have a function to directly import adjacency lists.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> The most convenient way to create a network object from these data, is to first transform them into an <em>edge list</em>, as this is a format for which <code>igraph</code> has an import function, such that we can turn it into a network object.</p>
 <p>To create an edge list, we first make the data <em>long</em>.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="tut_data_handling.html#cb24-1" tabindex="-1"></a>g_elist_from_alist <span class="ot">&lt;-</span> g_adj_list</span>
-<span id="cb24-2"><a href="tut_data_handling.html#cb24-2" tabindex="-1"></a>g_elist_from_alist <span class="ot">&lt;-</span>  <span class="fu">select</span>(g_elist_from_alist, id, friend1<span class="sc">:</span>friend2) <span class="co"># keep only the network variables (and id)</span></span>
-<span id="cb24-3"><a href="tut_data_handling.html#cb24-3" tabindex="-1"></a>g_elist_from_alist <span class="ot">&lt;-</span>  <span class="fu">melt</span>(g_elist_from_alist, <span class="at">id.vars =</span> <span class="st">&quot;id&quot;</span>) <span class="co"># from the reshape2 package</span></span>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="tut_data_handling.html#cb24-1" tabindex="-1"></a>g_elist_from_alist <span class="ot">&lt;-</span> g_adj_list <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="tut_data_handling.html#cb24-2" tabindex="-1"></a>  <span class="fu">select</span>(id, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> <span class="co"># keep only the network variables (and id)</span></span>
+<span id="cb24-3"><a href="tut_data_handling.html#cb24-3" tabindex="-1"></a>  <span class="fu">melt</span>( <span class="at">id.vars =</span> <span class="st">&quot;id&quot;</span>) <span class="co"># from the reshape2 package</span></span>
 <span id="cb24-4"><a href="tut_data_handling.html#cb24-4" tabindex="-1"></a>g_elist_from_alist</span></code></pre></div>
 <pre><code>##    id variable value
 ## 1   1  friend1     2
@@ -387,14 +387,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 8   3  friend2    NA
 ## 9   4  friend2    NA
 ## 10  5  friend2    NA</code></pre>
-<p>To streamline this code a little bit, we could use the “pipe” operator (<code>%&gt;%</code>) which comes with the <code>tidyverse</code> package. This does exactly the same, but allows us to write the code more compactly. In RStudio, you can insert it easily using the CTRL-SHIFT-M keyboard shortcut (in Windows).</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="tut_data_handling.html#cb26-1" tabindex="-1"></a>g_elist_from_alist <span class="ot">&lt;-</span> g_adj_list <span class="sc">%&gt;%</span> </span>
-<span id="cb26-2"><a href="tut_data_handling.html#cb26-2" tabindex="-1"></a>  <span class="fu">select</span>(id, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> <span class="co"># keep only the network variables (and id)</span></span>
-<span id="cb26-3"><a href="tut_data_handling.html#cb26-3" tabindex="-1"></a>  <span class="fu">melt</span>( <span class="at">id.vars =</span> <span class="st">&quot;id&quot;</span>) <span class="co"># from the reshape2 package</span></span></code></pre></div>
-<p>We could achieve the same result using the <code>tidyr</code> package (automatically loaded with <code>tidyverse</code>:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="tut_data_handling.html#cb27-1" tabindex="-1"></a>g_adj_list <span class="sc">%&gt;%</span> <span class="co"># (we don&#39;t save it into an object as above this time, since we just want to show that the result is the same)</span></span>
-<span id="cb27-2"><a href="tut_data_handling.html#cb27-2" tabindex="-1"></a>  <span class="fu">select</span>(id, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> <span class="co">#keep only the network variables (and id)</span></span>
-<span id="cb27-3"><a href="tut_data_handling.html#cb27-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(friend1, friend2))</span></code></pre></div>
+<p>We could do the same using the <code>tidyr</code> package (automatically loaded with <code>tidyverse</code>:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="tut_data_handling.html#cb26-1" tabindex="-1"></a>g_adj_list <span class="sc">%&gt;%</span> <span class="co"># (we don&#39;t save it into an object as above this time, since we just want to show that the result is the same)</span></span>
+<span id="cb26-2"><a href="tut_data_handling.html#cb26-2" tabindex="-1"></a>  <span class="fu">select</span>(id, friend1<span class="sc">:</span>friend2) <span class="sc">%&gt;%</span> <span class="co">#keep only the network variables (and id)</span></span>
+<span id="cb26-3"><a href="tut_data_handling.html#cb26-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(friend1, friend2))</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 3
 ##       id name    value
 ##    &lt;int&gt; &lt;chr&gt;   &lt;int&gt;
@@ -409,11 +405,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9     5 friend1    NA
 ## 10     5 friend2    NA</code></pre>
 <p>To create an edge list we subsequently drop all missing values on “value” and do some housekeeping:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="tut_data_handling.html#cb29-1" tabindex="-1"></a>g_elist_from_alist <span class="ot">&lt;-</span> g_elist_from_alist<span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="tut_data_handling.html#cb29-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
-<span id="cb29-3"><a href="tut_data_handling.html#cb29-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;id&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
-<span id="cb29-4"><a href="tut_data_handling.html#cb29-4" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
-<span id="cb29-5"><a href="tut_data_handling.html#cb29-5" tabindex="-1"></a>g_elist_from_alist</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="tut_data_handling.html#cb28-1" tabindex="-1"></a>g_elist_from_alist <span class="ot">&lt;-</span> g_elist_from_alist<span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="tut_data_handling.html#cb28-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
+<span id="cb28-3"><a href="tut_data_handling.html#cb28-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;id&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;variable&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
+<span id="cb28-4"><a href="tut_data_handling.html#cb28-4" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span>
+<span id="cb28-5"><a href="tut_data_handling.html#cb28-5" tabindex="-1"></a>g_elist_from_alist</span></code></pre></div>
 <pre><code>##   from to sourcevar
 ## 1    1  2   friend1
 ## 2    2  3   friend1
@@ -422,14 +418,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can now, once again, interpret each {from,to} combination as a directed edge (tie) from respondent to alter; in addition, <code>sourcevar</code> is an <em>edge attribute</em> indicating where in the adjacency list columns the alter was mentioned. Strictly speaking you don’t need the latter for a simple edge list, but it’s useful to keep in case you want to reverse the procedure.</p>
 <p><strong>QUESTION:</strong> Besides being useful for data manipulation procedures, keeping the information in <code>sourcevar</code> could also be important for more substantive reasons. Can you think of such a reason?</p>
 <p>Now we can import this into a network object with an <code>igraph</code> function:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="tut_data_handling.html#cb31-1" tabindex="-1"></a>g_from_alist <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(g_elist_from_alist) <span class="co">#This is a proper igraph graph object</span></span>
-<span id="cb31-2"><a href="tut_data_handling.html#cb31-2" tabindex="-1"></a><span class="fu">plot</span>(g_from_alist)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="tut_data_handling.html#cb30-1" tabindex="-1"></a>g_from_alist <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(g_elist_from_alist) <span class="co">#This is a proper igraph graph object</span></span>
+<span id="cb30-2"><a href="tut_data_handling.html#cb30-2" tabindex="-1"></a><span class="fu">plot</span>(g_from_alist)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Note however, once more, that we lost the isolate! To include the isolate, we need to feed the function also the list of <em>all</em> the nodes, as we did before. However, in this case, we can also create the node list from the adjacency list data frame itself:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="tut_data_handling.html#cb32-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> <span class="fu">select</span>(g_adj_list,id,age)</span>
-<span id="cb32-2"><a href="tut_data_handling.html#cb32-2" tabindex="-1"></a>g_from_alist <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(g_elist_from_alist, <span class="at">vertices =</span> nodelist) <span class="co">#This is a proper igraph graph object</span></span>
-<span id="cb32-3"><a href="tut_data_handling.html#cb32-3" tabindex="-1"></a><span class="fu">plot</span>(g_from_alist)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="tut_data_handling.html#cb31-1" tabindex="-1"></a>nodelist <span class="ot">&lt;-</span> <span class="fu">select</span>(g_adj_list,id,age)</span>
+<span id="cb31-2"><a href="tut_data_handling.html#cb31-2" tabindex="-1"></a>g_from_alist <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(g_elist_from_alist, <span class="at">vertices =</span> nodelist) <span class="co">#This is a proper igraph graph object</span></span>
+<span id="cb31-3"><a href="tut_data_handling.html#cb31-3" tabindex="-1"></a><span class="fu">plot</span>(g_from_alist)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>That’s better! Note that besides the node IDs, we also include the age variable in the network object as a node attribute, such that we could use it in analyses based on the network object.</p>
 <p><strong>Assignment:</strong> from the code snippets above, construct a complete “pipeline” to go from the adjacency list to the igraph object. Start from <code>g_adj_list</code>. Plot the resulting network. Store the code for later use.</p>
 </div>
@@ -439,8 +435,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Handling your network data as igraph objects is useful for social network analysis, but sometimes we also want to transform our data back from network objects to “regular” matrix objects or data frames. We briefly cover some of these cases here. Typically, we can use dedicated <code>igraph</code> functions for this purpose.</p>
 <div id="from-igraph-to-adjacency-matrix" class="section level3 hasAnchor" number="1.2.1">
 <h3><span class="header-section-number">1.2.1</span> From igraph to adjacency matrix<a href="tut_data_handling.html#from-igraph-to-adjacency-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="tut_data_handling.html#cb33-1" tabindex="-1"></a>g_adj_matrix <span class="ot">&lt;-</span> <span class="fu">as_adjacency_matrix</span>(g, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb33-2"><a href="tut_data_handling.html#cb33-2" tabindex="-1"></a>g_adj_matrix</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="tut_data_handling.html#cb32-1" tabindex="-1"></a>g_adj_matrix <span class="ot">&lt;-</span> <span class="fu">as_adjacency_matrix</span>(g, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb32-2"><a href="tut_data_handling.html#cb32-2" tabindex="-1"></a>g_adj_matrix</span></code></pre></div>
 <pre><code>##   1 2 3 4 5
 ## 1 0 1 0 1 0
 ## 2 0 0 1 0 0
@@ -448,21 +444,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 0 0 0 0 0
 ## 5 0 0 0 0 0</code></pre>
 <p>We here specify <code>sparse = FALSE</code> because by default, <code>as_adjacency_matrix()</code> will return a “sparse matrix” (just run <code>as_adjacenct_matrix(g)</code> on your R console and see what comes out), which is a somewhat more efficient way of handling matrices with many zeroes. To demonstrate that we can recreate our original adjacency matrix however, we don’t want that here. To check whether the resulting matrix is indeed identical to what we originally read from a file we can do:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="tut_data_handling.html#cb35-1" tabindex="-1"></a><span class="fu">all</span>(g_adj_matrix <span class="sc">==</span> g_matrix)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="tut_data_handling.html#cb34-1" tabindex="-1"></a><span class="fu">all</span>(g_adj_matrix <span class="sc">==</span> g_matrix)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="from-igraph-to-edge-list" class="section level3 hasAnchor" number="1.2.2">
 <h3><span class="header-section-number">1.2.2</span> From igraph to edge list<a href="tut_data_handling.html#from-igraph-to-edge-list" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="tut_data_handling.html#cb37-1" tabindex="-1"></a>g_edgelist <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g_from_elist, <span class="at">what =</span> <span class="st">&quot;edges&quot;</span>) </span>
-<span id="cb37-2"><a href="tut_data_handling.html#cb37-2" tabindex="-1"></a>g_edgelist </span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="tut_data_handling.html#cb36-1" tabindex="-1"></a>g_edgelist <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g_from_elist, <span class="at">what =</span> <span class="st">&quot;edges&quot;</span>) </span>
+<span id="cb36-2"><a href="tut_data_handling.html#cb36-2" tabindex="-1"></a>g_edgelist </span></code></pre></div>
 <pre><code>##   from to
 ## 1    1  2
 ## 2    2  3
 ## 3    3  1
 ## 4    1  4</code></pre>
 <p>Note the use of the “namespace” “igraph::” here, to indicate that we need the igraph function here, not the function with the same name from the dplyr/tidyverse package</p>
-<p>Note that now, once more, we have lost our isolated node 5, as it is not included in the edge list! As before, we need a list of nodes in to our edge list to have a complete overview of the network, including any isolates. To get the nodes list, we could simply run:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="tut_data_handling.html#cb39-1" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g_from_elist, <span class="at">what =</span> <span class="st">&quot;vertices&quot;</span>) </span></code></pre></div>
+<p>Note that now, once more, we have lost our isolated node 5! To get all nodes, we could simply run:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="tut_data_handling.html#cb38-1" tabindex="-1"></a>igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g_from_elist, <span class="at">what =</span> <span class="st">&quot;vertices&quot;</span>) </span></code></pre></div>
 <pre><code>##   name age
 ## 1    1  20
 ## 2    2  21
@@ -472,24 +468,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="from-igraph-to-adjacency-list" class="section level3 hasAnchor" number="1.2.3">
 <h3><span class="header-section-number">1.2.3</span> From igraph to adjacency list<a href="tut_data_handling.html#from-igraph-to-adjacency-list" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="tut_data_handling.html#cb41-1" tabindex="-1"></a>edgelist_2 <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g_from_alist, <span class="at">what =</span> <span class="st">&quot;edges&quot;</span>)</span>
-<span id="cb41-2"><a href="tut_data_handling.html#cb41-2" tabindex="-1"></a>nodelist_2 <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g_from_alist, <span class="at">what =</span> <span class="st">&quot;vertices&quot;</span>)</span>
-<span id="cb41-3"><a href="tut_data_handling.html#cb41-3" tabindex="-1"></a><span class="co"># Note the use of the &quot;namespace&quot; &quot;igraph::&quot; here, to indicate that we need the igraph function here, not the function with the same name from the dplyr/tidyverse package</span></span>
-<span id="cb41-4"><a href="tut_data_handling.html#cb41-4" tabindex="-1"></a></span>
-<span id="cb41-5"><a href="tut_data_handling.html#cb41-5" tabindex="-1"></a>d <span class="ot">&lt;-</span> edgelist_2 <span class="sc">%&gt;%</span></span>
-<span id="cb41-6"><a href="tut_data_handling.html#cb41-6" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id =</span> <span class="st">&quot;from&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-7"><a href="tut_data_handling.html#cb41-7" tabindex="-1"></a>  <span class="fu">pivot_wider</span>( <span class="at">id_cols =</span> id, <span class="at">names_from =</span> sourcevar, <span class="at">values_from =</span> to ) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-8"><a href="tut_data_handling.html#cb41-8" tabindex="-1"></a>  <span class="fu">merge</span>(nodelist_2, <span class="at">by.x =</span> <span class="st">&quot;id&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;name&quot;</span>, <span class="at">all.y =</span> <span class="cn">TRUE</span> ) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-9"><a href="tut_data_handling.html#cb41-9" tabindex="-1"></a>  <span class="fu">relocate</span>(age, <span class="at">.after =</span> id) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-10"><a href="tut_data_handling.html#cb41-10" tabindex="-1"></a>  <span class="fu">type_convert</span>() <span class="co">#as_data_frame returns characters; this transforms it back to numeric</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="tut_data_handling.html#cb40-1" tabindex="-1"></a>edgelist_2 <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g_from_alist, <span class="at">what =</span> <span class="st">&quot;edges&quot;</span>)</span>
+<span id="cb40-2"><a href="tut_data_handling.html#cb40-2" tabindex="-1"></a>nodelist_2 <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">as_data_frame</span>(g_from_alist, <span class="at">what =</span> <span class="st">&quot;vertices&quot;</span>)</span>
+<span id="cb40-3"><a href="tut_data_handling.html#cb40-3" tabindex="-1"></a><span class="co"># Note the use of the &quot;namespace&quot; &quot;igraph::&quot; here, to indicate that we need the igraph function here, not the function with the same name from the dplyr/tidyverse package</span></span>
+<span id="cb40-4"><a href="tut_data_handling.html#cb40-4" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="tut_data_handling.html#cb40-5" tabindex="-1"></a>d <span class="ot">&lt;-</span> edgelist_2 <span class="sc">%&gt;%</span></span>
+<span id="cb40-6"><a href="tut_data_handling.html#cb40-6" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id =</span> <span class="st">&quot;from&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-7"><a href="tut_data_handling.html#cb40-7" tabindex="-1"></a>  <span class="fu">pivot_wider</span>( <span class="at">id_cols =</span> id, <span class="at">names_from =</span> sourcevar, <span class="at">values_from =</span> to ) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-8"><a href="tut_data_handling.html#cb40-8" tabindex="-1"></a>  <span class="fu">merge</span>(nodelist_2, <span class="at">by.x =</span> <span class="st">&quot;id&quot;</span>, <span class="at">by.y =</span> <span class="st">&quot;name&quot;</span>, <span class="at">all.y =</span> <span class="cn">TRUE</span> ) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-9"><a href="tut_data_handling.html#cb40-9" tabindex="-1"></a>  <span class="fu">relocate</span>(age, <span class="at">.after =</span> id) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-10"><a href="tut_data_handling.html#cb40-10" tabindex="-1"></a>  <span class="fu">type_convert</span>() <span class="co">#as_data_frame returns characters; this transforms it back to numeric</span></span></code></pre></div>
 <pre><code>## 
-## ── Column specification ─────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────────
 ## cols(
 ##   id = col_double(),
 ##   friend1 = col_double(),
 ##   friend2 = col_double()
 ## )</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="tut_data_handling.html#cb43-1" tabindex="-1"></a>d</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="tut_data_handling.html#cb42-1" tabindex="-1"></a>d</span></code></pre></div>
 <pre><code>##   id age friend1 friend2
 ## 1  1  20       2       4
 ## 2  2  21       3      NA
@@ -502,8 +498,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="getting-network-data-into-r-the-network-package" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> Getting network data into R: the network package<a href="tut_data_handling.html#getting-network-data-into-r-the-network-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>An alternative to <code>igraph</code> is the <code>network</code> package, which has its own type of network data object (as used by, for example, the <code>sna</code> and <code>ergm</code> packages), and its own set of functions for handling network data. Note that we’ve already loaded the <code>network</code> package at the start of the tutorial. We can import our data into a <code>network</code> object (using the edge list that we’ve created before) as follows:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="tut_data_handling.html#cb45-1" tabindex="-1"></a>g_np <span class="ot">&lt;-</span> <span class="fu">as.network</span>(g_elist_from_alist, <span class="at">matrix.type =</span> <span class="st">&quot;edgelist&quot;</span>, <span class="at">vertices =</span> nodelist)</span>
-<span id="cb45-2"><a href="tut_data_handling.html#cb45-2" tabindex="-1"></a>g_np</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="tut_data_handling.html#cb44-1" tabindex="-1"></a>g_np <span class="ot">&lt;-</span> <span class="fu">as.network</span>(g_elist_from_alist, <span class="at">matrix.type =</span> <span class="st">&quot;edgelist&quot;</span>, <span class="at">vertices =</span> nodelist)</span>
+<span id="cb44-2"><a href="tut_data_handling.html#cb44-2" tabindex="-1"></a>g_np</span></code></pre></div>
 <pre><code>##  Network attributes:
 ##   vertices = 5 
 ##   directed = TRUE 
@@ -520,42 +516,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##  Edge attribute names: 
 ##     sourcevar</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="tut_data_handling.html#cb47-1" tabindex="-1"></a><span class="fu">plot</span>(g_np)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="tut_data_handling.html#cb46-1" tabindex="-1"></a><span class="fu">plot</span>(g_np)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p>We don’t discuss <code>network</code> in-depth for now; it suffices to say that the choice between <code>igraph</code> and <code>network</code> will typically depend on the specific needs of your research project. Both packages include a large set of functions for handling network data, but as <code>igraph</code> is a bit more comprehensive in terms of functions for network <em>analysis</em>, it tends to be somewhat <a href="https://www.r-bloggers.com/2016/01/r-graph-objects-igraph-vs-network/">more popular</a>. There are also companion packages for <code>network</code> that allow various types of analyses, included in the <code>statnet</code> suite. Finally, for converting between <code>network</code>- and <code>igraph</code>- objects, look at <code>intergraph</code>.</p>
 </div>
 <div id="modifying-networks-in-igraph" class="section level2 hasAnchor" number="1.4">
 <h2><span class="header-section-number">1.4</span> Modifying networks in igraph<a href="tut_data_handling.html#modifying-networks-in-igraph" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We now turn back to <code>igraph</code>. Once we have our data wrapped into a network object, we can use <code>igraph</code> functions to make changes to the data. For example, we may remove a node:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="tut_data_handling.html#cb48-1" tabindex="-1"></a>g_mod <span class="ot">&lt;-</span> <span class="fu">delete_vertices</span>(g,<span class="dv">2</span>)</span>
-<span id="cb48-2"><a href="tut_data_handling.html#cb48-2" tabindex="-1"></a><span class="fu">plot</span>(g_mod)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="tut_data_handling.html#cb47-1" tabindex="-1"></a>g_mod <span class="ot">&lt;-</span> <span class="fu">delete_vertices</span>(g,<span class="dv">2</span>)</span>
+<span id="cb47-2"><a href="tut_data_handling.html#cb47-2" tabindex="-1"></a><span class="fu">plot</span>(g_mod)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p>This simple operation illustrates the power of handling networks as network objects: teh <code>igraph</code> function <code>delete_vertices()</code> “understands” that removing a node from a network logically implies that also the edges connected to this node should be removed. If you would have to do this with, say, a raw edge list or adjacency list, it would be much more cumbersome!</p>
 <p>The same function also takes a vector of node IDs. For example, to remove all nodes with age = 21, we could do:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="tut_data_handling.html#cb49-1" tabindex="-1"></a>g_mod <span class="ot">&lt;-</span> <span class="fu">delete_vertices</span>(g,<span class="fu">which</span>(<span class="fu">V</span>(g)<span class="sc">$</span>age <span class="sc">==</span> <span class="dv">21</span>))</span>
-<span id="cb49-2"><a href="tut_data_handling.html#cb49-2" tabindex="-1"></a><span class="fu">plot</span>(g_mod)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="tut_data_handling.html#cb48-1" tabindex="-1"></a>g_mod <span class="ot">&lt;-</span> <span class="fu">delete_vertices</span>(g,<span class="fu">which</span>(<span class="fu">V</span>(g)<span class="sc">$</span>age <span class="sc">==</span> <span class="dv">21</span>))</span>
+<span id="cb48-2"><a href="tut_data_handling.html#cb48-2" tabindex="-1"></a><span class="fu">plot</span>(g_mod)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>In the above code, we use the <code>igraph</code> function <code>V()</code> to get all vertices of the graph.</p>
 <p><strong>QUESTION:</strong>: Write the code to remove all nodes from <code>g</code> for which age is missing.</p>
 <p>We have already seen the use of <code>set_vertex_attr()</code> to add node attributes, of <code>V()</code> to get all nodes. As an alternative to <code>set_vertex_attr()</code>, we can also use <code>V()</code> for the same purpose:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="tut_data_handling.html#cb50-1" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;male&quot;</span>) </span>
-<span id="cb50-2"><a href="tut_data_handling.html#cb50-2" tabindex="-1"></a>g</span></code></pre></div>
-<pre><code>## IGRAPH 198344c DN-- 5 4 -- 
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="tut_data_handling.html#cb49-1" tabindex="-1"></a><span class="fu">V</span>(g)<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;other&quot;</span>, <span class="st">&quot;male&quot;</span>) </span>
+<span id="cb49-2"><a href="tut_data_handling.html#cb49-2" tabindex="-1"></a>g</span></code></pre></div>
+<pre><code>## IGRAPH eda2176 DN-- 5 4 -- 
 ## + attr: name (v/c), age (v/n), gender (v/c)
-## + edges from 198344c (vertex names):
+## + edges from eda2176 (vertex names):
 ## [1] 1-&gt;2 1-&gt;4 2-&gt;3 3-&gt;1</code></pre>
 <p>Similarly, we can use <code>E()</code> to access, add and modify edge attributes.</p>
 <p>We can also use functions that modify the entire graph. For example, we may use <code>reverse()</code> to reverse the direction of all edges:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="tut_data_handling.html#cb52-1" tabindex="-1"></a>g_rev <span class="ot">&lt;-</span> <span class="fu">reverse_edges</span>(g)</span>
-<span id="cb52-2"><a href="tut_data_handling.html#cb52-2" tabindex="-1"></a><span class="fu">plot</span>(g_rev)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="tut_data_handling.html#cb51-1" tabindex="-1"></a>g_rev <span class="ot">&lt;-</span> <span class="fu">reverse_edges</span>(g)</span>
+<span id="cb51-2"><a href="tut_data_handling.html#cb51-2" tabindex="-1"></a><span class="fu">plot</span>(g_rev)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>We can use <code>union()</code> to combine the edges of two graphs:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="tut_data_handling.html#cb53-1" tabindex="-1"></a>g_union <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">union</span>(g, g_rev)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="tut_data_handling.html#cb52-1" tabindex="-1"></a>g_union <span class="ot">&lt;-</span> igraph<span class="sc">::</span><span class="fu">union</span>(g, g_rev)</span></code></pre></div>
 <p><strong><em>QUESTION</em></strong>: Before you run <code>plot(g_union)</code>, think about what the resulting should look like. Thus, what could you use the combination of <code>reverse()</code> and <code>union()</code> for?</p>
 <p>A similar result could be produced with:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="tut_data_handling.html#cb54-1" tabindex="-1"></a>g_undir <span class="ot">&lt;-</span> <span class="fu">as_undirected</span>(g)</span>
-<span id="cb54-2"><a href="tut_data_handling.html#cb54-2" tabindex="-1"></a><span class="fu">plot</span>(g_undir)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="tut_data_handling.html#cb53-1" tabindex="-1"></a>g_undir <span class="ot">&lt;-</span> <span class="fu">as_undirected</span>(g)</span>
+<span id="cb53-2"><a href="tut_data_handling.html#cb53-2" tabindex="-1"></a><span class="fu">plot</span>(g_undir)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <p>Realize however that conceptually, g_union and g_undir are different!</p>
 <p><strong><em>QUESTION:</em></strong> What’s the difference?</p>
 <p>For more information on all the graph manipulation functions included in <code>igraph</code>, see the <a href="https://r.igraph.org/articles/igraph.html">package’s website</a> and, of course, the help pages in R.</p>

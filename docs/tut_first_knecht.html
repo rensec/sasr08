@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2025-04-18" />
+<meta name="date" content="2025-05-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -242,20 +242,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">3</span> Introducing the Knecht data<a href="tut_first_knecht.html#tut_first_knecht" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this tutorial, we take some real network data that we will use throughout the course. The goal is to import the data, and perform some data management tasks as we’ve done in the previous tutorials, as well as some basic analysis, but now with real data instead of “toy data”. In the first part of the tutorial, we’ll have a first look at the data and select some data to work with. The second part is an assignment in which you apply your knowledge from the previous tutorials to these data.</p>
 <p>First we need to load some packages:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="tut_first_knecht.html#cb88-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb88-2"><a href="tut_first_knecht.html#cb88-2" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co"># to read Stata files</span></span>
-<span id="cb88-3"><a href="tut_first_knecht.html#cb88-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
-<span id="cb88-4"><a href="tut_first_knecht.html#cb88-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="tut_first_knecht.html#cb89-1" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb89-2"><a href="tut_first_knecht.html#cb89-2" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co"># to read Stata files</span></span>
+<span id="cb89-3"><a href="tut_first_knecht.html#cb89-3" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb89-4"><a href="tut_first_knecht.html#cb89-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <div id="a-first-look-at-the-data" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> A first look at the data<a href="tut_first_knecht.html#a-first-look-at-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The data we are using is the longitudinal <a href="https://ssh.datastations.nl/dataset.xhtml?persistentId=doi:10.17026/dans-z9b-h2bp">dataset</a> collected by Andrea Knecht for her dissertation at Utrecht University in 2003-2004. Using questionnaires, she collected data from 3171 students in 126 first-grade classes of 14 secondary schools in the Netherlands. The students were surveyed at three-month intervals one the academic year. The survey included (among many other things) name generator questions for friendship networks, support networks, interaction networks, and a number of other networks. You can find the data file for one wave on <a href="https://uu.blackboard.com">Blackboard</a>, under Course Content/data. Download this file and save it in the same directory as your R-script.</p>
 <p>We first load the data set (note the use of the function to import Stata’s *.dta format):</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="tut_first_knecht.html#cb89-1" tabindex="-1"></a>PupilsWaveV <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="at">file =</span> <span class="st">&quot;PupilsWaveV.dta&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="tut_first_knecht.html#cb90-1" tabindex="-1"></a>PupilsWaveV <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="at">file =</span> <span class="st">&quot;PupilsWaveV.dta&quot;</span>)</span></code></pre></div>
 <p>The variables <em>schoolnr</em> and <em>namenr</em> represent, respectively, classes (in schools) and pupils in classes.</p>
 <p><strong>QUESTION</strong>: Have a close look at these two variables, comparing the <em>namenr</em> values for different classes (just eyeballing the data should be sufficient). What do you notice?</p>
 <p>To keep things manageable for now, we select only one class:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="tut_first_knecht.html#cb90-1" tabindex="-1"></a>class12b <span class="ot">&lt;-</span> PupilsWaveV <span class="sc">%&gt;%</span> </span>
-<span id="cb90-2"><a href="tut_first_knecht.html#cb90-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> <span class="st">&quot;12b&quot;</span>)  <span class="co"># keep only one class</span></span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="tut_first_knecht.html#cb91-1" tabindex="-1"></a>class12b <span class="ot">&lt;-</span> PupilsWaveV <span class="sc">%&gt;%</span> </span>
+<span id="cb91-2"><a href="tut_first_knecht.html#cb91-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> <span class="st">&quot;12b&quot;</span>)  <span class="co"># keep only one class</span></span></code></pre></div>
 <p>The name generator question for “best friends” asked the pupils to nominate up to 12 of their best friends in class; the resulting nominations are stored in the variables friend1, friend2,… friend12. This is the network we will work with in this tutorial (but there are many other interesting name generators in the data set!).</p>
 </div>
 <div id="assignment" class="section level2 hasAnchor" number="3.2">
