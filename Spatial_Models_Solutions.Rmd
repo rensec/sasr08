@@ -2,7 +2,7 @@
 
 ## Preliminaries
 
-Call different packages:
+Load different packages:
 
 ```{r }
 library(haven)
@@ -29,6 +29,7 @@ Clean variables:
 PupilsWaveV$acthomew <- 5-PupilsWaveV$acthomew
 PupilsWaveV$sex <- PupilsWaveV$sex-1
 PupilsWaveV$sex <- 1-PupilsWaveV$sex
+PupilsWaveV$acthomew[PupilsWaveV$acthomew == 9] <- NA
 ```
 
 Linear regression:
@@ -38,12 +39,16 @@ olsreg <- lm(acthomew ~ sex + age, data=PupilsWaveV)
 summary(olsreg)
 ```
 
+We see that girls do more homework than boys, but this is not statistically significant.
+
 ## Multilevel model
 
 ```{r }
 ml <- lmer(acthomew ~ sex + age + (1 | schoolnr), PupilsWaveV)
 summary(ml)
 ```
+
+We again see that girls do more homework than boys, but this is not statistically significant.
 
 ## Adjacency matrix
 
@@ -112,7 +117,7 @@ friends <- mat2listw(friendsadjmatrix, row.names = NULL, zero.policy =TRUE, styl
 class(friends)
 ```
 
-Style W means row-standardized, B is binary so (1/0).
+Style W means row-standardized.
 
 ## Moran's I test and LM tests
 
@@ -132,7 +137,7 @@ Lagrange multiplier tests for spatial lag and spatial error dependencies:
 ```{r }
 olsregnew <- lm(acthomew ~ sex + age, data=friendsnodelist)
 summary(olsregnew)
-lm.LMtests(olsregnew, friends, test=c("LMlag", "LMerr"), zero.policy = TRUE)
+lm.RStests(olsregnew, friends, test=c("LMlag", "LMerr"), zero.policy = TRUE)
 ```
 
 We reject the null hypothesis for the LMlag, but not for the LMerr.
@@ -153,6 +158,7 @@ Negative rho: if your friends do homework, you are less likely to do it!
 Impacts:
 
 ```{r }
+set.seed(123456)
 im<-impacts(slm, listw=friends, zstats=TRUE, R=200)
 sums<-summary(im,  zstats=T)
 data.frame(sums$res)
@@ -160,11 +166,10 @@ data.frame(sums$pzmat)
 ```
 
 Direct effects tend to be larger than indirect ones and of the reversed sign.
-Direct effect: if you are a female, you tend to do more homework than if you are a male. 
+Direct effect: if you are a girl, you tend to do more homework than if you are a boy.
 This impact includes the effect of feedback loops where you affect your friend and your friend influences you.
-So if you are a female, this will affect your homework, then will pass through the homework of neighbors,
-and then back to your homework.
-Indirect effect: if your friend is female, you will also tend to do less homework, taking into account the feedback loop where your friend influences their friends etc.
+So if you are a girl, this will affect your homework, then will pass through the homework of friends, and then back to your homework.
+Indirect effect: if your friend is a girl, you will also tend to do less homework, taking into account the feedback loop where your friend influences their friends etc.
 Rho is negative: if your friends do more homework, you will do less homework.
 The difference between the impacts and the point estimates that we had before calculating impacts is that point estimates do not take feedback loops into account.
 Thus, interpret the impacts when having an autoregressive term.

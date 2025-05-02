@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8 Solutions to Tutorial 4 - Spatial Models in R | SaSR 8: Social Network Analysis</title>
   <meta name="description" content="This page contains tutorials for SaSR 8" />
-  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8 Solutions to Tutorial 4 - Spatial Models in R | SaSR 8: Social Network Analysis" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2024-05-01" />
+<meta name="date" content="2025-05-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -212,6 +212,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="6.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#the-case-of-the-missing-ego"><i class="fa fa-check"></i><b>6.1</b> The case of the missing ego</a></li>
 <li class="chapter" data-level="6.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#multiple-networks"><i class="fa fa-check"></i><b>6.2</b> Multiple networks</a></li>
+<li class="chapter" data-level="6.3" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#dyads-as-cases"><i class="fa fa-check"></i><b>6.3</b> Dyads-as-cases</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#create-a-dyads-as-cases-dataset"><i class="fa fa-check"></i><b>6.3.1</b> Create a dyads-as-cases dataset</a></li>
+<li class="chapter" data-level="6.3.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#extend-to-multiple-networks"><i class="fa fa-check"></i><b>6.3.2</b> Extend to multiple networks</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html"><i class="fa fa-check"></i><b>7</b> Solutions to Tutorial 3</a>
 <ul>
@@ -270,32 +275,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">8</span> Solutions to Tutorial 4 - Spatial Models in R<a href="solutions-to-tutorial-4---spatial-models-in-r.html#solutions-to-tutorial-4---spatial-models-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="preliminaries-1" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Preliminaries<a href="solutions-to-tutorial-4---spatial-models-in-r.html#preliminaries-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Call different packages:</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb212-1" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb212-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb212-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb212-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb212-3" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb212-4"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb212-4" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
+<p>Load different packages:</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb221-1" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb221-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb221-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb221-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb221-3" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb221-4"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb221-4" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
 <pre><code>## Registered S3 methods overwritten by &#39;lme4&#39;:
 ##   method               from
 ##   simulate.formula     ergm
 ##   simulate.formula_lhs ergm</code></pre>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb214-1" tabindex="-1"></a><span class="fu">library</span>(spdep)</span>
-<span id="cb214-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb214-2" tabindex="-1"></a><span class="fu">library</span>(spatialreg)</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb223-1" tabindex="-1"></a><span class="fu">library</span>(spdep)</span>
+<span id="cb223-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb223-2" tabindex="-1"></a><span class="fu">library</span>(spatialreg)</span></code></pre></div>
 </div>
 <div id="open-the-dataset" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Open the dataset<a href="solutions-to-tutorial-4---spatial-models-in-r.html#open-the-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Get Knecht data:</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb215-1" tabindex="-1"></a>PupilsWaveV <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="at">file =</span> <span class="st">&quot;PupilsWaveV.dta&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb224-1" tabindex="-1"></a>PupilsWaveV <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="at">file =</span> <span class="st">&quot;PupilsWaveV.dta&quot;</span>)</span></code></pre></div>
 </div>
 <div id="linear-regression" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> Linear regression<a href="solutions-to-tutorial-4---spatial-models-in-r.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Clean variables:</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb216-1" tabindex="-1"></a>PupilsWaveV<span class="sc">$</span>acthomew <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">-</span>PupilsWaveV<span class="sc">$</span>acthomew</span>
-<span id="cb216-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb216-2" tabindex="-1"></a>PupilsWaveV<span class="sc">$</span>sex <span class="ot">&lt;-</span> PupilsWaveV<span class="sc">$</span>sex<span class="dv">-1</span></span>
-<span id="cb216-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb216-3" tabindex="-1"></a>PupilsWaveV<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>PupilsWaveV<span class="sc">$</span>sex</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb225-1" tabindex="-1"></a>PupilsWaveV<span class="sc">$</span>acthomew <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">-</span>PupilsWaveV<span class="sc">$</span>acthomew</span>
+<span id="cb225-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb225-2" tabindex="-1"></a>PupilsWaveV<span class="sc">$</span>sex <span class="ot">&lt;-</span> PupilsWaveV<span class="sc">$</span>sex<span class="dv">-1</span></span>
+<span id="cb225-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb225-3" tabindex="-1"></a>PupilsWaveV<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>PupilsWaveV<span class="sc">$</span>sex</span>
+<span id="cb225-4"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb225-4" tabindex="-1"></a>PupilsWaveV<span class="sc">$</span>acthomew[PupilsWaveV<span class="sc">$</span>acthomew <span class="sc">==</span> <span class="dv">9</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
 <p>Linear regression:</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb217-1" tabindex="-1"></a>olsreg <span class="ot">&lt;-</span> <span class="fu">lm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data=</span>PupilsWaveV)</span>
-<span id="cb217-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb217-2" tabindex="-1"></a><span class="fu">summary</span>(olsreg)</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb226-1" tabindex="-1"></a>olsreg <span class="ot">&lt;-</span> <span class="fu">lm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data=</span>PupilsWaveV)</span>
+<span id="cb226-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb226-2" tabindex="-1"></a><span class="fu">summary</span>(olsreg)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = acthomew ~ sex + age, data = PupilsWaveV)
@@ -316,11 +322,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   (50 observations deleted due to missingness)
 ## Multiple R-squared:  0.0008427,  Adjusted R-squared:  0.0001637 
 ## F-statistic: 1.241 on 2 and 2943 DF,  p-value: 0.2892</code></pre>
+<p>We see that girls do more homework than boys, but this is not statistically significant.</p>
 </div>
 <div id="multilevel-model" class="section level2 hasAnchor" number="8.4">
 <h2><span class="header-section-number">8.4</span> Multilevel model<a href="solutions-to-tutorial-4---spatial-models-in-r.html#multilevel-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb219-1" tabindex="-1"></a>ml <span class="ot">&lt;-</span> <span class="fu">lmer</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> schoolnr), PupilsWaveV)</span>
-<span id="cb219-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb219-2" tabindex="-1"></a><span class="fu">summary</span>(ml)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb228-1" tabindex="-1"></a>ml <span class="ot">&lt;-</span> <span class="fu">lmer</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> schoolnr), PupilsWaveV)</span>
+<span id="cb228-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb228-2" tabindex="-1"></a><span class="fu">summary</span>(ml)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: acthomew ~ sex + age + (1 | schoolnr)
 ##    Data: PupilsWaveV
@@ -347,56 +354,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     (Intr) sex   
 ## sex -0.121       
 ## age -0.998  0.082</code></pre>
+<p>We again see that girls do more homework than boys, but this is not statistically significant.</p>
 </div>
 <div id="adjacency-matrix" class="section level2 hasAnchor" number="8.5">
 <h2><span class="header-section-number">8.5</span> Adjacency matrix<a href="solutions-to-tutorial-4---spatial-models-in-r.html#adjacency-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Keep only the class 12b:</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb221-1" tabindex="-1"></a>class12b <span class="ot">&lt;-</span> PupilsWaveV <span class="sc">%&gt;%</span> </span>
-<span id="cb221-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb221-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> <span class="st">&quot;12b&quot;</span>)  <span class="co"># keep only one class</span></span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb230-1" tabindex="-1"></a>class12b <span class="ot">&lt;-</span> PupilsWaveV <span class="sc">%&gt;%</span> </span>
+<span id="cb230-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb230-2" tabindex="-1"></a>  <span class="fu">filter</span>(schoolnr <span class="sc">==</span> <span class="st">&quot;12b&quot;</span>)  <span class="co"># keep only one class</span></span></code></pre></div>
 <p>Fetch the spatial weight matrix:</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb222-1" tabindex="-1"></a>friendsadjlist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span></span>
-<span id="cb222-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb222-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend12)</span>
-<span id="cb222-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb222-3" tabindex="-1"></a><span class="fu">class</span>(friendsadjlist)</span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb231-1" tabindex="-1"></a>friendsadjlist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span></span>
+<span id="cb231-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb231-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend12)</span>
+<span id="cb231-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb231-3" tabindex="-1"></a><span class="fu">class</span>(friendsadjlist)</span></code></pre></div>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
 <p>It is currently in the adjacency list format.
 We first transform these data into edge list format:</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb224-1" tabindex="-1"></a>friendsedgelist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span> </span>
-<span id="cb224-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb224-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend12) <span class="sc">%&gt;%</span>   <span class="co"># select only the &quot; best friends&quot;  network</span></span>
-<span id="cb224-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb224-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(friend1<span class="sc">:</span>friend12)) <span class="sc">%&gt;%</span> </span>
-<span id="cb224-4"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb224-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
-<span id="cb224-5"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb224-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;name&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
-<span id="cb224-6"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb224-6" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb233-1" tabindex="-1"></a>friendsedgelist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span> </span>
+<span id="cb233-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb233-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr, friend1<span class="sc">:</span>friend12) <span class="sc">%&gt;%</span>   <span class="co"># select only the &quot; best friends&quot;  network</span></span>
+<span id="cb233-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb233-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(friend1<span class="sc">:</span>friend12)) <span class="sc">%&gt;%</span> </span>
+<span id="cb233-4"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb233-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># drop the missings</span></span>
+<span id="cb233-5"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb233-5" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span><span class="st">&quot;namenr&quot;</span>, <span class="at">to =</span> <span class="st">&quot;value&quot;</span>, <span class="at">sourcevar=</span> <span class="st">&quot;name&quot;</span>) <span class="sc">%&gt;%</span> <span class="co">#just nice for interpretation</span></span>
+<span id="cb233-6"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb233-6" tabindex="-1"></a>  <span class="fu">relocate</span>(to, <span class="at">.after=</span>from) <span class="co">#move around the columns</span></span></code></pre></div>
 <p>We lost the potential isolates (observation 15).
 We also would like information on the nodes:</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb225-1" tabindex="-1"></a>friendsnodelist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span> </span>
-<span id="cb225-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb225-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr,sex,age,acthomew) <span class="sc">%&gt;%</span> </span>
-<span id="cb225-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb225-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">name =</span> <span class="st">&quot;namenr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb234-1" tabindex="-1"></a>friendsnodelist <span class="ot">&lt;-</span> class12b <span class="sc">%&gt;%</span> </span>
+<span id="cb234-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb234-2" tabindex="-1"></a>  <span class="fu">select</span>(namenr,sex,age,acthomew) <span class="sc">%&gt;%</span> </span>
+<span id="cb234-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb234-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">name =</span> <span class="st">&quot;namenr&quot;</span>)</span></code></pre></div>
 <p>Transform to igraph object:</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb226-1" tabindex="-1"></a>friendsgraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(friendsedgelist, <span class="at">vertices =</span> friendsnodelist)</span>
-<span id="cb226-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb226-2" tabindex="-1"></a><span class="fu">class</span>(friendsgraph)</span></code></pre></div>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb235-1" tabindex="-1"></a>friendsgraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(friendsedgelist, <span class="at">vertices =</span> friendsnodelist)</span>
+<span id="cb235-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb235-2" tabindex="-1"></a><span class="fu">class</span>(friendsgraph)</span></code></pre></div>
 <pre><code>## [1] &quot;igraph&quot;</code></pre>
 <p>Plot the friends network:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb228-1" tabindex="-1"></a><span class="fu">plot</span>(friendsgraph)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb229-1" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="fu">layout_with_kk</span>(friendsgraph)</span>
-<span id="cb229-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb229-2" tabindex="-1"></a><span class="fu">plot</span>(friendsgraph, <span class="at">layout =</span> layout, <span class="at">edge.arrow.size =</span> .<span class="dv">5</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-130-2.png" width="672" /></p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb237-1" tabindex="-1"></a><span class="fu">plot</span>(friendsgraph)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-132-1.png" width="672" /></p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb238-1" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="fu">layout_with_kk</span>(friendsgraph)</span>
+<span id="cb238-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb238-2" tabindex="-1"></a><span class="fu">plot</span>(friendsgraph, <span class="at">layout =</span> layout, <span class="at">edge.arrow.size =</span> .<span class="dv">5</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-132-2.png" width="672" /></p>
 <p>Transform to adjacency matrix:</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb230-1" tabindex="-1"></a>friendsadjmatrix <span class="ot">&lt;-</span> <span class="fu">as_adjacency_matrix</span>(friendsgraph, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb230-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb230-2" tabindex="-1"></a><span class="fu">class</span>(friendsadjmatrix)</span></code></pre></div>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb239-1" tabindex="-1"></a>friendsadjmatrix <span class="ot">&lt;-</span> <span class="fu">as_adjacency_matrix</span>(friendsgraph, <span class="at">sparse =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb239-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb239-2" tabindex="-1"></a><span class="fu">class</span>(friendsadjmatrix)</span></code></pre></div>
 <pre><code>## [1] &quot;matrix&quot; &quot;array&quot;</code></pre>
 </div>
 <div id="transform-to-a-weights-list-object" class="section level2 hasAnchor" number="8.6">
 <h2><span class="header-section-number">8.6</span> Transform to a weights list object<a href="solutions-to-tutorial-4---spatial-models-in-r.html#transform-to-a-weights-list-object" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb232-1" tabindex="-1"></a>friends <span class="ot">&lt;-</span> <span class="fu">mat2listw</span>(friendsadjmatrix, <span class="at">row.names =</span> <span class="cn">NULL</span>, <span class="at">zero.policy =</span><span class="cn">TRUE</span>, <span class="at">style=</span><span class="st">&quot;W&quot;</span>)</span>
-<span id="cb232-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb232-2" tabindex="-1"></a><span class="fu">class</span>(friends)</span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb241-1" tabindex="-1"></a>friends <span class="ot">&lt;-</span> <span class="fu">mat2listw</span>(friendsadjmatrix, <span class="at">row.names =</span> <span class="cn">NULL</span>, <span class="at">zero.policy =</span><span class="cn">TRUE</span>, <span class="at">style=</span><span class="st">&quot;W&quot;</span>)</span>
+<span id="cb241-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb241-2" tabindex="-1"></a><span class="fu">class</span>(friends)</span></code></pre></div>
 <pre><code>## [1] &quot;listw&quot; &quot;nb&quot;</code></pre>
-<p>Style W means row-standardized, B is binary so (1/0).</p>
+<p>Style W means row-standardized.</p>
 </div>
 <div id="morans-i-test-and-lm-tests" class="section level2 hasAnchor" number="8.7">
 <h2><span class="header-section-number">8.7</span> Moran’s I test and LM tests<a href="solutions-to-tutorial-4---spatial-models-in-r.html#morans-i-test-and-lm-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Moran’s I test:</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb234-1" tabindex="-1"></a><span class="fu">moran.test</span>(class12b<span class="sc">$</span>acthomew, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb243-1" tabindex="-1"></a><span class="fu">moran.test</span>(class12b<span class="sc">$</span>acthomew, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Moran I test under randomisation
 ## 
@@ -414,8 +422,8 @@ Moran’s I test does not reject the null hypothesis, suggesting a lack of depen
 However, we only have 26 observations, making it very difficult to reject any null hypothesis.
 Thus, we will ignore this.</p>
 <p>Lagrange multiplier tests for spatial lag and spatial error dependencies:</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb236-1" tabindex="-1"></a>olsregnew <span class="ot">&lt;-</span> <span class="fu">lm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data=</span>friendsnodelist)</span>
-<span id="cb236-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb236-2" tabindex="-1"></a><span class="fu">summary</span>(olsregnew)</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb245-1" tabindex="-1"></a>olsregnew <span class="ot">&lt;-</span> <span class="fu">lm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data=</span>friendsnodelist)</span>
+<span id="cb245-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb245-2" tabindex="-1"></a><span class="fu">summary</span>(olsregnew)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = acthomew ~ sex + age, data = friendsnodelist)
@@ -433,17 +441,16 @@ Thus, we will ignore this.</p>
 ## Residual standard error: 0.7767 on 23 degrees of freedom
 ## Multiple R-squared:  0.01168,    Adjusted R-squared:  -0.07426 
 ## F-statistic: 0.136 on 2 and 23 DF,  p-value: 0.8736</code></pre>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb238-1" tabindex="-1"></a><span class="fu">lm.LMtests</span>(olsregnew, friends, <span class="at">test=</span><span class="fu">c</span>(<span class="st">&quot;LMlag&quot;</span>, <span class="st">&quot;LMerr&quot;</span>), <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>## Please update scripts to use lm.RStests in place of lm.LMtests</code></pre>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb247-1" tabindex="-1"></a><span class="fu">lm.RStests</span>(olsregnew, friends, <span class="at">test=</span><span class="fu">c</span>(<span class="st">&quot;LMlag&quot;</span>, <span class="st">&quot;LMerr&quot;</span>), <span class="at">zero.policy =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Rao&#39;s score (a.k.a Lagrange multiplier) diagnostics for spatial
 ##  dependence
 ## 
 ## data:  
 ## model: lm(formula = acthomew ~ sex + age, data = friendsnodelist)
-## test weights: listw
+## test weights: friends
 ## 
-## RSerr = 2.1604, df = 1, p-value = 0.1416
+## RSlag = 4.1954, df = 1, p-value = 0.04053
 ## 
 ## 
 ##  Rao&#39;s score (a.k.a Lagrange multiplier) diagnostics for spatial
@@ -451,16 +458,16 @@ Thus, we will ignore this.</p>
 ## 
 ## data:  
 ## model: lm(formula = acthomew ~ sex + age, data = friendsnodelist)
-## test weights: listw
+## test weights: friends
 ## 
-## RSlag = 4.1954, df = 1, p-value = 0.04053</code></pre>
+## RSerr = 2.1604, df = 1, p-value = 0.1416</code></pre>
 <p>We reject the null hypothesis for the LMlag, but not for the LMerr.
 Hence, we should use the spatial lag model. But we will use both in this exercise.</p>
 </div>
 <div id="spatial-lag-model-1" class="section level2 hasAnchor" number="8.8">
 <h2><span class="header-section-number">8.8</span> Spatial lag model<a href="solutions-to-tutorial-4---spatial-models-in-r.html#spatial-lag-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb241-1" tabindex="-1"></a>slm <span class="ot">&lt;-</span> <span class="fu">lagsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">FALSE</span>)</span>
-<span id="cb241-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb241-2" tabindex="-1"></a><span class="fu">summary</span>(slm)</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb249-1" tabindex="-1"></a>slm <span class="ot">&lt;-</span> <span class="fu">lagsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">FALSE</span>)</span>
+<span id="cb249-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb249-2" tabindex="-1"></a><span class="fu">summary</span>(slm)</span></code></pre></div>
 <pre><code>## 
 ## Call:lagsarlm(formula = acthomew ~ sex + age, data = friendsnodelist, 
 ##     listw = friends, Durbin = FALSE, zero.policy = TRUE)
@@ -495,22 +502,22 @@ Females tend to do more homework than males.
 The older you are the more homework you do.
 Negative rho: if your friends do homework, you are less likely to do it!</p>
 <p>Impacts:</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb243-1" tabindex="-1"></a>im<span class="ot">&lt;-</span><span class="fu">impacts</span>(slm, <span class="at">listw=</span>friends, <span class="at">zstats=</span><span class="cn">TRUE</span>, <span class="at">R=</span><span class="dv">200</span>)</span>
-<span id="cb243-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb243-2" tabindex="-1"></a>sums<span class="ot">&lt;-</span><span class="fu">summary</span>(im,  <span class="at">zstats=</span>T)</span>
-<span id="cb243-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb243-3" tabindex="-1"></a><span class="fu">data.frame</span>(sums<span class="sc">$</span>res)</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb251-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
+<span id="cb251-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb251-2" tabindex="-1"></a>im<span class="ot">&lt;-</span><span class="fu">impacts</span>(slm, <span class="at">listw=</span>friends, <span class="at">zstats=</span><span class="cn">TRUE</span>, <span class="at">R=</span><span class="dv">200</span>)</span>
+<span id="cb251-3"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb251-3" tabindex="-1"></a>sums<span class="ot">&lt;-</span><span class="fu">summary</span>(im,  <span class="at">zstats=</span>T)</span>
+<span id="cb251-4"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb251-4" tabindex="-1"></a><span class="fu">data.frame</span>(sums<span class="sc">$</span>res)</span></code></pre></div>
 <pre><code>##       direct    indirect      total
 ## 1 0.04325743 -0.01590232 0.02735511
 ## 2 0.40070523 -0.14730748 0.25339775</code></pre>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb245-1" tabindex="-1"></a><span class="fu">data.frame</span>(sums<span class="sc">$</span>pzmat)</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb253-1" tabindex="-1"></a><span class="fu">data.frame</span>(sums<span class="sc">$</span>pzmat)</span></code></pre></div>
 <pre><code>##        Direct  Indirect     Total
-## sex 0.8179452 0.8231182 0.8210720
-## age 0.1787602 0.2398160 0.1745859</code></pre>
+## sex 0.9538984 0.9973611 0.9330865
+## age 0.1586682 0.1982805 0.1618443</code></pre>
 <p>Direct effects tend to be larger than indirect ones and of the reversed sign.
-Direct effect: if you are a female, you tend to do more homework than if you are a male.
+Direct effect: if you are a girl, you tend to do more homework than if you are a boy.
 This impact includes the effect of feedback loops where you affect your friend and your friend influences you.
-So if you are a female, this will affect your homework, then will pass through the homework of neighbors,
-and then back to your homework.
-Indirect effect: if your friend is female, you will also tend to do less homework, taking into account the feedback loop where your friend influences their friends etc.
+So if you are a girl, this will affect your homework, then will pass through the homework of friends, and then back to your homework.
+Indirect effect: if your friend is a girl, you will also tend to do less homework, taking into account the feedback loop where your friend influences their friends etc.
 Rho is negative: if your friends do more homework, you will do less homework.
 The difference between the impacts and the point estimates that we had before calculating impacts is that point estimates do not take feedback loops into account.
 Thus, interpret the impacts when having an autoregressive term.</p>
@@ -518,8 +525,8 @@ Thus, interpret the impacts when having an autoregressive term.</p>
 <div id="sem-and-sac" class="section level2 hasAnchor" number="8.9">
 <h2><span class="header-section-number">8.9</span> SEM and SAC<a href="solutions-to-tutorial-4---spatial-models-in-r.html#sem-and-sac" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Spatial error model:</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb247-1" tabindex="-1"></a>sem <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">FALSE</span>)</span>
-<span id="cb247-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb247-2" tabindex="-1"></a><span class="fu">summary</span>(sem)</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb255-1" tabindex="-1"></a>sem <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">FALSE</span>)</span>
+<span id="cb255-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb255-2" tabindex="-1"></a><span class="fu">summary</span>(sem)</span></code></pre></div>
 <pre><code>## 
 ## Call:errorsarlm(formula = acthomew ~ sex + age, data = friendsnodelist, 
 ##     listw = friends, Durbin = FALSE, zero.policy = TRUE)
@@ -550,8 +557,8 @@ Thus, interpret the impacts when having an autoregressive term.</p>
 <p>#Here impacts are the same as point estimates as there are no autoregressive terms.
 #The lambda is negative: it means that unobserved factors of the friends are reducing your homework.</p>
 <p>Spatial autoregressive combined model:</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb249-1" tabindex="-1"></a>sac <span class="ot">&lt;-</span> <span class="fu">sacsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">FALSE</span>)</span>
-<span id="cb249-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb249-2" tabindex="-1"></a><span class="fu">summary</span>(sac)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb257-1" tabindex="-1"></a>sac <span class="ot">&lt;-</span> <span class="fu">sacsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">FALSE</span>)</span>
+<span id="cb257-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb257-2" tabindex="-1"></a><span class="fu">summary</span>(sac)</span></code></pre></div>
 <pre><code>## 
 ## Call:sacsarlm(formula = acthomew ~ sex + age, data = friendsnodelist, 
 ##     listw = friends, Durbin = FALSE, zero.policy = TRUE)
@@ -586,8 +593,8 @@ Thus, interpret the impacts when having an autoregressive term.</p>
 <div id="sdm-sdem-and-gnm" class="section level2 hasAnchor" number="8.10">
 <h2><span class="header-section-number">8.10</span> SDM, SDEM, and GNM<a href="solutions-to-tutorial-4---spatial-models-in-r.html#sdm-sdem-and-gnm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Spatial Durbin model:</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb251-1" tabindex="-1"></a>sdm <span class="ot">&lt;-</span> <span class="fu">lagsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">TRUE</span>)</span>
-<span id="cb251-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb251-2" tabindex="-1"></a><span class="fu">summary</span>(sdm)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb259-1" tabindex="-1"></a>sdm <span class="ot">&lt;-</span> <span class="fu">lagsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">TRUE</span>)</span>
+<span id="cb259-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb259-2" tabindex="-1"></a><span class="fu">summary</span>(sdm)</span></code></pre></div>
 <pre><code>## 
 ## Call:lagsarlm(formula = acthomew ~ sex + age, data = friendsnodelist, 
 ##     listw = friends, Durbin = TRUE, zero.policy = TRUE)
@@ -622,8 +629,8 @@ Thus, interpret the impacts when having an autoregressive term.</p>
 <p>Also calculate impacts given that there is an autoregressive term. Same interpretation as above.
 Note that the lag terms are the point estimates of the friends, but without taking into account the feedback loops.</p>
 <p>Spatial Durbin error model:</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb253-1" tabindex="-1"></a>sdem <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">TRUE</span>)</span>
-<span id="cb253-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb253-2" tabindex="-1"></a><span class="fu">summary</span>(sdem)</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb261-1" tabindex="-1"></a>sdem <span class="ot">&lt;-</span> <span class="fu">errorsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">TRUE</span>)</span>
+<span id="cb261-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb261-2" tabindex="-1"></a><span class="fu">summary</span>(sdem)</span></code></pre></div>
 <pre><code>## 
 ## Call:errorsarlm(formula = acthomew ~ sex + age, data = friendsnodelist, 
 ##     listw = friends, Durbin = TRUE, zero.policy = TRUE)
@@ -655,8 +662,8 @@ Note that the lag terms are the point estimates of the friends, but without taki
 ## AIC: 64.018, (AIC for lm: 66.809)</code></pre>
 <p>No need to calculate impacts here as there are no autoregressive terms.</p>
 <p>General nested model:</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb255-1" tabindex="-1"></a>gnm <span class="ot">&lt;-</span> <span class="fu">sacsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">TRUE</span>)</span>
-<span id="cb255-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb255-2" tabindex="-1"></a><span class="fu">summary</span>(gnm)</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb263-1" tabindex="-1"></a>gnm <span class="ot">&lt;-</span> <span class="fu">sacsarlm</span>(acthomew <span class="sc">~</span> sex <span class="sc">+</span> age, <span class="at">data =</span> friendsnodelist, friends, <span class="at">zero.policy =</span> <span class="cn">TRUE</span>, <span class="at">Durbin=</span><span class="cn">TRUE</span>)</span>
+<span id="cb263-2"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#cb263-2" tabindex="-1"></a><span class="fu">summary</span>(gnm)</span></code></pre></div>
 <pre><code>## 
 ## Call:sacsarlm(formula = acthomew ~ sex + age, data = friendsnodelist, 
 ##     listw = friends, Durbin = TRUE, zero.policy = TRUE)
