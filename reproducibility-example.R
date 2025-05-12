@@ -37,10 +37,10 @@ class12b <- PupilsWaveV %>%
 # Make an edgelist
 elist <- class12b %>% 
   select(namenr, friend1:friend12) %>%   # select only the " best friends"  network
-  pivot_longer(c(friend1:friend12)) %>% 
+  pivot_longer(c(friend1:friend12)) %>% # make long
   filter(!is.na(value)) %>% # drop the missings
   rename(from ="namenr", to = "value", sourcevar= "name") %>% #just nice for interpretation
-  relocate(to, .after=from) #move around the columns
+  relocate(to, .after=from) # move around the columns
 
 
 # create the nodeslist
@@ -59,6 +59,11 @@ classnet <- graph_from_data_frame(elist, vertices = nodelist)
 
 
 # Plot the network
-plot(classnet, vertex.label = V(classnet)$name, vertex.size = 5, vertex.color = V(classnet)$sex,
-     edge.arrow.size = 0.5, edge.color = "gray", layout = layout_with_fr)
+plot(classnet, 
+     vertex.label = V(classnet)$name, # show the names
+     vertex.size = 5,  
+     vertex.color = V(classnet)$sex, # color vertices by gender
+     edge.arrow.size = 0.5, 
+     edge.color = "gray", 
+     layout = layout_with_fr) # use Fruchterman-Reingold layout
 
