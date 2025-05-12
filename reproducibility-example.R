@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------ |
-# Simple R- script to demonstrate some principles of reprodicible research for SaSR-08
+# Simple R- script to demonstrate some principles of reproducible research for SaSR-08
 # Rense Corten, Utrecht Universtity
 # First version: 12-5-2025
 
