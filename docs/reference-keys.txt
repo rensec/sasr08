@@ -43,6 +43,7 @@ goodness-of-fit
 further-resources-on-ergms
 a-deeper-dive-into-data-handling-complications-in-name-generator-data
 the-case-of-the-missing-ego
+double-mentions
 multiple-networks
 dyads-as-cases
 create-a-dyads-as-cases-dataset

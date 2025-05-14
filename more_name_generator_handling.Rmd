@@ -163,7 +163,7 @@ Now we see something strange: there are two edges from node 2 to node 3.
 
 This even leads to problems when we try to create a network object using the `network` package:
 
-```{r}
+```{r, error=TRUE}
 g3a_nw <- as.network(edge_list_3a, matrix.type = "edgelist", vertices = nodelist_3a)
 ```
 
