@@ -12,6 +12,7 @@ Let's get started.
 library(igraph)
 library(tidyverse)
 library(reshape2)
+library(network)
 ```
 
 
@@ -123,6 +124,63 @@ nodelist
 ```{r}
 g2b <- graph_from_data_frame(edge_list, vertices = nodelist) 
 plot(g2b)
+```
+
+## Double mentions
+
+Let's look at a variation of our toy data set, called toy_data_generator_data_2.csv.
+
+```{r}
+url1 <- "toy_name_generator_data_2.csv"
+df2 <- read.csv(file = url1)
+table(df2$schoolnr)
+df2
+
+```
+
+We create an edge list:
+```{r}
+
+edge_list_3a <- df2 %>% 
+    select(namenr, friend1:friend2) %>% 
+  melt(id.vars = "namenr") %>% #make long
+  filter(!is.na(value)) %>% # drop the missings
+  rename(from ="namenr", to = "value", sourcevar= "variable") %>% #just nice for interpretation
+  relocate(to, .after=from) #move around the columns
+edge_list_3a
+```
+
+...and the nodes list:
+```{r}
+nodelist_3a <- df2 %>% 
+  select(namenr,age)
+
+g3a <- graph_from_data_frame(edge_list_3a, vertices = nodelist_3a)
+plot(g3a)
+```
+
+Now we see something strange: there are two edges from node 2 to node 3. 
+
+This even leads to problems when we try to create a network object using the `network` package:
+
+```{r}
+g3a_nw <- as.network(edge_list_3a, matrix.type = "edgelist", vertices = nodelist_3a)
+```
+
+The problem here is that node two nominates the same alter (node 3 in this case) twice. This should normally not happen with a name generator question; it could (in real data) be a mistake by the respondent or a mistake in data entry. It is however something to fix, in most cases. To do so, we select only the rows of the edge list that are unique on "from" and "to". 
+
+```{r}
+edge_list_3a <- edge_list_3a %>% 
+  distinct(from, to, .keep_all = TRUE)
+```
+
+Note: we somewhat arbitrarily keep only the first occurrence of the duplicate friend. If the information in `sourcevar` is meaningful, this choice may matter. 
+
+Now that the problem is fixed, we can properly import the data into a `network` object.
+
+```{r}
+g3a_nw <- as.network(edge_list_3a, matrix.type = "edgelist", vertices = nodelist_3a)
+plot(g3a_nw)
 ```
 
 ## Multiple networks
