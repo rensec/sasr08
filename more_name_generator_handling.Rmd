@@ -97,12 +97,14 @@ all_vertices <- unique(all_vertices) %>%
   rename(namenr = ".")
 ```
 
+Next, we create a node list that includes all the vertices, by combining the list of nodes from the original data set with the list of vertices from the edge list. We do this by merging the two data sets, using the `merge()` function.
+
 ```{r}
 
 nodelist <- df %>% 
   filter(schoolnr == cls) %>% 
   select(namenr,age, schoolnr) %>% 
-  merge(all_vertices, by = "namenr", all.y = T)
+  merge(all_vertices, by = "namenr", all.y = T, all.x = T)
 
 nodelist
 ```
