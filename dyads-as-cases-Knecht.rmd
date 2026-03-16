@@ -116,9 +116,18 @@ dyads <- dyads %>%
   rename(sex_from = sex) %>% 
   left_join(df %>% select(schoolnr, namenr, sex), by = c("schoolnr", "to" = "namenr")) %>%
   rename(sex_to = sex) %>% 
-  mutate(sex_to = sex_to -1,
-         sex_from = sex_to -1) # recode to 0 and 1 for easier interpretation
+  mutate(sex_to = sex_to-1,
+         sex_from = sex_from-1) # recode to 0 and 1 for easier interpretation
 ```
 
+
+Create a variable for gender similarity, which is 1 if both pupils have the same gender. We do so by simply taking the absolute difference between the genders of both pupils in a dyads.
+We then subtract this from 1, so that a value of 1 indicates that both pupils have the same gender.
+
+```{r}
+dyads  <- dyads %>%
+  mutate(sex_similarity = 1-abs(sex_to-sex_from))
+  
+```
 
 
