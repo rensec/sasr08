@@ -87,3 +87,38 @@ Important: check for yourself that you understand: 1) what this code does, and 2
 nclass[[1]]*(nclass[[1]]-1) + nclass[[2]]*(nclass[[2]]-1) == nrow(dyads)
 ```
 
+## Creating identifyers
+For multilevel analysis, we will need four identifiers: one for the class, one for the ego (from), one for the alter (to), and one for the dyad. We already have the class id (schoolnr). We can create the other three as follows.
+
+For the individual identifiers, we can simply combine the class id with the from and to variables.  
+```{r}
+dyads <- dyads %>%
+  mutate(from_id = paste0(schoolnr, "_",as.character(to)),
+         to_id = paste0(schoolnr, "_",as.character(from))
+         )
+```
+
+For the dyad identifier, we need an id that is the same for both directions of the dyad (i.e., from A to B should have the same id as from B to A). We can achieve this by sorting the from and to variables, and then combining them.
+```{r}
+dyads <- dyads %>%
+  mutate(dyad_id = paste0(schoolnr, "_", pmin(from,
+                                            to), "_", pmax(from, to)))
+
+```
+
+## Adding individual variables
+
+We can add the gender for each pupil by merging on the original data frame. We need to do this twice: once for the from variable, and once for the to variable. Because we have no unique pupil identifier in the PupilsWaveV data, we will merge on the combination of schoolnr and namenr.
+
+```{r}
+dyads <- dyads %>%
+  left_join(df %>% select(schoolnr, namenr, sex), by = c("schoolnr", "from" = "namenr")) %>% 
+  rename(sex_from = sex) %>% 
+  left_join(df %>% select(schoolnr, namenr, sex), by = c("schoolnr", "to" = "namenr")) %>%
+  rename(sex_to = sex) %>% 
+  mutate(sex_to = sex_to -1,
+         sex_from = sex_to -1) # recode to 0 and 1 for easier interpretation
+```
+
+
+
