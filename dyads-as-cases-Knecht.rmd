@@ -130,4 +130,8 @@ dyads  <- dyads %>%
   
 ```
 
+Finally, we save the data:
 
+```{r}
+write_csv(dyads, "dyads_knecht.csv")
+```
