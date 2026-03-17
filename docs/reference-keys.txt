@@ -69,3 +69,4 @@ spatial-lag-model-1
 sem-and-sac
 sdm-sdem-and-gnm
 conclusion
+url-your-book-url-like-httpsbookdown.orgyihuibookdown
