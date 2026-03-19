@@ -11,7 +11,7 @@
 
 <meta name="author" content="Rense Corten" />
 
-<meta name="date" content="2026-03-17" />
+<meta name="date" content="2026-03-19" />
 
 <title>Multilevel analysis on network data</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">Multilevel analysis on network data</h1>
 <h4 class="author">Rense Corten</h4>
-<h4 class="date">2026-03-17</h4>
+<h4 class="date">2026-03-19</h4>
 
 </div>
 
@@ -386,21 +386,27 @@ classes. So, we also have nesting at the class level.</p></li>
 </ol>
 <p>A multilevel approach to such data is the “Social Relations Model”
 (Snijders and Kenny, 1999). While we cannot replicate this model exactly
-using lme4, we can fit a model that accounts for the various sources of
-interdependence in the data.</p>
+using <code>lme4</code>, we can fit a model that accounts for the some
+sources of interdependence in the data: we account for the nesting in
+“senders”, “receivers”, and within pairs. What this model does
+<em>not</em> account for, in contrast to the Social Relations Model, is
+the fact that senders are also receivers; it treats them as separate
+entities, while in reality, this is the <em>same set of nodes.</em> If
+senders are also receivers, variances at the sender- and receiver level
+may be correlated, but unfortunately <code>lme4</code> does not allow to
+model this correlation.</p>
 </div>
 <div id="load-packages" class="section level1">
 <h1>Load packages</h1>
 <pre class="r"><code>library(tidyverse)
-library(lme4)
-library(ggeffects)</code></pre>
+library(lme4)</code></pre>
 </div>
 <div id="load-data" class="section level1">
 <h1>Load data</h1>
 <pre class="r"><code># Load data
 data &lt;- read_csv(&quot;dyads_knecht.csv&quot;)</code></pre>
 <pre><code>## Rows: 1030 Columns: 10
-## ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (4): schoolnr, from_id, to_id, dyad_id
 ## dbl (6): from, to, connected, sex_from, sex_to, sex_similarity
@@ -435,9 +441,10 @@ are of the same gender.</p>
                control = glmerControl(optimizer = &quot;bobyqa&quot;))</code></pre>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 <pre class="r"><code>summary(model)</code></pre>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [glmerMod]
 ##  Family: binomial  ( logit )
-## Formula: connected ~ sex_to + sex_from + sex_similarity + (1 | from) +      (1 | to) + (1 | dyad_id)
+## Formula: connected ~ sex_to + sex_from + sex_similarity + (1 | from) +  
+##     (1 | to) + (1 | dyad_id)
 ##    Data: data
 ## Control: glmerControl(optimizer = &quot;bobyqa&quot;)
 ## 

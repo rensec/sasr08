@@ -25,14 +25,14 @@ Inderdependencies in these data come from various sources.
 
 4.  In these data, we have data on networks within various school classes. So, we also have nesting at the class level.
 
-A multilevel approach to such data is the "Social Relations Model" (Snijders and Kenny, 1999). While we cannot replicate this model exactly using lme4, we can fit a model that accounts for the various sources of interdependence in the data.
+A multilevel approach to such data is the "Social Relations Model" (Snijders and Kenny, 1999). While we cannot replicate this model exactly using `lme4`, we can fit a model that accounts for the some sources of interdependence in the data: we account for the nesting in "senders", "receivers", and within pairs. What this model does *not* account for, in contrast to the Social Relations Model, is the fact that senders are also receivers; it treats them as separate entities, while in reality, this is the *same set of nodes.* If senders are also receivers, variances at the sender- and receiver level may be correlated, but unfortunately `lme4` does not allow to model this correlation.
 
 # Load packages
 
 ```{r load-packages}
 library(tidyverse)
 library(lme4)
-library(ggeffects)
+
 ```
 
 # Load data
