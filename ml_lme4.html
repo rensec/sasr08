@@ -11,7 +11,7 @@
 
 <meta name="author" content="Rense Corten" />
 
-<meta name="date" content="2026-03-19" />
+<meta name="date" content="2026-03-20" />
 
 <title>Multilevel analysis on network data</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">Multilevel analysis on network data</h1>
 <h4 class="author">Rense Corten</h4>
-<h4 class="date">2026-03-19</h4>
+<h4 class="date">2026-03-20</h4>
 
 </div>
 
@@ -403,10 +403,17 @@ library(lme4)</code></pre>
 </div>
 <div id="load-data" class="section level1">
 <h1>Load data</h1>
+<p>For our analysis, we use data on two school classes (id: schoolnr)
+with 20 and 26 pupils, respectively. We have already created node IDs
+that are unique across classes, and a pair id (confusingly called
+dyad_id) that is the same for both dyads (in both directions) within a
+pair. The data are in long format. “Connected” indicates whether a dyad
+is connected. We furthermore have the gender of both nodes, and created
+a variable indicating whether they have the same gender.</p>
 <pre class="r"><code># Load data
 data &lt;- read_csv(&quot;dyads_knecht.csv&quot;)</code></pre>
 <pre><code>## Rows: 1030 Columns: 10
-## ── Column specification ───────────────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (4): schoolnr, from_id, to_id, dyad_id
 ## dbl (6): from, to, connected, sex_from, sex_to, sex_similarity
@@ -432,50 +439,49 @@ and “dyad_id”, using the “connected” variable as the dependent. As
 independent variables, we include the gender of both sender and receiver
 of the tie, as well as a variable indicating whether sender and receiver
 are of the same gender.</p>
-<pre class="r"><code>model &lt;- glmer(connected ~ sex_to + sex_from + sex_similarity + 
-                 (1 | from) + 
-                 (1 | to) + 
-                 (1 | dyad_id), 
+<pre class="r"><code>model &lt;- glmer(connected ~ sex_to + sex_from + sex_similarity +
+                 (1 | schoolnr) + # Nesting by class id
+                 (1 | from_id) +  # Nesting by sender node id
+                 (1 | to_id) +  # Nesting by receiver node id
+                 (1 | dyad_id), # Nesting by pair node id
                data = data, 
                family = binomial,
                control = glmerControl(optimizer = &quot;bobyqa&quot;))</code></pre>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 <pre class="r"><code>summary(model)</code></pre>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [glmerMod]
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
 ##  Family: binomial  ( logit )
-## Formula: connected ~ sex_to + sex_from + sex_similarity + (1 | from) +  
-##     (1 | to) + (1 | dyad_id)
+## Formula: connected ~ sex_to + sex_from + sex_similarity + (1 | schoolnr) +      (1 | from_id) + (1 | to_id) + (1 | dyad_id)
 ##    Data: data
 ## Control: glmerControl(optimizer = &quot;bobyqa&quot;)
 ## 
 ##       AIC       BIC    logLik -2*log(L)  df.resid 
-##     395.0     429.6    -190.5     381.0      1023 
+##     350.4     389.9    -167.2     334.4      1022 
 ## 
 ## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -0.91230 -0.01977 -0.00509 -0.00509  1.14033 
+##     Min      1Q  Median      3Q     Max 
+## -0.1126  0.0000  0.0000  0.0000  0.1263 
 ## 
 ## Random effects:
-##  Groups  Name        Variance  Std.Dev. 
-##  dyad_id (Intercept) 7.883e+01 8.879e+00
-##  to      (Intercept) 1.007e-10 1.003e-05
-##  from    (Intercept) 0.000e+00 0.000e+00
-## Number of obs: 1030, groups:  dyad_id, 515; to, 26; from, 26
+##  Groups   Name        Variance  Std.Dev. 
+##  dyad_id  (Intercept) 9.015e+03 9.495e+01
+##  to_id    (Intercept) 4.777e+02 2.186e+01
+##  from_id  (Intercept) 4.664e+03 6.829e+01
+##  schoolnr (Intercept) 2.154e-10 1.468e-05
+## Number of obs: 1030, groups:  dyad_id, 515; to_id, 46; from_id, 46; schoolnr, 2
 ## 
 ## Fixed effects:
-##                Estimate Std. Error z value Pr(&gt;|z|)   
-## (Intercept)    -10.7490     4.1577  -2.585  0.00973 **
-## sex_to           0.1934     1.3173   0.147  0.88326   
-## sex_from         0.1934     1.3173   0.147  0.88326   
-## sex_similarity   2.9632     4.1577   0.713  0.47604   
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+##                Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)     -60.568     55.229  -1.097    0.273
+## sex_to          -13.169     33.505  -0.393    0.694
+## sex_from         -3.579     28.378  -0.126    0.900
+## sex_similarity    7.482     53.395   0.140    0.889
 ## 
 ## Correlation of Fixed Effects:
 ##             (Intr) sex_to sx_frm
-## sex_to      -0.225              
-## sex_from    -0.225  0.418       
-## sex_simlrty -0.941  0.038  0.038
+## sex_to      -0.186              
+## sex_from    -0.139 -0.361       
+## sex_simlrty -0.913  0.013  0.014
 ## optimizer (bobyqa) convergence code: 0 (OK)
 ## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 </div>
