@@ -321,7 +321,7 @@ We can use `union()` to combine the edges of two graphs:
 g_union <- igraph::union(g, g_rev)
 ```
 
-***QUESTION***: Before you run `plot(g_union)`, think about what the resulting should look like. Thus, what could you use the combination of `reverse()` and `union()` for?
+***QUESTION***: Before you run `plot(g_union)`, think about what the resulting network should look like. Thus, what could you use the combination of `reverse()` and `union()` for?
 
 A similar result could be produced with:
 
@@ -330,7 +330,7 @@ g_undir <- as.undirected(g)
 plot(g_undir)
 ```
 
-Realize however that conceptually, g_union and g_undir are different!
+Realize however that, conceptually, g_union and g_undir are different!
 
 ***QUESTION:*** What's the difference?
 
