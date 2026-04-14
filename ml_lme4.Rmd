@@ -1,0 +1,71 @@
+---
+title: "Multilevel analysis on network data"
+author: "Rense Corten"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+In this tutorial, we will explore how to perform multilevel analysis on network data using R. Multilevel analysis, also known as hierarchical linear modeling, allows us to account for the interdependencies in the data.
+
+The dependent variable in this analysis is the presence of a tie between two nodes in the network. The unit of analysis is thus the (directed) dyad, that is, a combination {from, to} of two notes. Our binary dependent variable "connected" indicates whether a tie runs from node "from" to node "to" (as measured by a name generator question in a survey, asking respondents to name their best friends).
+
+Inderdependencies in these data come from various sources.
+
+1.  The same node can *send* several ties, implying that dyads are nested within "from" nodes.
+
+2.  The same node can *receive* several ties, implying that dyads are also nested within "to" nodes. Given that "from" nodes are not nested within "to" nodes and vice versa, we have a cross-classified data structure.
+
+3.  Dyads are also nested in pairs of nodes, as the same pair of nodes can be connected in both directions (from "from" to "to" and from "to" to "from"). This implies that dyads are also nested within pairs of nodes.
+
+4.  In these data, we have data on networks within various school classes. So, we also have nesting at the class level.
+
+A multilevel approach to such data is the "Social Relations Model" (Snijders and Kenny, 1999). While we cannot replicate this model exactly using `lme4`, we can fit a model that accounts for the some sources of interdependence in the data: we account for the nesting in "senders", "receivers", and within pairs. What this model does *not* account for, in contrast to the Social Relations Model, is the fact that senders are also receivers; it treats them as separate entities, while in reality, this is the *same set of nodes.* If senders are also receivers, variances at the sender- and receiver level may be correlated, but unfortunately `lme4` does not allow to model this correlation.
+
+# Load packages
+
+```{r load-packages}
+library(tidyverse)
+library(lme4)
+
+```
+
+# Load data
+
+For our analysis, we use data on two school classes (id: schoolnr) with 20 and 26 pupils, respectively. We have already created node IDs that are unique across classes, and a pair id (confusingly called dyad_id) that is the same for both dyads (in both directions) within a pair. The data are in long format. "Connected" indicates whether a dyad is connected. We furthermore have the gender of both nodes, and created a variable indicating whether they have the same gender.
+
+```{r load-data}
+# Load data
+data <- read_csv("dyads_knecht.csv")
+# Take a look at the data
+head(data)
+```
+
+# Fit multilevel model
+
+We fit a multilevel model with random intercepts for "from", "to", and "dyad_id", using the "connected" variable as the dependent. As independent variables, we include the gender of both sender and receiver of the tie, as well as a variable indicating whether sender and receiver are of the same gender.
+
+```{r fit-model}
+model <- glmer(connected ~ sex_to + sex_from + sex_similarity +
+                 (1 | schoolnr) + # Nesting by class id
+                 (1 | from_id) +  # Nesting by sender node id
+                 (1 | to_id) +  # Nesting by receiver node id
+                 (1 | dyad_id), # Nesting by pair node id
+               data = data, 
+               family = binomial,
+               control = glmerControl(optimizer = "bobyqa"))
+summary(model)
+```
+
+# Interpretation
+
+The fixed effects in the model indicate how the independent variables are associated with the likelihood of a tie being present. The random effects indicate the amount of variance in the dependent variable that can be attributed to the different levels of nesting (from, to, and dyad_id). In this case, we find no significant effects. Thus, the coefficients can be interpreted as follows:
+
+-   sex_from: whether gender associated with "1" send more ties.
+-   sex_to: whether gender associated with "1" receive more ties.
+-   sex_similarity: whether ties are more likely to be present between nodes of the same gender.
