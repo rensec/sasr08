@@ -101,7 +101,7 @@ dyads <- dyads %>%
 For the dyad identifier, we need an id that is the same for both directions of the dyad (i.e., from A to B should have the same id as from B to A). We can achieve this by sorting the from and to variables, and then combining them.
 ```{r}
 dyads <- dyads %>%
-  mutate(dyad_id = paste0(schoolnr, "_", pmin(from,
+  mutate(pair_id = paste0(schoolnr, "_", pmin(from,
                                             to), "_", pmax(from, to)))
 
 ```

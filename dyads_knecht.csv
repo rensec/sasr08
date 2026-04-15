@@ -1,4 +1,4 @@
-schoolnr,from,to,connected,from_id,to_id,dyad_id,sex_from,sex_to,sex_similarity
+schoolnr,from,to,connected,from_id,to_id,pair_id,sex_from,sex_to,sex_similarity
 10a,1,12,1,10a_12,10a_1,10a_1_12,1,1,1
 10a,2,4,1,10a_4,10a_2,10a_2_4,0,0,1
 10a,3,5,1,10a_5,10a_3,10a_3_5,1,1,1
