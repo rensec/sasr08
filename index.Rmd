@@ -24,7 +24,7 @@ To use these tutorials, we suggest that you:
 -   Open a new R script;
 -   Copy-paste the code from the tutorials into your R script as you read along;
 -   Run the code from your script while reading along, to verify that your results are the same;
--   Afterwards, save your R script under an informative name so that you can refer to it and reuse it later. A big part of effective data analysis is realizing that you've solved particular problems before and being able to find and recycle your earlier code!
+-   Afterwards, save your R script (or R-markdown file) under an informative name so that you can refer to it and reuse it later. A big part of effective data analysis is realizing that you've solved particular problems before and being able to find and recycle your earlier code!
 
 ## Credits and further resources {-}
 
