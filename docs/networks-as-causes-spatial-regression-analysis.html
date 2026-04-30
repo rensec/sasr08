@@ -220,6 +220,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.2" data-path="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#extend-to-multiple-networks"><i class="fa fa-check"></i><b>6.4.2</b> Extend to multiple networks</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html"><i class="fa fa-check"></i><b>7</b> Solutions to Tutorial 3</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#preliminaries"><i class="fa fa-check"></i><b>7.1</b> Preliminaries</a></li>
+<li class="chapter" data-level="7.2" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#importing-the-data"><i class="fa fa-check"></i><b>7.2</b> Importing the data</a></li>
+<li class="chapter" data-level="7.3" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#is-the-network-directed"><i class="fa fa-check"></i><b>7.3</b> Is the network directed?</a></li>
+<li class="chapter" data-level="7.4" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#a-first-visualization"><i class="fa fa-check"></i><b>7.4</b> A first visualization</a></li>
+<li class="chapter" data-level="7.5" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#a-fiveish-number-summary"><i class="fa fa-check"></i><b>7.5</b> A ‘five(ish) number summary’</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#size-1"><i class="fa fa-check"></i><b>7.5.1</b> Size</a></li>
+<li class="chapter" data-level="7.5.2" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#density-1"><i class="fa fa-check"></i><b>7.5.2</b> Density</a></li>
+<li class="chapter" data-level="7.5.3" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#components-1"><i class="fa fa-check"></i><b>7.5.3</b> Components</a></li>
+<li class="chapter" data-level="7.5.4" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#diameter-and-average-distance"><i class="fa fa-check"></i><b>7.5.4</b> Diameter and average distance</a></li>
+<li class="chapter" data-level="7.5.5" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#clustering-coefficient-1"><i class="fa fa-check"></i><b>7.5.5</b> Clustering coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#comparing-degree-centrality"><i class="fa fa-check"></i><b>7.6</b> Comparing degree centrality</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#visualization-with-degree-and-gender"><i class="fa fa-check"></i><b>7.6.1</b> Visualization with degree and gender</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -443,9 +462,9 @@ We use a simulation with 200 iterations to obtain p-values.</p>
 ## 1 -1.1225156 -0.6783818 -1.8008973
 ## 2 -0.2823163 -0.1706152 -0.4529315</code></pre>
 <div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="networks-as-causes-spatial-regression-analysis.html#cb118-1" tabindex="-1"></a><span class="fu">data.frame</span>(sums<span class="sc">$</span>pzmat)</span></code></pre></div>
-<pre><code>##                  Direct   Indirect       Total
-## INC dy/dx   0.000612749 0.07549002 0.001435625
-## HOVAL dy/dx 0.001280277 0.17031016 0.019591196</code></pre>
+<pre><code>##                   Direct   Indirect       Total
+## INC dy/dx   0.0004201481 0.04540244 0.001275485
+## HOVAL dy/dx 0.0032550085 0.13421940 0.020716012</code></pre>
 <p>Although both total effects are significant, they are mainly driven by direct effects.</p>
 </div>
 <div id="spatial-error-model" class="section level3 hasAnchor" number="4.3.4">
