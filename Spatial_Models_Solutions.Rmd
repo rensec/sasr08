@@ -2,7 +2,7 @@
 
 ## Preliminaries
 
-Load different packages:
+Call different packages:
 
 ```{r }
 library(haven)
@@ -13,7 +13,7 @@ library(spdep)
 library(spatialreg)
 ```
 
-## Open the dataset
+#1. Open the dataset
 
 Get Knecht data:
 
@@ -21,7 +21,7 @@ Get Knecht data:
 PupilsWaveV <- read_dta(file = "PupilsWaveV.dta")
 ```
 
-## Linear regression
+#2. Linear regression
 
 Clean variables:
 
@@ -29,7 +29,6 @@ Clean variables:
 PupilsWaveV$acthomew <- 5-PupilsWaveV$acthomew
 PupilsWaveV$sex <- PupilsWaveV$sex-1
 PupilsWaveV$sex <- 1-PupilsWaveV$sex
-PupilsWaveV$acthomew[PupilsWaveV$acthomew == 9] <- NA
 ```
 
 Linear regression:
@@ -39,18 +38,14 @@ olsreg <- lm(acthomew ~ sex + age, data=PupilsWaveV)
 summary(olsreg)
 ```
 
-We see that girls do more homework than boys, but this is not statistically significant.
-
-## Multilevel model
+#3. Multilevel model
 
 ```{r }
 ml <- lmer(acthomew ~ sex + age + (1 | schoolnr), PupilsWaveV)
 summary(ml)
 ```
 
-We again see that girls do more homework than boys, but this is not statistically significant.
-
-## Adjacency matrix
+#4. Adjacency matrix
 
 Keep only the class 12b:
 
@@ -110,16 +105,16 @@ friendsadjmatrix <- as_adjacency_matrix(friendsgraph, sparse = FALSE)
 class(friendsadjmatrix)
 ```
 
-## Transform to a weights list object
+#5. Transform to a weights list object
 
 ```{r }
-friends <- mat2listw(friendsadjmatrix, row.names = NULL, zero.policy =TRUE, style="W")
+friends <- mat2listw(friendsadjmatrix, row.names = NULL, zero,policy =TRUE, style="W")
 class(friends)
 ```
 
-Style W means row-standardized.
+Style W means row-standardized, B is binary so (1/0).
 
-## Moran's I test and LM tests
+#6. Moran's I test and LM tests
 
 Moran's I test:
 
@@ -137,13 +132,13 @@ Lagrange multiplier tests for spatial lag and spatial error dependencies:
 ```{r }
 olsregnew <- lm(acthomew ~ sex + age, data=friendsnodelist)
 summary(olsregnew)
-lm.RStests(olsregnew, friends, test=c("LMlag", "LMerr"), zero.policy = TRUE)
+lm.LMtests(olsregnew, friends, test=c("LMlag", "LMerr"), zero.policy = TRUE)
 ```
 
 We reject the null hypothesis for the LMlag, but not for the LMerr.
 Hence, we should use the spatial lag model. But we will use both in this exercise.
 
-## Spatial lag model
+#7. Spatial lag model
 
 ```{r }
 slm <- lagsarlm(acthomew ~ sex + age, data = friendsnodelist, friends, zero.policy = TRUE, Durbin=FALSE)
@@ -158,23 +153,26 @@ Negative rho: if your friends do homework, you are less likely to do it!
 Impacts:
 
 ```{r }
-set.seed(123456)
 im<-impacts(slm, listw=friends, zstats=TRUE, R=200)
 sums<-summary(im,  zstats=T)
 data.frame(sums$res)
 data.frame(sums$pzmat)
+sums$direct
+sums$indirect
+sums$total
 ```
 
 Direct effects tend to be larger than indirect ones and of the reversed sign.
-Direct effect: if you are a girl, you tend to do more homework than if you are a boy.
+Direct effect: if you are a female, you tend to do more homework than if you are a male. 
 This impact includes the effect of feedback loops where you affect your friend and your friend influences you.
-So if you are a girl, this will affect your homework, then will pass through the homework of friends, and then back to your homework.
-Indirect effect: if your friend is a girl, you will also tend to do less homework, taking into account the feedback loop where your friend influences their friends etc.
+So if you are a female, this will affect your homework, then will pass through the homework of neighbors,
+and then back to your homework.
+Indirect effect: if your friend is female, you will also tend to do less homework, taking into account the feedback loop where your friend influences their friends etc.
 Rho is negative: if your friends do more homework, you will do less homework.
 The difference between the impacts and the point estimates that we had before calculating impacts is that point estimates do not take feedback loops into account.
 Thus, interpret the impacts when having an autoregressive term.
 
-## SEM and SAC
+#8. SEM and SAC
 
 Spatial error model:
 
@@ -195,7 +193,7 @@ summary(sac)
 
 Also calculate impacts given that there is an autoregressive term. Same interpretation as above.
 
-## SDM, SDEM, and GNM
+#9. SDM, SDEM, and GNM
 
 Spatial Durbin model:
 
@@ -225,6 +223,6 @@ summary(gnm)
 
 Also calculate impacts here. Same interpretation as in the other models.
 
-## Conclusion
+#10. Conclusion
 
 Think about it!
