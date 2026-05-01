@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2026-04-30" />
+<meta name="date" content="2026-05-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -239,6 +239,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.6.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#visualization-with-degree-and-gender"><i class="fa fa-check"></i><b>7.6.1</b> Visualization with degree and gender</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html"><i class="fa fa-check"></i><b>8</b> Solutions to Tutorial 4 - Spatial Models in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#preliminaries-1"><i class="fa fa-check"></i><b>8.1</b> Preliminaries</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -317,8 +321,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## the number of parameters is very big.</code></pre>
 <pre><code>## 1</code></pre>
 <pre><code>## Optimizing with step length 1.0000.</code></pre>
-<pre><code>## The log-likelihood improved by 0.0008.</code></pre>
-<pre><code>## Convergence test p-value: &lt; 0.0001. Converged with 99% confidence.
+<pre><code>## The log-likelihood improved by 0.0278.</code></pre>
+<pre><code>## Convergence test p-value: 0.0031. Converged with 99% confidence.
 ## Finished MCMLE.
 ## Evaluating log-likelihood at the estimate. Fitting the dyad-independent submodel...
 ## Bridging between the dyad-independent submodel and the full model...
@@ -335,15 +339,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Monte Carlo Maximum Likelihood Results:
 ## 
 ##        Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-## edges   -2.7055     0.1818      0 -14.879   &lt;1e-04 ***
-## mutual   3.1671     0.3892      0   8.137   &lt;1e-04 ***
+## edges   -2.7046     0.1788      0 -15.125   &lt;1e-04 ***
+## mutual   3.1294     0.3600      0   8.692   &lt;1e-04 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ##      Null Deviance: 901.1  on 650  degrees of freedom
-##  Residual Deviance: 456.6  on 648  degrees of freedom
+##  Residual Deviance: 453.5  on 648  degrees of freedom
 ##  
-## AIC: 460.6  BIC: 469.6  (Smaller is better. MC Std. Err. = 0.8296)</code></pre>
+## AIC: 457.5  BIC: 466.4  (Smaller is better. MC Std. Err. = 0.7366)</code></pre>
 <p>Indeed, we find a positive and significant effect for the number of reciprocated ties.</p>
 <p>Now let’s add the homophily effect (nodematch), as well as a gender differential effect (nodefactor):</p>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="exponential-random-graphs-modeling.html#cb151-1" tabindex="-1"></a>M2.g<span class="ot">&lt;-</span><span class="fu">ergm</span>(g <span class="sc">~</span> edges <span class="sc">+</span> mutual <span class="sc">+</span>  <span class="fu">nodefactor</span>(<span class="st">&quot;sex&quot;</span>, <span class="at">levels =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">nodematch</span>(<span class="st">&quot;sex&quot;</span> ))</span>
@@ -356,17 +360,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Monte Carlo Maximum Likelihood Results:
 ## 
 ##                  Estimate Std. Error MCMC % z value Pr(&gt;|z|)    
-## edges             -3.7693     0.2926      0 -12.882   &lt;1e-04 ***
-## mutual             2.8018     0.4046      0   6.925   &lt;1e-04 ***
-## nodefactor.sex.2   0.1948     0.1208      0   1.613    0.107    
-## nodematch.sex      1.5170     0.2903      0   5.226   &lt;1e-04 ***
+## edges             -3.7378     0.3239      0 -11.539   &lt;1e-04 ***
+## mutual             2.8220     0.4210      0   6.702   &lt;1e-04 ***
+## nodefactor.sex.2   0.1710     0.1266      0   1.351    0.177    
+## nodematch.sex      1.4806     0.3151      0   4.699   &lt;1e-04 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ##      Null Deviance: 901.1  on 650  degrees of freedom
-##  Residual Deviance: 413.8  on 646  degrees of freedom
+##  Residual Deviance: 417.6  on 646  degrees of freedom
 ##  
-## AIC: 421.8  BIC: 439.7  (Smaller is better. MC Std. Err. = 0.8391)</code></pre>
+## AIC: 425.6  BIC: 443.5  (Smaller is better. MC Std. Err. = 0.8891)</code></pre>
 <p>Indeed, we find a positive effect of gender homophily. We do not find that either boys or girls tend to have more ties than the other.</p>
 </div>
 <div id="goodness-of-fit" class="section level2 hasAnchor" number="5.3">
@@ -378,64 +382,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Goodness-of-fit for model statistics 
 ## 
 ##                  obs min  mean max MC p-value
-## edges             91  64 89.20 111       0.86
-## mutual            28  18 27.25  38       0.84
-## nodefactor.sex.2  58  36 57.09  80       0.94
-## nodematch.sex     79  52 77.35  99       0.94
+## edges             91  64 90.95 117       1.00
+## mutual            28  19 27.98  42       1.00
+## nodefactor.sex.2  58  34 57.76  84       0.96
+## nodematch.sex     79  58 78.51  99       0.94
 ## 
 ## Goodness-of-fit for minimum geodesic distance 
 ## 
 ##     obs min   mean max MC p-value
-## 1    91  64  89.20 111       0.86
-## 2   104 109 185.95 270       0.00
-## 3    80 120 190.35 236       0.00
-## 4    57  46 103.74 145       0.02
-## 5    48   2  36.93  92       0.62
-## 6    18   0  11.06  53       0.50
-## 7     5   0   3.07  27       0.38
-## 8     0   0   0.77  15       1.00
-## 9     0   0   0.10   4       1.00
-## 10    0   0   0.01   1       1.00
-## Inf 247   0  28.82 144       0.00
+## 1    91  64  90.95 117       1.00
+## 2   104 109 193.52 274       0.00
+## 3    80 142 195.80 230       0.00
+## 4    57  39 100.79 144       0.16
+## 5    48   1  32.86  87       0.34
+## 6    18   0   8.13  44       0.30
+## 7     5   0   1.77  24       0.22
+## 8     0   0   0.54  22       1.00
+## 9     0   0   0.18  17       1.00
+## 10    0   0   0.07   7       1.00
+## 11    0   0   0.01   1       1.00
+## Inf 247   0  25.38  98       0.00
 ## 
 ## Goodness-of-fit for out-degree 
 ## 
 ##    obs min mean max MC p-value
-## 0    1   0 0.62   4       0.88
-## 1    4   0 2.45   7       0.50
-## 2    4   1 4.49  10       1.00
-## 3    5   1 6.43  12       0.70
-## 4    6   2 5.83  13       1.00
-## 5    3   0 3.31   8       1.00
-## 6    0   0 1.90   6       0.32
-## 7    1   0 0.67   3       1.00
-## 8    1   0 0.20   1       0.40
+## 0    1   0 0.52   3       0.84
+## 1    4   0 2.12   5       0.40
+## 2    4   1 5.13  11       0.70
+## 3    5   1 5.85  13       0.86
+## 4    6   1 5.58  10       1.00
+## 5    3   0 3.74  10       0.90
+## 6    0   0 1.87   6       0.30
+## 7    1   0 0.84   3       1.00
+## 8    1   0 0.26   2       0.50
 ## 9    0   0 0.08   1       1.00
-## 10   1   0 0.02   1       0.04
+## 10   1   0 0.01   1       0.02
 ## 
 ## Goodness-of-fit for in-degree 
 ## 
 ##   obs min mean max MC p-value
-## 0   0   0 0.52   4       1.00
-## 1   4   0 2.53   7       0.54
-## 2   7   1 4.77   8       0.38
-## 3   4   3 6.23  12       0.48
-## 4   1   1 5.46  10       0.02
-## 5   6   0 3.54   8       0.38
-## 6   1   0 2.02   7       0.80
-## 7   3   0 0.71   3       0.08
-## 8   0   0 0.17   2       1.00
-## 9   0   0 0.05   1       1.00
+## 0   0   0 0.42   3       1.00
+## 1   4   0 2.27   7       0.40
+## 2   7   1 4.75  11       0.38
+## 3   4   1 6.19  11       0.48
+## 4   1   2 5.77  11       0.00
+## 5   6   0 3.60  10       0.34
+## 6   1   0 1.87   6       0.86
+## 7   3   0 0.79   3       0.06
+## 8   0   0 0.28   2       1.00
+## 9   0   0 0.06   1       1.00
 ## 
 ## Goodness-of-fit for edgewise shared partner 
 ## 
 ##       obs min  mean max MC p-value
-## .OTP0  19  30 50.15  64       0.00
-## .OTP1  24  11 28.45  52       0.64
-## .OTP2  27   0  8.82  23       0.00
-## .OTP3  14   0  1.59  10       0.00
-## .OTP4   6   0  0.17   2       0.00
-## .OTP5   1   0  0.02   1       0.04</code></pre>
+## .OTP0  19  32 50.13  65       0.00
+## .OTP1  24  11 29.97  49       0.50
+## .OTP2  27   1  8.89  23       0.00
+## .OTP3  14   0  1.65  10       0.00
+## .OTP4   6   0  0.28   3       0.00
+## .OTP5   1   0  0.02   1       0.04
+## .OTP6   0   0  0.01   1       1.00</code></pre>
 <p>This looks OK for the model statistics, but less so for the for network statistics <em>not</em> in the model. Let’s have a closer look at those:</p>
 <div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="exponential-random-graphs-modeling.html#cb155-1" tabindex="-1"></a><span class="fu">plot</span>(M2.g.gof)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-81-1.png" alt="" width="672" /><img src="_main_files/figure-html/unnamed-chunk-81-2.png" alt="" width="672" /><img src="_main_files/figure-html/unnamed-chunk-81-3.png" alt="" width="672" /><img src="_main_files/figure-html/unnamed-chunk-81-4.png" alt="" width="672" /><img src="_main_files/figure-html/unnamed-chunk-81-5.png" alt="" width="672" /></p>

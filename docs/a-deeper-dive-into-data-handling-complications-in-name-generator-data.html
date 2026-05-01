@@ -23,7 +23,7 @@
 <meta name="author" content="Rense Corten &amp; Deni Mazrekaj" />
 
 
-<meta name="date" content="2026-04-30" />
+<meta name="date" content="2026-05-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -238,6 +238,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="7.6.1" data-path="solutions-to-tutorial-3.html"><a href="solutions-to-tutorial-3.html#visualization-with-degree-and-gender"><i class="fa fa-check"></i><b>7.6.1</b> Visualization with degree and gender</a></li>
 </ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html"><i class="fa fa-check"></i><b>8</b> Solutions to Tutorial 4 - Spatial Models in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="solutions-to-tutorial-4---spatial-models-in-r.html"><a href="solutions-to-tutorial-4---spatial-models-in-r.html#preliminaries-1"><i class="fa fa-check"></i><b>8.1</b> Preliminaries</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -558,7 +562,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb199-14"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb199-14" tabindex="-1"></a></span>
 <span id="cb199-15"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb199-15" tabindex="-1"></a>g1a <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(edge_list, <span class="at">vertices =</span> nodelist)</span>
 <span id="cb199-16"><a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#cb199-16" tabindex="-1"></a><span class="fu">plot</span>(g1a)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-236-1.png" alt="" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-258-1.png" alt="" width="672" /></p>
 <div id="create-a-dyads-as-cases-dataset" class="section level3 hasAnchor" number="6.4.1">
 <h3><span class="header-section-number">6.4.1</span> Create a dyads-as-cases dataset<a href="a-deeper-dive-into-data-handling-complications-in-name-generator-data.html#create-a-dyads-as-cases-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>From the <code>igraph</code> object, we can create a dyads-as-cases dataset. We start by extracting the edges from the graph, and adding a variable indicating that they are connected. Then, we create a list of all possible combinations of nodes, and match this to the list of edges. If there is no connection, we set the variable to 0.</p>

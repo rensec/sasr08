@@ -61,3 +61,5 @@ diameter-and-average-distance
 clustering-coefficient-1
 comparing-degree-centrality
 visualization-with-degree-and-gender
+solutions-to-tutorial-4---spatial-models-in-r
+preliminaries-1
